@@ -11,7 +11,7 @@
 /* ------------------------- elements ------------------------- */
 h1 {
     background-color: darkslategray;
-    width: 500px;
+    width: 300px;
     height: 50px;
     line-height: 1.5;
 }
@@ -27,7 +27,7 @@ h2 {
 }
 
 h3 {
-    font-size: 11px;
+    font-size: 9px;
 }
 
 
@@ -63,6 +63,7 @@ main {
     display: flex;
     flex-direction: column;
     margin: 10px 40px;
+    height: auto;
 }
 
 .board {
@@ -75,12 +76,22 @@ main {
     font-size: 20px;
 }
 
+.grid {
+    grid-template-columns: repeat(7, 35px);
+    grid-template-rows: repeat(7, 35px);
+}
+
+.grid > div {
+    width: 45px;
+    height: 45px;
+}
+
 /* ------------------------- board labels ------------------------- */
 .label {
     display: grid;
-    grid-template-columns: repeat(1, 45px);
-    grid-template-rows: repeat(7, 45px);
-    margin: 0;
+    grid-template-columns: repeat(1, 35px);
+    grid-template-rows: repeat(7, 35px);
+    margin: 40px 0;
     align-items: center;
 }
 
@@ -117,15 +128,11 @@ main {
     height: auto;
     width: auto;
     display: grid;
-    grid-template-columns: repeat(7, 45px);
-    grid-template-rows: repeat(7, 45px);
 }
 
 .top-grid > div {
     background-color: forestgreen;
     border: 2px solid lightgreen;
-    width: 45px;
-    height: 45px;
 }
 
 /* ------------------------- bottom grid ------------------------- */
@@ -133,15 +140,11 @@ main {
     height: auto;
     width: auto;
     display: grid;
-    grid-template-columns: repeat(7, 45px);
-    grid-template-rows: repeat(7, 45px);
 }
 
 .bottom-grid > div {
     background-color: lightskyblue;
     border: 2px solid cornflowerblue;
-    width: 45px;
-    height: 45px;
 }
 
 /* ------------------------- all grids ------------------------- */
@@ -233,16 +236,17 @@ main {
 
 /* ------------------------- divider ------------------------- */
 .divider {
-    height: 70vh;
-    width: 10px;
+    height: 650px;
+    visibility: collapse;
     background-color: darkslategray;
 }
 
 /* ------------------------- graveyards ------------------------- */
 
 aside {
-    height: 70vh;
+    height: auto;
     width: auto;
+
 }
 
 .graveyards{
@@ -255,8 +259,8 @@ aside {
     height: auto;
     width: auto;
     display: grid;
-    grid-template-columns: repeat(2, 45px);
-    grid-template-rows: repeat(6, 45px);
+    grid-template-columns: repeat(2, 35px);
+    grid-template-rows: repeat(6, 35px);
     margin: 10px 40px;
 }
 
@@ -341,3 +345,43 @@ aside {
     grid-column: 2 / span 1;
     grid-row: 8 / span 1;
 }
+
+/* ------------------------- media queries ------------------------- */
+
+@media only screen and (min-width: 768px) {
+    h1 {
+        width: 500px;
+    }
+    
+    h3 {
+        font-size: 11px;
+    }
+
+    .label {
+        grid-template-columns: repeat(1, 45px);
+        grid-template-rows: repeat(7, 45px);
+        margin: 0;
+    }
+
+    .grid {
+        grid-template-columns: repeat(7, 45px);
+        grid-template-rows: repeat(7, 45px);
+    }
+    
+    .grid > div {
+        width: 45px;
+        height: 45px;
+    }
+
+    .divider {
+        height: 650px;
+        width: 10px;
+        visibility: visible;
+    }
+
+    .graveyard{
+        grid-template-columns: repeat(2, 45px);
+        grid-template-rows: repeat(6, 45px);
+    }
+}
+    
