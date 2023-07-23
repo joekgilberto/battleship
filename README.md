@@ -23,9 +23,11 @@ A battleship game facing off against a computer opponent.  Made using HTML, CSS,
 Instructions for accessing deployed game or ways to contribute to an open source game.
 
 ## Future Features
-1. The ability for a user to position their own ships.
-2. A loading screen while the computer "thinks" of its next move.
-3. Declare a hit or miss
+1. A pop up of instructions
+2. Text declares a hit or miss
+3. A loading screen while the computer "thinks" of its next move.
+4. If the computer hits, its next guess will be based around the four surrounding squares it hit in
+5. The ability for a user to position their own ships.
 
 <!-- A README.md file with these sections:
 

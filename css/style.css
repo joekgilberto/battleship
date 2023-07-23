@@ -157,13 +157,23 @@ main {
     color: lightsteelblue;
 }
 
-.top .one {
+.top-grid > .one {
     background-color: transparent !important;
     border: none !important;
 }
 
+.bottom-grid > .one {
+    border-top: 4px solid cornflowerblue;
+
+}
+
 .two {
     grid-row: 2 / span 1;
+}
+
+.top-grid > .two {
+    border-top: 4px solid lightgreen;
+
 }
 
 .three {
@@ -182,11 +192,19 @@ main {
     grid-row: 6 / span 1;
 }
 
+.bottom-grid > .six {
+    border-bottom: 4px solid cornflowerblue;
+}
+
 .seven {
     grid-row: 7 / span 1;
 }
 
-.bottom .seven {
+.top-grid > .seven {
+    border-bottom: 4px solid lightgreen;
+}
+
+.bottom-grid .seven {
     background-color: transparent !important;
     border: none !important;
 }
@@ -214,6 +232,16 @@ main {
     grid-column: 2 / span 1;
 }
 
+.top-grid > .b {
+    border-left: 4px solid lightgreen;
+
+}
+
+.bottom-grid > .b {
+    border-left: 4px solid cornflowerblue;
+
+}
+
 .c {
     grid-column: 3 / span 1;
 }
@@ -232,6 +260,16 @@ main {
 
 .g {
     grid-column: 7 / span 1;
+}
+
+.top-grid > .g {
+    border-right: 4px solid lightgreen;
+
+}
+
+.bottom-grid > .g {
+    border-right: 4px solid cornflowerblue;
+
 }
 
 /* ------------------------- divider ------------------------- */
@@ -267,6 +305,22 @@ aside {
 .graveyard > div {
     background-color: red;
     border: 2px solid orange;
+}
+
+.graveyard > .two {
+    border-top: 4px solid orange;
+}
+
+.graveyard > .six {
+    border-bottom: 4px solid orange;
+}
+
+.graveyard > .a {
+    border-left: 4px solid orange;
+}
+
+.graveyard > .b {
+    border-right: 4px solid orange;
 }
 
 .graveyard > .one {
