@@ -1,6 +1,6 @@
 # Battleship - Project 1 Planning
 Name: Joe Gilberto (he/him)
-## Game Choice - Battleship
+## Game Choice: Battleship
 ## Screenshot for Wireframes
 ![images for demonstration purposes](../assets/BattleshipWireFrame.png)
 ## MVP Pseudocode
@@ -15,6 +15,8 @@ Sate delcarations:
 - let allyWatersHitsMisses = {}; //an object holding the where in ally waters there have been hits or misses
 - let enemyWatersHitsMisses = {}; //an object holding the where in enemy waters there have been hits or misses
 - let badGuess; //a boolean variable marked true if the player guessed a square they had already guessed
+
+Classes:
 - class Ship //a class used to make objects for enemy ships, includes name, position, and if it should be visible on the graveyard
 - class AllyShip extends Ship //a class extending Ship used to make objects for enemy ships - adds a boardVisibility property to say when a ship should or should not be visible on the board
 
@@ -24,9 +26,7 @@ Constants:
 DOM Elements:
 - .top-grid > divs
 - .bottom-grid > divs
-- .ally-grave
 - .ally-grave > .ship
-- .enemy-grave
 - .enemy-grave > .ship
 
 ### Init
@@ -41,16 +41,15 @@ DOM Elements:
 ### Render
 - render() //renders all
 - renderAllyShips() //renders ally ships starting position on the board
-- renderAllyAlreadyGuessed() //renders a red and orange top grid if the user clicks on a square they had already guessed, and then using a setTimeout, after 1000ms, it reverts back to green and sets badGuess false.
-- renderAllyHit() //renders where the user hits a ship on the enemy's board based off of information stored in storeAllyHit()
-- renderAllyMiss() //renders where the user misses a ship on the enemy's board based off of information stored in storeAllyMiss()
-- renderEnemyHit() //renders where the user hits a ship on the ally's board based off of information stored in storeEnemyHit()
-- renderEnemyMiss() //renders where the user misses a ship on the ally's board based off of information stored in storeEnemyMiss()
+- renderBadGuess() //renders a gray top grid if the user clicks on a square they had already guessed, and then using a setTimeout, after 1000ms, it reverts back to green and sets badGuess false.
+- renderAllyGuesses() //renders where the user hits a ship on the enemy's board based off of information stored in storeAllyHit() and renders where the user misses a ship on the enemy's board based off of information stored in storeAllyMiss()
+- renderEnemyGuesses() //renders where the user hits a ship on the ally's board based off of information stored in storeEnemyHit() and renders where the user misses a ship on the ally's board based off of information stored in storeEnemyMiss()
 - renderSunkenShips() //renders ships on the graveyard grid when sunken
 - renderGameOver() //renders a popup saying the game is over (customized based on who the winner is) asking the player if they'd like to play again or quit
 - renderResetBoard() //renders a reset board with new ally ship positions and an empty graveyard
 
 ### Other Functions
+- storeCoordinates() //stores coordinates a ship is at
 - generateAllyShips() //generates random positions that will be used to render the ally ships and stores them in an object upon initialization
 - generateEnemyShips() //generates random positions to stored for the enemy ships upon initialization
 - handleClick() //if badGuess is true it runs checkIfOpen() and if that is true it runs checkIfShip, and then runs render() no matter what

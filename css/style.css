@@ -30,6 +30,15 @@ h3 {
     font-size: 9px;
 }
 
+button {
+    border: 0px solid black;
+    font-family: 'Audiowide', sans-serif;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
 
 /* ------------------------- body ------------------------- */
 body {
@@ -84,7 +93,24 @@ main {
 .grid > div {
     width: 45px;
     height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.grid > div > p {
+    text-align: center;
+    font-size: 30px;
+}
+
+.top-grid > div > p {
+    color: lightgreen;
+}
+
+.bottom-grid > div > p {
+    color: cornflowerblue;
+}
+
 
 /* ------------------------- board labels ------------------------- */
 .label {
@@ -154,7 +180,8 @@ main {
 
 .top-grid > .one > p {
     text-align: center;
-    color: lightsteelblue;
+    color: lightsteelblue !important;
+    font-size: 15px !important;
 }
 
 .top-grid > .one {
@@ -212,6 +239,7 @@ main {
 .bottom-grid > .seven > p {
     text-align: center;
     color:lightsteelblue;
+    font-size: 15px !important;
 }
 
 .a {
@@ -225,7 +253,8 @@ main {
 
 .a > p {
     text-align: center;
-    color: lightsteelblue;
+    color: lightsteelblue !important;
+    font-size: 15px !important;
 }
 
 .b {
@@ -343,38 +372,39 @@ aside {
 /* ------------------------- ships ------------------------- */
 .ship {
     border-radius: 50%;
-    border: 2px solid darkslategray !important;
+    border: 4px solid darkslategray !important;
     background-color: slategray !important;
     display: grid;
     margin: 5px;
+    align-items: normal !important;
 }
 
-.ship.size-3 {
+.ship.size-three {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(9, 1fr);
 }
 
-.size-3.no-a {
+.size-three.no-a {
     grid-column: 1 / span 1;
     grid-row: 2 / span 3;
 }
 
-.size-3.no-b {
+.size-three.no-b {
     grid-column: 2 / span 1;
     grid-row: 4 / span 3;
 }
 
-.ship.size-2 {
+.ship.size-two {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(6, 1fr);
 }
 
-.size-2.no-a {
+.size-two.no-a {
     grid-column: 1 / span 1;
     grid-row: 5 / span 2;
 }
 
-.size-2.no-b {
+.size-two.no-b {
     grid-column: 2 / span 1;
     grid-row: 2 / span 2;
 }
@@ -398,6 +428,58 @@ aside {
 .pipe.spot3 {
     grid-column: 2 / span 1;
     grid-row: 8 / span 1;
+}
+
+/* ------------------------- Popup ------------------------- */
+.blankSlate {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: slategray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popUp {
+    position: fixed;
+    width: 60%;
+    height: 60%;
+    background-color: lightsteelblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.popUpH1 {
+    font-size: 35px;
+    padding-bottom: 50px;
+    width: 450px;
+    text-align: center;
+    color: darkslategray;
+    background-color: slategray;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.popUpP {
+    text-align: center;
+    font-size: 30px;
+    color: slategray;
+    margin-bottom: 45px;
+
+}
+
+.endBttn {
+    background-color: slategray;
+    color: darkslategray;
+    font-size: 30px;
+    width: 275px;
+    margin: 5px;
 }
 
 /* ------------------------- media queries ------------------------- */
