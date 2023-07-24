@@ -4,7 +4,7 @@ A battleship game facing off against a computer opponent.  Made using HTML, CSS,
 
 
 ## Gameplay - Screenshots
-![wireframe](/assets/screenshot1.png)
+![Starting board](/assets/screenshot1.png)
 
 
 ## Techonologies Used

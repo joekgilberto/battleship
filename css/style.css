@@ -483,7 +483,7 @@ aside {
 }
 
 /* ------------------------- media queries ------------------------- */
-
+/* TODO: Fix div p's when screen is shrunken AND center ships on grid spaces*/
 @media only screen and (min-width: 768px) {
     h1 {
         width: 500px;
