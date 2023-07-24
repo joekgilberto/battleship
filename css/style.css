@@ -164,6 +164,10 @@ main {
     border: 2px solid lightgreen;
 }
 
+.top-grid > div:hover {
+    cursor: pointer;
+}
+
 /* ------------------------- bottom grid ------------------------- */
 .bottom-grid {
     height: auto;
@@ -190,6 +194,10 @@ main {
 .top-grid > .one {
     background-color: transparent !important;
     border: none !important;
+}
+
+.top-grid > .one:hover {
+    cursor: default !important;
 }
 
 .bottom-grid > .one {
@@ -234,7 +242,7 @@ main {
     border-bottom: 4px solid lightgreen;
 }
 
-.bottom-grid .seven {
+.bottom-grid > .seven {
     background-color: transparent !important;
     border: none !important;
 }
@@ -249,10 +257,15 @@ main {
     grid-column: 1 / span 1;
 }
 
+.top-grid > .a:hover{
+    cursor: default !important;
+}
+
 .top-grid > .a, .bottom-grid > .a {
     background-color: transparent !important;
     border: none !important;
 }
+
 
 .a > p {
     text-align: center;
@@ -302,6 +315,10 @@ main {
 .bottom-grid > .g {
     border-right: 4px solid cornflowerblue;
 
+}
+
+#hit, #missed{
+    cursor: default !important;
 }
 
 /* ------------------------- divider ------------------------- */

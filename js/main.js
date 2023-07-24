@@ -1,7 +1,7 @@
 /* ####################################### Variables ####################################### */
 /* --------------------------------------- Constants --------------------------------------- */
 // - timeOut //a variable set to 3000ms
-let timeOut = 1500;
+let timeOut = 2000;
 let columns = ['.b', '.c', '.d', '.e', '.f', '.g']
 let upperRows = ['.two', '.three', '.four', '.five', '.six', '.seven']
 let bottomRows = ['.one', '.two', '.three', '.four', '.five', '.six']
@@ -44,6 +44,7 @@ class Ship {
         this.yCoordinates = [];
         this.squaresTaken = []
         this.inGraveyard = 'hidden';
+        this.cheatSheet = 'No cheating!'
     }
 
     recordSquaresTaken() {
@@ -198,6 +199,7 @@ class AllyShip extends Ship {
 /* --------------------------------------- Sate delcarations --------------------------------------- */
 let testing;
 let wait;
+let currentEvt;
 let game; //a boolean variable that tells if the game is running (true) or stopped (false)
 let winner; //a boolean variable that tells if someone has won the game
 let champion; //an empty string that will hold the name of who wins
@@ -215,6 +217,10 @@ let enemyShipThreeB = new Ship('enemyShipThreeB', 'enemy', 'three', 'b');
 let enemyShipTwoA = new Ship('enemyShipTwoA', 'enemy', 'two', 'a');
 let enemyShipTwoB = new Ship('enemyShipTwoB', 'enemy', 'two', 'b');
 
+let allyShipArr = [allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB]
+let enemyShipArr = [enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTwoB]
+
+
 /* ####################################### Functions ####################################### */
 /* --------------------------------------- Init --------------------------------------- */
 // - sets game to true
@@ -224,27 +230,26 @@ let enemyShipTwoB = new Ship('enemyShipTwoB', 'enemy', 'two', 'b');
 //     - generateEnemyShips()
 //     - render()
 //     - runGame()
-function init(){
+function init() {
     reset = false;
     testing = false;
+    badGuess = false;
     wait = false;
     game = true;
     winner = false;
     champion = '';
 
-    generateCoordinates(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB)
+    generateCoordinates(allyShipArr)
 
-    allyShipThreeA.recordSquaresTaken()
-    allyShipThreeB.recordSquaresTaken()
-    allyShipTwoA.recordSquaresTaken()
-    allyShipTwoB.recordSquaresTaken()
+    for (ship of allyShipArr){
+        ship.recordSquaresTaken()
+    }
 
-    generateCoordinates(enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTwoB)
+    generateCoordinates(enemyShipArr)
 
-    enemyShipThreeA.recordSquaresTaken()
-    enemyShipThreeB.recordSquaresTaken()
-    enemyShipTwoA.recordSquaresTaken()
-    enemyShipTwoB.recordSquaresTaken()
+    for (ship of enemyShipArr){
+        ship.recordSquaresTaken()
+    }
 
     topGridDivEls.forEach((div) => {
         div.addEventListener('click', handleClick)
@@ -257,8 +262,6 @@ function init(){
     })
 
     render();
-
-
     //runGame();
 }
 
@@ -277,15 +280,46 @@ function render() {
 
 // - renderAllyShips() //renders ally ships starting position on the board
 function renderAllyShips() {
-    allyShipThreeA.buildShip()
-    allyShipThreeB.buildShip()
-    allyShipTwoA.buildShip()
-    allyShipTwoB.buildShip()
+    for (ship of allyShipArr){
+        ship.buildShip()
+    }
 }
 
 // - renderBadGuess() //renders a gray top grid if the user clicks on a square they had already guessed, and then using a setTimeout, after 1000ms, it reverts back to green and sets badGuess false.
 function renderBadGuess() {
     //TODO
+    if (badGuess === true) {
+        console.log(currentEvt.target)
+        if (currentEvt.target.tagName === 'P') {
+            currentEvt.target.parentElement.style.backgroundColor = 'gray'
+            currentEvt.target.style.color = 'lightgray'
+            setTimeout(() => {
+                console.log('now')
+                if (currentEvt.target.getAttribute('id') === 'hit') {
+                    currentEvt.target.parentElement.style.backgroundColor = 'red'
+                } else {
+                    currentEvt.target.parentElement.style.backgroundColor = 'forestgreen'
+                    currentEvt.target.style.color = 'lightgreen'
+                }
+                wait = false
+            }, timeOut)
+
+        } else {
+            currentEvt.target.style.backgroundColor = 'gray'
+            let childPEl = currentEvt.target.querySelector('p')
+            childPEl.style.color = 'lightgray'
+            setTimeout(() => {
+                console.log('now')
+                if (currentEvt.target.getAttribute('id') === 'hit') {
+                    currentEvt.target.style.backgroundColor = 'red'
+                } else {
+                    currentEvt.target.style.backgroundColor = 'forestgreen'
+                    childPEl.style.color = 'lightgreen'
+                }
+                wait = false
+            }, timeOut)
+        }
+    }
 }
 
 // - renderAllyGuesses() //renders where the user hits a ship on the enemy's board based off of information stored in storeAllyHit() and renders where the user misses a ship on the enemy's board based off of information stored in storeAllyMiss()
@@ -293,10 +327,14 @@ function renderAllyGuesses() {
     //TODO
     topGridDivEls.forEach((div) => {
         if (div.getAttribute('id') === 'hit') {
-            div.style.backgroundColor = 'red';
+            if (badGuess === false) {
+                div.style.backgroundColor = 'red';
+            }
         } else if (div.getAttribute('id') === 'missed') {
             let divPEl = div.querySelector('p')
             divPEl.textContent = 'O'
+        } else if (div.getAttribute('id') === 'dead'){
+            div.style.backgroundColor = 'darkslategray';
         }
     });
 
@@ -311,21 +349,19 @@ function renderEnemyGuesses() {
         } else if (div.getAttribute('id') === 'missed') {
             let divPEl = div.querySelector('p')
             divPEl.textContent = 'O'
+        } else if (div.getAttribute('id') === 'dead'){
+            div.style.backgroundColor = 'darkslategray';
         }
     })
 }
 
 // - renderSunkenShips() //renders ships on the graveyard grid when sunken
 function renderSunkenShips() {
-    allyGraveShipEls[0].style.visibility = allyShipThreeA.inGraveyard;
-    allyGraveShipEls[1].style.visibility = allyShipTwoA.inGraveyard;
-    allyGraveShipEls[2].style.visibility = allyShipTwoB.inGraveyard;
-    allyGraveShipEls[3].style.visibility = allyShipThreeB.inGraveyard;
 
-    enemyGraveShipEls[0].style.visibility = enemyShipThreeA.inGraveyard;
-    enemyGraveShipEls[1].style.visibility = enemyShipTwoA.inGraveyard;
-    enemyGraveShipEls[2].style.visibility = enemyShipTwoB.inGraveyard;
-    enemyGraveShipEls[3].style.visibility = enemyShipThreeB.inGraveyard;
+    for (let i = 0; i < 4; i++){
+        allyGraveShipEls[i].style.visibility = allyShipArr[i].inGraveyard
+        enemyGraveShipEls[i].style.visibility = enemyShipArr[i].inGraveyard
+    }
 }
 
 // - renderGameOver() //renders a popup saying the game is over (customized based on who the winner is) asking the player if they'd like to play again or quit
@@ -367,35 +403,32 @@ function renderGameOver() {
 
 // - renderResetBoard() //renders a reset board with new ally ship positions and an empty graveyard //TODO: figure out if you need this one
 function renderResetBoard() {
-    // if (reset === true){
-    //     topGridDivEls.forEach((div)=>{
-    //         if (!div.getAttribute('class').includes('one') && !div.getAttribute('class').includes('a')){
-    //             div.style.backgroundColor = 'forestgreen'
-    //             let divPEl = div.querySelector('p')
-    //             divPEl.textContent = ''
+    if (reset === true){
+        topGridDivEls.forEach((div)=>{
+            if (!div.getAttribute('class').includes('one') && !div.getAttribute('class').includes('a')){
+                div.style.backgroundColor = 'forestgreen'
+                let divPEl = div.querySelector('p')
+                divPEl.textContent = ''
+            }
 
-    //             allyShipThreeA.inGraveyard = 'hidden'
-    //             allyShipThreeB.inGraveyard = 'hidden'
-    //             allyShipTwoA.inGraveyard = 'hidden'
-    //             allyShipTwoB.inGraveyard = 'hidden'
-    //             allyShipThreeA.onBoard = 'visibile'
-    //             allyShipThreeB.onBoard = 'visibile'
-    //             allyShipTwoA.onBoard = 'visibile'
-    //             allyShipTwoB.onBoard = 'visibile'
+        })
 
-    //             enemyShipThreeA.inGraveyard = 'hidden'
-    //             enemyShipThreeB.inGraveyard = 'hidden'
-    //             enemyShipTwoA.inGraveyard = 'hidden'
-    //             enemyShipTwoB.inGraveyard = 'hidden'
-    //         }
+        blankSlateEl.remove()
 
-    //     })
-    // }
+        for (ship of allyShipArr){
+            ship.inGraveyard = 'hidden'
+            ship.  onBoard = 'visible'
+        }
+
+        for (ship of enemyShipArr){
+            ship.inGraveyard = 'hidden'
+        }
+    }
 }
 
 /* --------------------------------------- Other Functions --------------------------------------- */
 
-function generateCoordinates(...objs) {
+function generateCoordinates(objs) {
     testing = true
 
     for (obj of objs) {
@@ -439,9 +472,9 @@ function generateCoordinates(...objs) {
         }
     };
 
-    for (obj of objs){
-        if (obj.alliance === 'enemy'){
-            console.log(`Cheat sheet for ship ${obj.name}: Starts at [${obj.xCoordinates[0]}, ${obj.yCoordinates[0]}] and ends at [${obj.xCoordinates[1]}, ${obj.yCoordinates[1]}]`)
+    for (obj of objs) {
+        if (obj.alliance === 'enemy') {
+            obj.cheatSheet = `Cheat sheet for ship ${obj.name}: Starts at [${obj.xCoordinates[0]-1}, ${obj.yCoordinates[0]-1}] and ends at [${obj.xCoordinates[1]-1}, ${obj.yCoordinates[1]-1}]`
         }
     }
 
@@ -629,33 +662,36 @@ function finalTestCoordinates(objs) {
 
 function handleClick(evt) {
     //add evt.target.parentElement.getAttribute('class') === 'grid top-grid' &&  ?
-
+    currentEvt = evt;
     if (wait === false) {
         wait = true
-        if ((evt.target.getAttribute('id') !== 'hit' && evt.target.getAttribute('id') !== 'missed') && evt.target.tagName !== 'P') {
+        if ((evt.target.getAttribute('id') !== 'hit' && evt.target.getAttribute('id') !== 'missed') && evt.target.tagName !== 'P' && (!evt.target.getAttribute('class').includes('a') || !evt.target.getAttribute('class').includes('one'))) {
 
             if (!evt.target.getAttribute('class').includes('one') && !evt.target.getAttribute('class').includes('a')) {
                 if (evt.target.getAttribute('id') === 'taken') {
                     evt.target.setAttribute('id', 'hit')
-                    evt.target.style.backgroundColor = 'red'
                 } else {
                     evt.target.setAttribute('id', 'missed')
-                    let evtP = evt.target.querySelector('p')
-                    evtP.textContent = 'O'
                 }
             }
-            checkShips(enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTwoB)
+            checkShips(enemyShipArr)
 
             determineWinner();
             render();
 
             setTimeout(enemyGuesses, timeOut)
 
+        } else {
+            badGuess = true;
+            render();
+            setTimeout(() => {
+                badGuess = false;
+            }, timeOut)
         }
     }
 }
 
-function checkShips(...objs) {
+function checkShips(objs) {
     for (obj of objs) {
         let sunken = obj.squaresTaken.every((div) => {
             return div.getAttribute('id') === 'hit';
@@ -663,6 +699,10 @@ function checkShips(...objs) {
 
 
         if (sunken) {
+
+            obj.squaresTaken.forEach((div)=>{
+                div.setAttribute('id', 'dead')
+            })
 
             obj.inGraveyard = 'visible'
             if (obj.alliance === 'ally') {
@@ -675,7 +715,7 @@ function checkShips(...objs) {
 
 function enemyGuesses() {
     generateEnemyGuess()
-    checkShips(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB)
+    checkShips(allyShipArr)
     determineWinner()
     render()
     wait = false;
@@ -753,40 +793,51 @@ function generateEnemyRowGuess() {
 // - determineWinner() //determiine winner waits for all ships to be in either graveyard and if so, sets the winner to be true and champion to either 'enemies' or 'allies'
 
 function determineWinner() {
-    if (allyShipThreeA.inGraveyard === 'visible' && allyShipThreeB.inGraveyard === 'visible' && allyShipTwoA.inGraveyard === 'visible' && allyShipTwoB.inGraveyard === 'visible') {
+
+    if (allyShipArr.every((obj)=>{
+        return obj.inGraveyard === 'visible'
+    })){
         winner = true;
-        champion = 'enemies';
-    } else if (enemyShipThreeA.inGraveyard === 'visible' && enemyShipThreeB.inGraveyard === 'visible' && enemyShipTwoA.inGraveyard === 'visible' && enemyShipTwoB.inGraveyard === 'visible') {
+        champion = 'enemies'
+    } else if (enemyShipArr.every((obj)=>{
+        return obj.inGraveyard === 'visible'
+    })){
         winner = true;
-        champion = 'allies';
+        champion = 'allies'
     }
 }
 
-function resetter(){
+function resetter() {
     reset = true;
     testing = false;
     wait = false;
     game = true;
     winner = false;
-    champion = '';
+    champion = '';e
 
-    generateCoordinates(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB)
+    generateCoordinates(allyShipArr)
 
-    allyShipThreeA.recordSquaresTaken()
-    allyShipThreeB.recordSquaresTaken()
-    allyShipTwoA.recordSquaresTaken()
-    allyShipTwoB.recordSquaresTaken()
+    for (ship of allyShipArr){
+        ship.recordSquaresTaken()
+    }
 
-    generateCoordinates(enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTwoB)
+    generateCoordinates(enemyShipArr)
 
-    enemyShipThreeA.recordSquaresTaken()
-    enemyShipThreeB.recordSquaresTaken()
-    enemyShipTwoA.recordSquaresTaken()
-    enemyShipTwoB.recordSquaresTaken()
+    for (ship of enemyShipArr){
+        ship.recordSquaresTaken()
+    }
+
+    render()
+}
+
+function cheater(){
+    for (ship of enemyShipArr){
+        console.log(ship.cheatSheet())
+    }
+
 }
 
 /* ####################################### Run the Game ####################################### */
-// - init()
 init()
 
 //TODO - for enemy guesses, have the a random x and y number generated within the bound of the board, and then have that number coorelate with an array with the corresponding class name  ex: Math.floor(Math.random()) = 0 for the column, it would correspond with '.b' in the array since that is the first column
