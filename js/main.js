@@ -27,6 +27,14 @@ class Ship {
         this.yCoordinates = [];
         this.inGraveyard = 'hidden';
     }
+}
+//a class used to make objects for enemy ships, includes name, column position, row position, and if it should be visible on the graveyard
+
+class AllyShip extends Ship {
+    constructor(name, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard) {
+        super(name, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard);
+        this.onBoard = 'visible';
+    }
 
     buildShip() {
 
@@ -84,19 +92,12 @@ class Ship {
         bottomGridEl.appendChild(this.divEl);
 
     }
-}
-//a class used to make objects for enemy ships, includes name, column position, row position, and if it should be visible on the graveyard
-
-class AllyShip extends Ship {
-    constructor(name, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard) {
-        super(name, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard);
-        this.onBoard = 'visible';
-    }
 } //a class extending Ship used to make objects for enemy ships - adds a onBoard property to say when a ship should or should not be visible on the board
 
 
 
 /* --------------------------------------- Sate delcarations --------------------------------------- */
+let testing;
 let game; //a boolean variable that tells if the game is running (true) or stopped (false)
 let winner; //a boolean variable that tells if someone has won the game
 let champion; //an empty string that will hold the name of who wins
@@ -137,6 +138,7 @@ const exitEl = document.createElement('button')
 //     - render()
 //     - runGame()
 function init() {
+    testing = false;
     game = true;
     winner = false;
 
@@ -252,57 +254,92 @@ function renderResetBoard() {
 }
 
 /* --------------------------------------- Other Functions --------------------------------------- */
-let level = 0
+
 function generateAllyCoordinates(...objs) {
-    let allyShipThreeBTest = false;
+    testing = true
 
     for (obj of objs) {
         generateAllyShipsColumn(obj)
         generateAllyShipsRow(obj)
     }
 
-    function testCoordinates(one, two){
-        let middleY;
-        let middleX;
-
-        if ((objs[one].yCoordinates[0] === objs[two].yCoordinates[0] || objs[1].yCoordinates[1] === objs[0].yCoordinates[1]) && (objs[1].xCoordinates[0] === objs[0].xCoordinates[0] || objs[1].xCoordinates[1] === objs[0].xCoordinates[1])) {
-            return true
-        } else if (objs[one].name === "shipThreeA" && objs[two].name === "shipThreeB"){
-            middleY = objs[one].yCoordinates[0] + 1;
-            middleX = objs[two].xCoordinates[0] + 1;
-
-            if (// edit this: (middleY === objs[two].yCoordinates[0] || middleY === objs[0].yCoordinates[1]) && (objs[1].xCoordinates[0] === objs[0].xCoordinates[0] || objs[1].xCoordinates[1] === objs[0].xCoordinates[1]))
-
-        } else if (objs[one].name === "shipThreeA"){
-            middleY = objs[one].yCoordinates[0] + 1;
-            if ((middleY === objs[two].yCoordinates[0] || middleY === objs[0].yCoordinates[1]) && (objs[1].xCoordinates[0] === objs[0].xCoordinates[0] || objs[1].xCoordinates[1] === objs[0].xCoordinates[1])) {
-                return true
-            }
-        } else if (objs[one].name === "shipThreeB"){
-            middleX = objs[one].xCoordinates[0] + 1;
-            if ((objs[one].yCoordinates[0] === objs[two].yCoordinates[0] || objs[1].yCoordinates[1] === objs[0].yCoordinates[1]) && (middleX === objs[0].xCoordinates[0] || middleX === objs[0].xCoordinates[1])) {
-                return true
-            }
-        }
-    }
-
-    while (allyShipThreeBTest === false) {
-        if (testCoordinates(0, 1)) {
-            console.log('we ran a while loop becuase ship3a was', objs[0].xCoordinates, objs[0].yCoordinates, 'and ship3b was', objs[1].xCoordinates, objs[1].yCoordinates)
+    while (testing) {
+        if (testCoordinates(objs, 0, 1)) {
+            objs[0].xCoordinates = [];
+            objs[0].yCoordinates = [];
+            generateAllyShipsColumn(objs[0]);
+            generateAllyShipsRow(objs[0]);
             objs[1].xCoordinates = [];
             objs[1].yCoordinates = [];
             generateAllyShipsColumn(objs[1]);
             generateAllyShipsRow(objs[1]);
-        } else {
-            allyShipThreeBTest = true;
-        };
+            testing = true;
+        }
+
+        if (testCoordinates(objs, 0, 2)) {
+            objs[0].xCoordinates = [];
+            objs[0].yCoordinates = [];
+            generateAllyShipsColumn(objs[0]);
+            generateAllyShipsRow(objs[0]);
+            objs[2].xCoordinates = [];
+            objs[2].yCoordinates = [];
+            generateAllyShipsColumn(objs[2]);
+            generateAllyShipsRow(objs[2]);
+            testing = true;
+        }
+
+        if (testCoordinates(objs, 0, 3)) {
+            objs[0].xCoordinates = [];
+            objs[0].yCoordinates = [];
+            generateAllyShipsColumn(objs[0]);
+            generateAllyShipsRow(objs[0]);
+            objs[3].xCoordinates = [];
+            objs[3].yCoordinates = [];
+            generateAllyShipsColumn(objs[3]);
+            generateAllyShipsRow(objs[3]);
+            testing = true;
+        }
+
+        if (testCoordinates(objs, 1, 2)) {
+            objs[1].xCoordinates = [];
+            objs[1].yCoordinates = [];
+            generateAllyShipsColumn(objs[1]);
+            generateAllyShipsRow(objs[1]);
+            objs[2].xCoordinates = [];
+            objs[2].yCoordinates = [];
+            generateAllyShipsColumn(objs[2]);
+            generateAllyShipsRow(objs[2]);
+            testing = true;
+        }
+
+        if (testCoordinates(objs, 1, 3)) {
+            objs[1].xCoordinates = [];
+            objs[1].yCoordinates = [];
+            generateAllyShipsColumn(objs[1]);
+            generateAllyShipsRow(objs[1]);
+            objs[3].xCoordinates = [];
+            objs[3].yCoordinates = [];
+            generateAllyShipsColumn(objs[3]);
+            generateAllyShipsRow(objs[3]);
+            testing = true;
+        }
+
+        if (testCoordinates(objs, 2, 3)) {
+            objs[2].xCoordinates = [];
+            objs[2].yCoordinates = [];
+            generateAllyShipsColumn(objs[2]);
+            generateAllyShipsRow(objs[2]);
+            objs[3].xCoordinates = [];
+            objs[3].yCoordinates = [];
+            generateAllyShipsColumn(objs[3]);
+            generateAllyShipsRow(objs[3]);
+            testing = true;
+        }
+
+        if (!finalTestCoordinates(objs)) {
+            testing = false;
+        }
     };
-
-
-    // while (((objs[2].yCoordinates[0] === objs[0].yCoordinates[0] || objs[2].yCoordinates[1] === objs[0].yCoordinates[1]) && (objs[2].xCoordinates[0] === obj[0].xCoordinates[0] || objs[2].xCoordinates[1] === objs[0].xCoordinates[1])) || ((objs[2].yCoordinates[0] === objs[0].yCoordinates[0] || objs[2].yCoordinates[1] === objs[0].yCoordinates[1]) && (objs[2].xCoordinates[0] === obj[0].xCoordinates[0] || objs[2].xCoordinates[1] === objs[0].xCoordinates[1]))){
-    //     generateAllyShipsColumn(objs[1])
-    //     generateAllyShipsRow(objs[1])
-    // }
 };
 
 // - generateAllyShips() //generates random positions that will be used to render the ally ships and stores them in an object upon initialization
@@ -372,6 +409,117 @@ function storeYCoordinates(obj, yStart) {
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart);
     }
+}
+
+function testCoordinates(objs, one, two) {
+    let middleY;
+    let middleX;
+
+    if ((objs[two].yCoordinates[0] === objs[two].yCoordinates[0] || objs[one].yCoordinates[1] === objs[one].yCoordinates[1]) || (objs[two].xCoordinates[0] === objs[one].xCoordinates[0] || objs[two].xCoordinates[1] === objs[one].xCoordinates[1])) {
+        return true
+    }
+
+    if (objs[one].name === "shipThreeA" && objs[two].name === "shipThreeB") {
+        middleY = objs[one].yCoordinates[0] + 1;
+        middleX = objs[two].xCoordinates[0] + 1;
+
+        if ((middleY === objs[two].yCoordinates[0] || middleY === objs[two].yCoordinates[1]) || (middleX === objs[one].xCoordinates[0] || middleX === objs[two].xCoordinates[1])) {
+            return true
+        }
+    }
+
+    if (objs[one].name === "shipThreeA") {
+        middleY = objs[one].yCoordinates[0] + 1;
+        if ((middleY === objs[two].yCoordinates[0] || middleY === objs[two].yCoordinates[1]) || (objs[two].xCoordinates[0] === objs[one].xCoordinates[0] || objs[two].xCoordinates[1] === objs[one].xCoordinates[1])) {
+            return true
+        }
+    }
+
+    if (objs[two].name === "shipThreeA") {
+        middleY = objs[two].yCoordinates[0] + 1;
+        if ((middleY === objs[one].yCoordinates[0] || middleY === objs[one].yCoordinates[1]) || (objs[two].xCoordinates[0] === objs[one].xCoordinates[0] || objs[two].xCoordinates[1] === objs[one].xCoordinates[1])) {
+            return true
+        }
+    }
+
+    if (objs[one].name === "shipThreeB") {
+        middleX = objs[one].xCoordinates[0] + 1;
+        if ((objs[two].yCoordinates[0] === objs[one].yCoordinates[0] || objs[two].yCoordinates[1] === objs[one].yCoordinates[1]) || (middleX === objs[two].xCoordinates[0] || middleX === objs[two].xCoordinates[1])) {
+            return true
+        }
+    }
+
+    if (objs[two].name === "shipThreeB") {
+        middleX = objs[two].xCoordinates[0] + 1;
+        if ((objs[two].yCoordinates[0] === objs[one].yCoordinates[0] || objs[two].yCoordinates[1] === objs[one].yCoordinates[1]) || (middleX === objs[one].xCoordinates[0] || middleX === objs[one].xCoordinates[1])) {
+            return true
+        }
+    }
+
+    testing = false
+    return false
+}
+
+function finalTestCoordinates(objs) {
+    let middleY;
+    let middleX;
+
+    middleY = objs[0].yCoordinates[0] + 1;
+    middleX = objs[1].xCoordinates[0] + 1;
+
+    if ((objs[0].yCoordinates[0] === objs[1].yCoordinates[0] || objs[0].yCoordinates[1] === objs[1].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[1].xCoordinates[0] || objs[0].xCoordinates[1] === objs[1].xCoordinates[1])) {
+        return true
+    }
+
+    if ((objs[0].yCoordinates[0] === objs[2].yCoordinates[0] || objs[0].yCoordinates[1] === objs[2].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[2].xCoordinates[0] || objs[0].xCoordinates[1] === objs[2].xCoordinates[1])) {
+        return true
+    }
+
+    if ((objs[0].yCoordinates[0] === objs[3].yCoordinates[0] || objs[0].yCoordinates[0] === objs[3].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[3].xCoordinates[0] || objs[0].xCoordinates[1] === objs[3].xCoordinates[1])) {
+        return true
+    }
+
+    if ((objs[1].yCoordinates[0] === objs[2].yCoordinates[0] || objs[1].yCoordinates[1] === objs[2].yCoordinates[1]) || (objs[1].xCoordinates[0] === objs[2].xCoordinates[0] || objs[1].xCoordinates[1] === objs[2].xCoordinates[1])) {
+        return true
+    }
+
+    if ((objs[1].yCoordinates[0] === objs[3].yCoordinates[0] || objs[1].yCoordinates[1] === objs[3].yCoordinates[1]) || (objs[1].xCoordinates[0] === objs[3].xCoordinates[0] || objs[1].xCoordinates[1] === objs[3].xCoordinates[1])) {
+        return true
+    }
+
+    if ((objs[2].yCoordinates[0] === objs[3].yCoordinates[0] || objs[2].yCoordinates[1] === objs[3].yCoordinates[1]) || (objs[2].xCoordinates[0] === objs[3].xCoordinates[0] || objs[2].xCoordinates[1] === objs[3].xCoordinates[1])) {
+        return true
+    }
+
+    if ((middleY === objs[1].yCoordinates[0] || middleY === objs[1].yCoordinates[1]) || (middleX === objs[0].xCoordinates[0] || middleX === objs[0].xCoordinates[1])) {
+        return true
+    }
+
+    if ((middleY === objs[1].yCoordinates[0] || middleY === objs[1].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[1].xCoordinates[0] || objs[0].xCoordinates[1] === objs[1].xCoordinates[1])) {
+        return true
+    }
+
+    if ((middleY === objs[2].yCoordinates[0] || middleY === objs[2].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[2].xCoordinates[0] || objs[0].xCoordinates[1] === objs[2].xCoordinates[1])) {
+        return true
+    }
+
+    if ((middleY === objs[3].yCoordinates[0] || middleY === objs[3].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[3].xCoordinates[0] || objs[0].xCoordinates[1] === objs[3].xCoordinates[1])) {
+        return true
+    }
+
+    if ((objs[1].yCoordinates[0] === objs[0].yCoordinates[0] || objs[1].yCoordinates[1] === objs[0].yCoordinates[1]) || (middleX === objs[0].xCoordinates[0] || middleX === objs[0].xCoordinates[1])) {
+        return true
+    }
+
+    if ((objs[1].yCoordinates[0] === objs[2].yCoordinates[0] || objs[1].yCoordinates[1] === objs[2].yCoordinates[1]) || (middleX === objs[2].xCoordinates[0] || middleX === objs[2].xCoordinates[1])) {
+        return true
+    }
+
+    if ((objs[1].yCoordinates[0] === objs[3].yCoordinates[0] || objs[1].yCoordinates[1] === objs[3].yCoordinates[1]) || (middleX === objs[3].xCoordinates[0] || middleX === objs[3].xCoordinates[1])) {
+        return true
+    }
+
+    //return false
 }
 
 // - generateEnemyShips() //generates random positions to stored for the enemy ships upon initialization
