@@ -335,6 +335,9 @@ function renderAllyGuesses() {
             divPEl.textContent = 'O'
         } else if (div.getAttribute('id') === 'dead'){
             div.style.backgroundColor = 'darkslategray';
+            let divPEl = div.querySelector('p')
+            divPEl.style.color = 'slategray'
+            divPEl.textContent = 'X'
         }
     });
 
@@ -832,7 +835,7 @@ function resetter() {
 
 function cheater(){
     for (ship of enemyShipArr){
-        console.log(ship.cheatSheet())
+        console.log(ship.cheatSheet)
     }
 
 }
