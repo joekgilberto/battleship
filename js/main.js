@@ -18,9 +18,11 @@ enemyGraveShipEls = document.querySelectorAll('.enemy-grave > .ship')
 
 /* --------------------------------------- Classes --------------------------------------- */
 class Ship {
-    constructor(name) {
+    constructor(name, size, orientation) {
         this.name = name;
         this.divEl = document.createElement('div');
+        this.size = size;
+        this.orientation = orientation;
         this.columnPosition = 0;
         this.rowPosition = 0;
         this.xCoordinates = [];
@@ -31,8 +33,8 @@ class Ship {
 //a class used to make objects for enemy ships, includes name, column position, row position, and if it should be visible on the graveyard
 
 class AllyShip extends Ship {
-    constructor(name, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard) {
-        super(name, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard);
+    constructor(name, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard) {
+        super(name, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard);
         this.onBoard = 'visible';
     }
 
@@ -145,17 +147,17 @@ function init() {
     // generateAllyShips();
     // generateEnemtShips();
 
-    allyShipThreeA = new AllyShip('allyShipThreeA')
-    allyShipThreeB = new AllyShip('allyShipThreeB')
-    allyShipTwoA = new AllyShip('allyShipTwoA')
-    allyShipTwoB = new AllyShip('allyShipTwoB')
+    allyShipThreeA = new AllyShip('allyShipThreeA', 'three', 'a')
+    allyShipThreeB = new AllyShip('allyShipThreeB', 'three', 'b')
+    allyShipTwoA = new AllyShip('allyShipTwoA', 'two', 'a')
+    allyShipTwoB = new AllyShip('allyShipTwoB', 'two', 'b')
 
     generateAllyCoordinates(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB)
 
-    enemyShipThreeA = new Ship('enemyShipThreeA', 3, 2, 'hidden');
-    enemyShipThreeB = new Ship('enemyShipThreeB', 5, 2, 'hidden');
-    enemyShipTwoA = new Ship('enemyShipTwoA', 4, 5, 'hidden');
-    enemyShipTwoB = new Ship('enemyShipTwoB', 6, 4, 'hidden');
+    enemyShipThreeA = new Ship('enemyShipThreeA', 'three', 'a');
+    enemyShipThreeB = new Ship('enemyShipThreeB', 'three', 'b');
+    enemyShipTwoA = new Ship('enemyShipTwoA', 'two', 'a');
+    enemyShipTwoB = new Ship('enemyShipTwoB', 'two');
 
     render();
 
@@ -345,9 +347,9 @@ function generateAllyCoordinates(...objs) {
 // - generateAllyShips() //generates random positions that will be used to render the ally ships and stores them in an object upon initialization
 function generateAllyShipsColumn(obj) {
     let returnNum;
-    if (obj.name === 'allyShipThreeB') {
+    if (obj.size === 'three' && obj.orientation == 'b') {
         returnNum = Math.floor(Math.random() * 6)
-    } else if (obj.name === 'allyShipTwoB') {
+    } else if (obj.size === 'two' && obj.orientation == 'b') {
         returnNum = Math.floor(Math.random() * 7)
     } else {
         returnNum = Math.floor(Math.random() * 8)
@@ -362,9 +364,9 @@ function generateAllyShipsColumn(obj) {
 
 function generateAllyShipsRow(obj) {
     let returnNum;
-    if (obj.name === 'allyShipThreeA') {
+    if (obj.size === 'three' && obj.orientation == 'a') {
         returnNum = Math.floor(Math.random() * 5)
-    } else if (obj.name === 'allyShipTwoA') {
+    } else if (obj.size === 'two' && obj.orientation == 'a') {
         returnNum = Math.floor(Math.random() * 6)
     } else {
         returnNum = Math.floor(Math.random() * 7)
@@ -379,16 +381,13 @@ function generateAllyShipsRow(obj) {
 
 //- storeCoordinates() //stores coordinates a ship is at
 function storeXCoordinates(obj, xStart) {
-    if (obj.name === 'allyShipThreeA') {
+    if (obj.orientation == 'a') {
         obj.xCoordinates.push(xStart)
         obj.xCoordinates.push(xStart)
-    } else if (obj.name === 'allyShipThreeB') {
+    } else if (obj.size === 'three' && obj.orientation == 'b') {
         obj.xCoordinates.push(xStart)
         obj.xCoordinates.push(xStart + 2)
-    } else if (obj.name === 'allyShipTwoA') {
-        obj.xCoordinates.push(xStart)
-        obj.xCoordinates.push(xStart)
-    } else if (obj.name === 'allyShipTwoB') {
+    } else if (obj.size === 'two' && obj.orientation == 'b') {
         obj.xCoordinates.push(xStart)
         obj.xCoordinates.push(xStart + 1)
     }
@@ -396,18 +395,15 @@ function storeXCoordinates(obj, xStart) {
 
 //TODO Add enemy ships to storeY and storeXCoordinates
 function storeYCoordinates(obj, yStart) {
-    if (obj.name === 'allyShipThreeA') {
+    if (obj.orientation === 'b') {
+        obj.yCoordinates.push(yStart);
+        obj.yCoordinates.push(yStart);
+    } else if(obj.size === 'three' && obj.orientation == 'a'){
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart + 2);
-    } else if (obj.name === 'allyShipThreeB') {
-        obj.yCoordinates.push(yStart);
-        obj.yCoordinates.push(yStart);
-    } else if (obj.name === 'allyShipTwoA') {
+    } else if (obj.size === 'two' && obj.orientation == 'a') {
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart + 1);
-    } else if (obj.name === 'allyShipTwoB') {
-        obj.yCoordinates.push(yStart);
-        obj.yCoordinates.push(yStart);
     }
 }
 
@@ -419,7 +415,7 @@ function testCoordinates(objs, one, two) {
         return true
     }
 
-    if (objs[one].name === "shipThreeA" && objs[two].name === "shipThreeB") {
+    if ((objs[one].size === "three" && objs[one].orientation === "a") && (objs[two].size === "three" && objs[two].orientation === "b")) {
         middleY = objs[one].yCoordinates[0] + 1;
         middleX = objs[two].xCoordinates[0] + 1;
 
@@ -428,28 +424,28 @@ function testCoordinates(objs, one, two) {
         }
     }
 
-    if (objs[one].name === "shipThreeA") {
+    if (objs[one].size === "three" && objs[one].orientation === "a") {
         middleY = objs[one].yCoordinates[0] + 1;
         if ((middleY === objs[two].yCoordinates[0] || middleY === objs[two].yCoordinates[1]) || (objs[two].xCoordinates[0] === objs[one].xCoordinates[0] || objs[two].xCoordinates[1] === objs[one].xCoordinates[1])) {
             return true
         }
     }
 
-    if (objs[two].name === "shipThreeA") {
+    if (objs[two].size === "three" && objs[two].orientation === "a") {
         middleY = objs[two].yCoordinates[0] + 1;
         if ((middleY === objs[one].yCoordinates[0] || middleY === objs[one].yCoordinates[1]) || (objs[two].xCoordinates[0] === objs[one].xCoordinates[0] || objs[two].xCoordinates[1] === objs[one].xCoordinates[1])) {
             return true
         }
     }
 
-    if (objs[one].name === "shipThreeB") {
+    if (objs[one].size === "three" && objs[one].orientation === "b") {
         middleX = objs[one].xCoordinates[0] + 1;
         if ((objs[two].yCoordinates[0] === objs[one].yCoordinates[0] || objs[two].yCoordinates[1] === objs[one].yCoordinates[1]) || (middleX === objs[two].xCoordinates[0] || middleX === objs[two].xCoordinates[1])) {
             return true
         }
     }
 
-    if (objs[two].name === "shipThreeB") {
+    if (objs[two].size === "three" && objs[two].orientation === "b") {
         middleX = objs[two].xCoordinates[0] + 1;
         if ((objs[two].yCoordinates[0] === objs[one].yCoordinates[0] || objs[two].yCoordinates[1] === objs[one].yCoordinates[1]) || (middleX === objs[one].xCoordinates[0] || middleX === objs[one].xCoordinates[1])) {
             return true
