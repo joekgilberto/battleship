@@ -1,7 +1,7 @@
 /* ####################################### Variables ####################################### */
 /* --------------------------------------- Constants --------------------------------------- */
 // - timeOut //a variable set to 3000ms
-let timeOut = 3000;
+let timeOut = 1500;
 let columns = ['.b', '.c', '.d', '.e', '.f', '.g']
 let upperRows = ['.two', '.three', '.four', '.five', '.six', '.seven']
 let bottomRows = ['.one', '.two', '.three', '.four', '.five', '.six']
@@ -84,11 +84,6 @@ class Ship {
                     this.squaresTaken.push(squareThree)
                 }
             }
-            // squareOne.style.backgroundColor = 'red'
-            // squareTwo.style.backgroundColor = 'red'
-            // if (squareThree){
-            //     squareThree.style.backgroundColor = 'red'
-            // }
 
         } else if (this.alliance === 'enemy') {
             //TODO make this works for the enemy ships
@@ -124,13 +119,17 @@ class Ship {
                     this.squaresTaken.push(squareThree)
                 }
             }
-            // squareOne.style.backgroundColor = 'red'
-            // squareTwo.style.backgroundColor = 'red'
-            // if (squareThree){
-            //     squareThree.style.backgroundColor = 'red'
-            // }
         }
     }
+}
+//a class used to make objects for enemy ships, includes name, column position, row position, and if it should be visible on the graveyard
+
+class AllyShip extends Ship {
+    constructor(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard) {
+        super(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard);
+        this.onBoard = 'visible';
+    }
+
 
     buildShip() {
 
@@ -188,84 +187,17 @@ class Ship {
 
         if (this.alliance === 'ally') {
             bottomGridEl.appendChild(this.divEl);
-        } else if (this.alliance === 'enemy') {
-            topGridEl.appendChild(this.divEl);
         }
 
-
+        this.divEl.style.visibility = this.onBoard
     }
-
-}
-//a class used to make objects for enemy ships, includes name, column position, row position, and if it should be visible on the graveyard
-
-class AllyShip extends Ship {
-    constructor(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard) {
-        super(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard);
-        this.onBoard = 'visible';
-    }
-
-    // buildShip() {
-
-    //     let pipeOneEl = document.createElement('div');
-    //     let pipeTwoEl = document.createElement('div');
-    //     let pipeThreeEl = document.createElement('div');
-
-    //     function buildPipe(pipeEl, pipeColumnPosition, pipeRowPosition, ship) {
-    //         pipeEl.classList.add('pipe');
-    //         pipeEl.style.gridColumn = `${pipeColumnPosition} / span 1`;
-    //         pipeEl.style.gridRow = `${pipeRowPosition} / span 1`;
-    //         ship.divEl.appendChild(pipeEl);
-
-    //     }
-
-    //     this.divEl.classList.add('ship');
-    //     this.divEl.setAttribute('id', this.name);
-    //     this.divEl.style.display = 'grid';
-
-    //     //TODO customize column and row template sizes based on this.name which indicates vertical or horizontal ships
-    //     if (this.size === 'three' && this.orientation === 'a') {
-    //         this.divEl.style.gridTemplateColumns = 'repeat(3, 1fr)';
-    //         this.divEl.style.gridTemplateRows = 'repeat(9, 1fr)';
-    //         this.divEl.style.gridColumn = `${this.columnPosition} / span 1`;
-    //         this.divEl.style.gridRow = `${this.rowPosition} / span 3`;
-    //         buildPipe(pipeOneEl, 2, 2, this);
-    //         buildPipe(pipeTwoEl, 2, 5, this);
-    //         buildPipe(pipeThreeEl, 2, 8, this);
-    //     } else if (this.size === 'two' && this.orientation === 'a') {
-    //         this.divEl.style.gridTemplateColumns = 'repeat(3, 1fr)';
-    //         this.divEl.style.gridTemplateRows = 'repeat(6, 1fr)';
-    //         this.divEl.style.gridColumn = `${this.columnPosition} / span 1`;
-    //         this.divEl.style.gridRow = `${this.rowPosition} / span 2`
-    //         buildPipe(pipeOneEl, 2, 2, this);
-    //         buildPipe(pipeTwoEl, 2, 5, this);
-    //     } else if (this.size === 'three' && this.orientation === 'b') {
-    //         this.divEl.style.gridTemplateColumns = 'repeat(9, 1fr)';
-    //         this.divEl.style.gridTemplateRows = 'repeat(3, 1fr)';
-    //         this.divEl.style.gridColumn = `${this.columnPosition} / span 3`;
-    //         this.divEl.style.gridRow = `${this.rowPosition} / span 1`;
-    //         buildPipe(pipeOneEl, 2, 2, this);
-    //         buildPipe(pipeTwoEl, 5, 2, this);
-    //         buildPipe(pipeThreeEl, 8, 2, this);
-    //     } else if (this.size === 'two' && this.orientation === 'b') {
-    //         this.divEl.style.gridTemplateColumns = 'repeat(6, 1fr)';
-    //         this.divEl.style.gridTemplateRows = 'repeat(3, 1fr)';
-    //         this.divEl.style.gridColumn = `${this.columnPosition} / span 2`;
-    //         this.divEl.style.gridRow = `${this.rowPosition} / span 1`;
-    //         buildPipe(pipeOneEl, 2, 2, this);
-    //         buildPipe(pipeTwoEl, 5, 2, this);
-    //     }
-
-    //     this.divEl.style.width = 'auto';
-    //     this.divEl.style.height = 'auto';
-    //     bottomGridEl.appendChild(this.divEl);
-
-    // }
 } //a class extending Ship used to make objects for enemy ships - adds a onBoard property to say when a ship should or should not be visible on the board
 
 
 
 /* --------------------------------------- Sate delcarations --------------------------------------- */
 let testing;
+let wait;
 let game; //a boolean variable that tells if the game is running (true) or stopped (false)
 let winner; //a boolean variable that tells if someone has won the game
 let champion; //an empty string that will hold the name of who wins
@@ -292,14 +224,13 @@ let enemyShipTwoB = new Ship('enemyShipTwoB', 'enemy', 'two', 'b');
 //     - generateEnemyShips()
 //     - render()
 //     - runGame()
-function init() {
-
+function init(){
+    reset = false;
     testing = false;
+    wait = false;
     game = true;
     winner = false;
     champion = '';
-    // generateShips();
-    // generateShips();
 
     generateCoordinates(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB)
 
@@ -319,8 +250,7 @@ function init() {
         div.addEventListener('click', handleClick)
     });
 
-    retryEl.addEventListener('click', () => {
-    })
+    retryEl.addEventListener('click', resetter)
 
     exitEl.addEventListener('click', () => {
         close();
@@ -351,11 +281,6 @@ function renderAllyShips() {
     allyShipThreeB.buildShip()
     allyShipTwoA.buildShip()
     allyShipTwoB.buildShip()
-
-    enemyShipThreeA.buildShip()
-    enemyShipThreeB.buildShip()
-    enemyShipTwoA.buildShip()
-    enemyShipTwoB.buildShip()
 }
 
 // - renderBadGuess() //renders a gray top grid if the user clicks on a square they had already guessed, and then using a setTimeout, after 1000ms, it reverts back to green and sets badGuess false.
@@ -380,6 +305,14 @@ function renderAllyGuesses() {
 // - renderEnemyGuesses() //renders where the user hits a ship on the ally's board based off of information stored in storeEnemyHit() and renders where the user misses a ship on the ally's board based off of information stored in storeEnemyMiss()
 function renderEnemyGuesses() {
     //TODO
+    bottomGridDivEls.forEach((div) => {
+        if (div.getAttribute('id') === 'hit') {
+            div.style.backgroundColor = 'red';
+        } else if (div.getAttribute('id') === 'missed') {
+            let divPEl = div.querySelector('p')
+            divPEl.textContent = 'O'
+        }
+    })
 }
 
 // - renderSunkenShips() //renders ships on the graveyard grid when sunken
@@ -505,6 +438,13 @@ function generateCoordinates(...objs) {
             testing = false;
         }
     };
+
+    for (obj of objs){
+        if (obj.alliance === 'enemy'){
+            console.log(`Cheat sheet for ship ${obj.name}: Starts at [${obj.xCoordinates[0]}, ${obj.yCoordinates[0]}] and ends at [${obj.xCoordinates[1]}, ${obj.yCoordinates[1]}]`)
+        }
+    }
+
 };
 
 // - generateShips() //generates random positions that will be used to render the ally ships and stores them in an object upon initialization
@@ -689,24 +629,30 @@ function finalTestCoordinates(objs) {
 
 function handleClick(evt) {
     //add evt.target.parentElement.getAttribute('class') === 'grid top-grid' &&  ?
-    if (!evt.target.getAttribute('class').includes('one') && !evt.target.getAttribute('class').includes('a')) {
-        if (evt.target.getAttribute('id') === 'taken') {
-            evt.target.setAttribute('id', 'hit')
-            evt.target.style.backgroundColor = 'red'
-        } else {
-            evt.target.setAttribute('id', 'missed')
-            let evtP = evt.target.querySelector('p')
-            evtP.textContent = 'O'
+
+    if (wait === false) {
+        wait = true
+        if ((evt.target.getAttribute('id') !== 'hit' && evt.target.getAttribute('id') !== 'missed') && evt.target.tagName !== 'P') {
+
+            if (!evt.target.getAttribute('class').includes('one') && !evt.target.getAttribute('class').includes('a')) {
+                if (evt.target.getAttribute('id') === 'taken') {
+                    evt.target.setAttribute('id', 'hit')
+                    evt.target.style.backgroundColor = 'red'
+                } else {
+                    evt.target.setAttribute('id', 'missed')
+                    let evtP = evt.target.querySelector('p')
+                    evtP.textContent = 'O'
+                }
+            }
+            checkShips(enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTwoB)
+
+            determineWinner();
+            render();
+
+            setTimeout(enemyGuesses, timeOut)
+
         }
     }
-
-    checkShips(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB, enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTwoB)
-
-    determineWinner();
-    render();
-
-    setTimeout(enemyGuesses, 0)
-
 }
 
 function checkShips(...objs) {
@@ -719,7 +665,6 @@ function checkShips(...objs) {
         if (sunken) {
 
             obj.inGraveyard = 'visible'
-
             if (obj.alliance === 'ally') {
                 obj.onBoard = 'hidden'
             }
@@ -729,36 +674,55 @@ function checkShips(...objs) {
 // - enemyGuess() //the computer randomly picks a square in ally waters that has not been picked yet (by running checkIfOpen), then runs checkIfAllyShip
 
 function enemyGuesses() {
-
     generateEnemyGuess()
-
-
+    checkShips(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB)
     determineWinner()
     render()
+    wait = false;
 }
 
 function generateEnemyGuess() {
     let xPositionGuess = generateEnemyColumnGuess()
     let yPositionGuess = generateEnemyRowGuess()
-    
-    let guessedSqaure = document.querySelector(`.bottom-grid > ${bottomRows[xPositionGuess-2]}${columns[yPositionGuess-1]}`);
 
-    //make sure you don't guess the same square twice- are you over thinking it?  should you just put x's and o's?
-    console.log(guessedSqaure)
+    let guessedSqaure = document.querySelector(`.bottom-grid > ${bottomRows[xPositionGuess - 2]}${columns[yPositionGuess - 1]}`);
 
-    console.log([xPositionGuess-2, yPositionGuess-1])
+    let log = [xPositionGuess - 2, yPositionGuess - 1].join('')
 
-    console.log(enemyGuessesLog.includes([xPositionGuess-2, yPositionGuess-1]))
+    if (!enemyGuessesLog.includes(log)) {
+        if (guessedSqaure.getAttribute('id') === 'taken') {
+            guessedSqaure.setAttribute('id', 'hit');
+        } else {
+            guessedSqaure.setAttribute('id', 'missed');
+        }
 
-    if (!enemyGuessesLog.includes([xPositionGuess-2, yPositionGuess-1])){
-        guessedSqaure.style.backgroundColor = 'red'
-        enemyGuessesLog.push([xPositionGuess-2, yPositionGuess-1])
-        console.log(enemyGuessesLog)
+        enemyGuessesLog.push(log)
     } else {
-        console.log('runs the else')
-        generateEnemyGuess()
+        let allDone;
+        let testLog;
+
+        for (let i = 0; i <= 5; i++) {
+            for (let j = 0; j <= 5; j++) {
+                testLog = [i, j].join('')
+
+                if (!enemyGuessesLog.includes(testLog)) {
+                    allDone = false;
+                    break
+                } else {
+                    allDone = true
+                }
+            }
+
+            if (allDone === false) {
+                break
+            }
+        }
+
+        if (allDone === false) {
+            generateEnemyGuess()
+        }
     }
-    
+
 }
 
 function generateEnemyColumnGuess() {
@@ -796,6 +760,29 @@ function determineWinner() {
         winner = true;
         champion = 'allies';
     }
+}
+
+function resetter(){
+    reset = true;
+    testing = false;
+    wait = false;
+    game = true;
+    winner = false;
+    champion = '';
+
+    generateCoordinates(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB)
+
+    allyShipThreeA.recordSquaresTaken()
+    allyShipThreeB.recordSquaresTaken()
+    allyShipTwoA.recordSquaresTaken()
+    allyShipTwoB.recordSquaresTaken()
+
+    generateCoordinates(enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTwoB)
+
+    enemyShipThreeA.recordSquaresTaken()
+    enemyShipThreeB.recordSquaresTaken()
+    enemyShipTwoA.recordSquaresTaken()
+    enemyShipTwoB.recordSquaresTaken()
 }
 
 /* ####################################### Run the Game ####################################### */
