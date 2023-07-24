@@ -270,6 +270,7 @@ let game; //a boolean variable that tells if the game is running (true) or stopp
 let winner; //a boolean variable that tells if someone has won the game
 let champion; //an empty string that will hold the name of who wins
 let reset;
+let enemyGuessesLog = []
 let badGuess; //a boolean variable marked true if the player guessed a square they had already guessed
 
 let allyShipThreeA = new AllyShip('allyShipThreeA', 'ally', 'three', 'a')
@@ -741,10 +742,23 @@ function generateEnemyGuess() {
     let yPositionGuess = generateEnemyRowGuess()
     
     let guessedSqaure = document.querySelector(`.bottom-grid > ${bottomRows[xPositionGuess-2]}${columns[yPositionGuess-1]}`);
-    console.log(xPositionGuess)
-    console.log(yPositionGuess)
+
+    //make sure you don't guess the same square twice- are you over thinking it?  should you just put x's and o's?
     console.log(guessedSqaure)
-    guessedSqaure.style.backgroundColor = 'red'
+
+    console.log([xPositionGuess-2, yPositionGuess-1])
+
+    console.log(enemyGuessesLog.includes([xPositionGuess-2, yPositionGuess-1]))
+
+    if (!enemyGuessesLog.includes([xPositionGuess-2, yPositionGuess-1])){
+        guessedSqaure.style.backgroundColor = 'red'
+        enemyGuessesLog.push([xPositionGuess-2, yPositionGuess-1])
+        console.log(enemyGuessesLog)
+    } else {
+        console.log('runs the else')
+        generateEnemyGuess()
+    }
+    
 }
 
 function generateEnemyColumnGuess() {
