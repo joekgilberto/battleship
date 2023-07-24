@@ -266,75 +266,33 @@ function generateAllyCoordinates(...objs) {
     }
 
     while (testing) {
-        if (testCoordinates(objs, 0, 1)) {
-            objs[0].xCoordinates = [];
-            objs[0].yCoordinates = [];
-            generateAllyShipsColumn(objs[0]);
-            generateAllyShipsRow(objs[0]);
-            objs[1].xCoordinates = [];
-            objs[1].yCoordinates = [];
-            generateAllyShipsColumn(objs[1]);
-            generateAllyShipsRow(objs[1]);
+        if (testCoordinates(objs,0,1)) {
+            reassignCoordinates(objs, 0, 1)
             testing = true;
         }
 
         if (testCoordinates(objs, 0, 2)) {
-            objs[0].xCoordinates = [];
-            objs[0].yCoordinates = [];
-            generateAllyShipsColumn(objs[0]);
-            generateAllyShipsRow(objs[0]);
-            objs[2].xCoordinates = [];
-            objs[2].yCoordinates = [];
-            generateAllyShipsColumn(objs[2]);
-            generateAllyShipsRow(objs[2]);
+            reassignCoordinates(objs,0,2)
             testing = true;
         }
 
         if (testCoordinates(objs, 0, 3)) {
-            objs[0].xCoordinates = [];
-            objs[0].yCoordinates = [];
-            generateAllyShipsColumn(objs[0]);
-            generateAllyShipsRow(objs[0]);
-            objs[3].xCoordinates = [];
-            objs[3].yCoordinates = [];
-            generateAllyShipsColumn(objs[3]);
-            generateAllyShipsRow(objs[3]);
+            reassignCoordinates(objs,0,3)
             testing = true;
         }
 
         if (testCoordinates(objs, 1, 2)) {
-            objs[1].xCoordinates = [];
-            objs[1].yCoordinates = [];
-            generateAllyShipsColumn(objs[1]);
-            generateAllyShipsRow(objs[1]);
-            objs[2].xCoordinates = [];
-            objs[2].yCoordinates = [];
-            generateAllyShipsColumn(objs[2]);
-            generateAllyShipsRow(objs[2]);
+            reassignCoordinates(objs,1,2)
             testing = true;
         }
 
         if (testCoordinates(objs, 1, 3)) {
-            objs[1].xCoordinates = [];
-            objs[1].yCoordinates = [];
-            generateAllyShipsColumn(objs[1]);
-            generateAllyShipsRow(objs[1]);
-            objs[3].xCoordinates = [];
-            objs[3].yCoordinates = [];
-            generateAllyShipsColumn(objs[3]);
-            generateAllyShipsRow(objs[3]);
+            reassignCoordinates(objs,1,3)
             testing = true;
         }
 
         if (testCoordinates(objs, 2, 3)) {
-            objs[2].xCoordinates = [];
-            objs[2].yCoordinates = [];
-            generateAllyShipsColumn(objs[2]);
-            generateAllyShipsRow(objs[2]);
-            objs[3].xCoordinates = [];
-            objs[3].yCoordinates = [];
-            generateAllyShipsColumn(objs[3]);
-            generateAllyShipsRow(objs[3]);
+            reassignCoordinates(objs,2,3)
             testing = true;
         }
 
@@ -405,6 +363,17 @@ function storeYCoordinates(obj, yStart) {
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart + 1);
     }
+}
+
+function reassignCoordinates(objs, num1, num2){
+    objs[num1].xCoordinates = [];
+    objs[num1].yCoordinates = [];
+    generateAllyShipsColumn(objs[num1]);
+    generateAllyShipsRow(objs[num1]);
+    objs[num2].xCoordinates = [];
+    objs[num2].yCoordinates = [];
+    generateAllyShipsColumn(objs[num2]);
+    generateAllyShipsRow(objs[num2]);
 }
 
 function testCoordinates(objs, one, two) {
