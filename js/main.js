@@ -18,13 +18,14 @@ enemyGraveShipEls = document.querySelectorAll('.enemy-grave > .ship')
 
 /* --------------------------------------- Classes --------------------------------------- */
 class Ship {
-    constructor(name, columnPosition, rowPosition, inGraveyard) {
+    constructor(name) {
         this.name = name;
         this.divEl = document.createElement('div');
-        this.columnPosition = columnPosition;
-        this.rowPosition = rowPosition;
-        this.coordinates = [];
-        this.inGraveyard = inGraveyard;
+        this.columnPosition = 0;
+        this.rowPosition = 0;
+        this.xCoordinates = [];
+        this.yCoordinates = [];
+        this.inGraveyard = 'hidden';
     }
 
     buildShip() {
@@ -87,9 +88,9 @@ class Ship {
 //a class used to make objects for enemy ships, includes name, column position, row position, and if it should be visible on the graveyard
 
 class AllyShip extends Ship {
-    constructor(name, columnPosition, rowPosition, inGraveyard, onBoard) {
-        super(name, columnPosition, rowPosition, inGraveyard);
-        this.onBoard = onBoard;
+    constructor(name, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard) {
+        super(name, columnPosition, rowPosition, xCoordinates, yCoordinates, inGraveyard);
+        this.onBoard = 'visible';
     }
 } //a class extending Ship used to make objects for enemy ships - adds a onBoard property to say when a ship should or should not be visible on the board
 
@@ -142,10 +143,12 @@ function init() {
     // generateAllyShips();
     // generateEnemtShips();
 
-    allyShipThreeA = new AllyShip('allyShipThreeA', generateAllyShipsColumn('allyShipThreeA'), generateAllyShipsRow('allyShipThreeA'), 'hidden', 'visible')
-    allyShipThreeB = new AllyShip('allyShipThreeB', generateAllyShipsColumn('allyShipThreeB'), generateAllyShipsRow('allyShipThreeB'), 'hidden', 'visible')
-    allyShipTwoA = new AllyShip('allyShipTwoA', generateAllyShipsColumn('allyShipTwoA'), generateAllyShipsRow('allyShipTwoA'), 'hidden', 'visible')
-    allyShipTwoB = new AllyShip('allyShipTwoB', generateAllyShipsColumn('allyShipTwoB'), generateAllyShipsRow('allyShipTwoB'), 'hidden', 'visible')
+    allyShipThreeA = new AllyShip('allyShipThreeA')
+    allyShipThreeB = new AllyShip('allyShipThreeB')
+    allyShipTwoA = new AllyShip('allyShipTwoA')
+    allyShipTwoB = new AllyShip('allyShipTwoB')
+
+    generateAllyCoordinates(allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB)
 
     enemyShipThreeA = new Ship('enemyShipThreeA', 3, 2, 'hidden');
     enemyShipThreeB = new Ship('enemyShipThreeB', 5, 2, 'hidden');
@@ -211,7 +214,6 @@ function renderGameOver() {
     //TODO
     setTimeout(() => {
         if (winner === true) {
-            console.log('popup!')
             blankSlateEl.classList.add('blankSlate')
             bodyEl.appendChild(blankSlateEl);
 
@@ -250,46 +252,127 @@ function renderResetBoard() {
 }
 
 /* --------------------------------------- Other Functions --------------------------------------- */
-//- storeCoordinates() //stores coordinates a ship is at
-function storeCoordinates{
-    
-}
+let level = 0
+function generateAllyCoordinates(...objs) {
+    let allyShipThreeBTest = false;
+
+    for (obj of objs) {
+        generateAllyShipsColumn(obj)
+        generateAllyShipsRow(obj)
+    }
+
+    function testCoordinates(one, two){
+        let middleY;
+        let middleX;
+
+        if ((objs[one].yCoordinates[0] === objs[two].yCoordinates[0] || objs[1].yCoordinates[1] === objs[0].yCoordinates[1]) && (objs[1].xCoordinates[0] === objs[0].xCoordinates[0] || objs[1].xCoordinates[1] === objs[0].xCoordinates[1])) {
+            return true
+        } else if (objs[one].name === "shipThreeA" && objs[two].name === "shipThreeB"){
+            middleY = objs[one].yCoordinates[0] + 1;
+            middleX = objs[two].xCoordinates[0] + 1;
+
+            if (// edit this: (middleY === objs[two].yCoordinates[0] || middleY === objs[0].yCoordinates[1]) && (objs[1].xCoordinates[0] === objs[0].xCoordinates[0] || objs[1].xCoordinates[1] === objs[0].xCoordinates[1]))
+
+        } else if (objs[one].name === "shipThreeA"){
+            middleY = objs[one].yCoordinates[0] + 1;
+            if ((middleY === objs[two].yCoordinates[0] || middleY === objs[0].yCoordinates[1]) && (objs[1].xCoordinates[0] === objs[0].xCoordinates[0] || objs[1].xCoordinates[1] === objs[0].xCoordinates[1])) {
+                return true
+            }
+        } else if (objs[one].name === "shipThreeB"){
+            middleX = objs[one].xCoordinates[0] + 1;
+            if ((objs[one].yCoordinates[0] === objs[two].yCoordinates[0] || objs[1].yCoordinates[1] === objs[0].yCoordinates[1]) && (middleX === objs[0].xCoordinates[0] || middleX === objs[0].xCoordinates[1])) {
+                return true
+            }
+        }
+    }
+
+    while (allyShipThreeBTest === false) {
+        if (testCoordinates(0, 1)) {
+            console.log('we ran a while loop becuase ship3a was', objs[0].xCoordinates, objs[0].yCoordinates, 'and ship3b was', objs[1].xCoordinates, objs[1].yCoordinates)
+            objs[1].xCoordinates = [];
+            objs[1].yCoordinates = [];
+            generateAllyShipsColumn(objs[1]);
+            generateAllyShipsRow(objs[1]);
+        } else {
+            allyShipThreeBTest = true;
+        };
+    };
+
+
+    // while (((objs[2].yCoordinates[0] === objs[0].yCoordinates[0] || objs[2].yCoordinates[1] === objs[0].yCoordinates[1]) && (objs[2].xCoordinates[0] === obj[0].xCoordinates[0] || objs[2].xCoordinates[1] === objs[0].xCoordinates[1])) || ((objs[2].yCoordinates[0] === objs[0].yCoordinates[0] || objs[2].yCoordinates[1] === objs[0].yCoordinates[1]) && (objs[2].xCoordinates[0] === obj[0].xCoordinates[0] || objs[2].xCoordinates[1] === objs[0].xCoordinates[1]))){
+    //     generateAllyShipsColumn(objs[1])
+    //     generateAllyShipsRow(objs[1])
+    // }
+};
+
 // - generateAllyShips() //generates random positions that will be used to render the ally ships and stores them in an object upon initialization
-function generateAllyShipsColumn(name) {
+function generateAllyShipsColumn(obj) {
     let returnNum;
-    if (name === 'allyShipThreeB'){
-        returnNum = Math.floor(Math.random()*6)
-    } else if (name === 'allyShipTwoB'){
-        returnNum = Math.floor(Math.random()*7)
+    if (obj.name === 'allyShipThreeB') {
+        returnNum = Math.floor(Math.random() * 6)
+    } else if (obj.name === 'allyShipTwoB') {
+        returnNum = Math.floor(Math.random() * 7)
     } else {
-        returnNum = Math.floor(Math.random()*8)
+        returnNum = Math.floor(Math.random() * 8)
     }
 
-    console.log(returnNum)
-    if (returnNum <= 1){
-        return generateAllyShipsColumn(name);
-    } else {
-        return returnNum;
-    };
+    if (returnNum <= 1) {
+        return generateAllyShipsColumn(obj);
+    }
+    storeXCoordinates(obj, returnNum)
+    obj.columnPosition = returnNum;
 };
 
-function generateAllyShipsRow(name) {
+function generateAllyShipsRow(obj) {
     let returnNum;
-    if (name === 'allyShipThreeA'){
-        returnNum = Math.floor(Math.random()*5)
-    } else if (name === 'allyShipTwoA'){
-        returnNum = Math.floor(Math.random()*6)
+    if (obj.name === 'allyShipThreeA') {
+        returnNum = Math.floor(Math.random() * 5)
+    } else if (obj.name === 'allyShipTwoA') {
+        returnNum = Math.floor(Math.random() * 6)
     } else {
-        returnNum = Math.floor(Math.random()*7)
+        returnNum = Math.floor(Math.random() * 7)
     }
-    
-    console.log(returnNum)
-    if (returnNum < 1){
-        return generateAllyShipsRow(name);
-    } else {
-        return returnNum;
-    };
+
+    if (returnNum < 1) {
+        return generateAllyShipsRow(obj);
+    }
+    storeYCoordinates(obj, returnNum)
+    obj.rowPosition = returnNum;
 };
+
+//- storeCoordinates() //stores coordinates a ship is at
+function storeXCoordinates(obj, xStart) {
+    if (obj.name === 'allyShipThreeA') {
+        obj.xCoordinates.push(xStart)
+        obj.xCoordinates.push(xStart)
+    } else if (obj.name === 'allyShipThreeB') {
+        obj.xCoordinates.push(xStart)
+        obj.xCoordinates.push(xStart + 2)
+    } else if (obj.name === 'allyShipTwoA') {
+        obj.xCoordinates.push(xStart)
+        obj.xCoordinates.push(xStart)
+    } else if (obj.name === 'allyShipTwoB') {
+        obj.xCoordinates.push(xStart)
+        obj.xCoordinates.push(xStart + 1)
+    }
+}
+
+//TODO Add enemy ships to storeY and storeXCoordinates
+function storeYCoordinates(obj, yStart) {
+    if (obj.name === 'allyShipThreeA') {
+        obj.yCoordinates.push(yStart);
+        obj.yCoordinates.push(yStart + 2);
+    } else if (obj.name === 'allyShipThreeB') {
+        obj.yCoordinates.push(yStart);
+        obj.yCoordinates.push(yStart);
+    } else if (obj.name === 'allyShipTwoA') {
+        obj.yCoordinates.push(yStart);
+        obj.yCoordinates.push(yStart + 1);
+    } else if (obj.name === 'allyShipTwoB') {
+        obj.yCoordinates.push(yStart);
+        obj.yCoordinates.push(yStart);
+    }
+}
 
 // - generateEnemyShips() //generates random positions to stored for the enemy ships upon initialization
 // - handleClick() //if badGuess is true it runs checkIfOpen() and if that is true it runs checkIfShip, and then runs render() no matter what
