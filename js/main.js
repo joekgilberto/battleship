@@ -266,33 +266,33 @@ function generateAllyCoordinates(...objs) {
     }
 
     while (testing) {
-        if (testCoordinates(objs,0,1)) {
+        if (testCoordinates(objs, 0, 1)) {
             reassignCoordinates(objs, 0, 1)
             testing = true;
         }
 
         if (testCoordinates(objs, 0, 2)) {
-            reassignCoordinates(objs,0,2)
+            reassignCoordinates(objs, 0, 2)
             testing = true;
         }
 
         if (testCoordinates(objs, 0, 3)) {
-            reassignCoordinates(objs,0,3)
+            reassignCoordinates(objs, 0, 3)
             testing = true;
         }
 
         if (testCoordinates(objs, 1, 2)) {
-            reassignCoordinates(objs,1,2)
+            reassignCoordinates(objs, 1, 2)
             testing = true;
         }
 
         if (testCoordinates(objs, 1, 3)) {
-            reassignCoordinates(objs,1,3)
+            reassignCoordinates(objs, 1, 3)
             testing = true;
         }
 
         if (testCoordinates(objs, 2, 3)) {
-            reassignCoordinates(objs,2,3)
+            reassignCoordinates(objs, 2, 3)
             testing = true;
         }
 
@@ -356,7 +356,7 @@ function storeYCoordinates(obj, yStart) {
     if (obj.orientation === 'b') {
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart);
-    } else if(obj.size === 'three' && obj.orientation == 'a'){
+    } else if (obj.size === 'three' && obj.orientation == 'a') {
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart + 2);
     } else if (obj.size === 'two' && obj.orientation == 'a') {
@@ -365,7 +365,7 @@ function storeYCoordinates(obj, yStart) {
     }
 }
 
-function reassignCoordinates(objs, num1, num2){
+function reassignCoordinates(objs, num1, num2) {
     objs[num1].xCoordinates = [];
     objs[num1].yCoordinates = [];
     generateAllyShipsColumn(objs[num1]);
@@ -432,59 +432,35 @@ function finalTestCoordinates(objs) {
     middleY = objs[0].yCoordinates[0] + 1;
     middleX = objs[1].xCoordinates[0] + 1;
 
-    if ((objs[0].yCoordinates[0] === objs[1].yCoordinates[0] || objs[0].yCoordinates[1] === objs[1].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[1].xCoordinates[0] || objs[0].xCoordinates[1] === objs[1].xCoordinates[1])) {
-        return true
-    }
-
-    if ((objs[0].yCoordinates[0] === objs[2].yCoordinates[0] || objs[0].yCoordinates[1] === objs[2].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[2].xCoordinates[0] || objs[0].xCoordinates[1] === objs[2].xCoordinates[1])) {
-        return true
-    }
-
-    if ((objs[0].yCoordinates[0] === objs[3].yCoordinates[0] || objs[0].yCoordinates[0] === objs[3].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[3].xCoordinates[0] || objs[0].xCoordinates[1] === objs[3].xCoordinates[1])) {
-        return true
-    }
-
-    if ((objs[1].yCoordinates[0] === objs[2].yCoordinates[0] || objs[1].yCoordinates[1] === objs[2].yCoordinates[1]) || (objs[1].xCoordinates[0] === objs[2].xCoordinates[0] || objs[1].xCoordinates[1] === objs[2].xCoordinates[1])) {
-        return true
-    }
-
-    if ((objs[1].yCoordinates[0] === objs[3].yCoordinates[0] || objs[1].yCoordinates[1] === objs[3].yCoordinates[1]) || (objs[1].xCoordinates[0] === objs[3].xCoordinates[0] || objs[1].xCoordinates[1] === objs[3].xCoordinates[1])) {
-        return true
-    }
-
-    if ((objs[2].yCoordinates[0] === objs[3].yCoordinates[0] || objs[2].yCoordinates[1] === objs[3].yCoordinates[1]) || (objs[2].xCoordinates[0] === objs[3].xCoordinates[0] || objs[2].xCoordinates[1] === objs[3].xCoordinates[1])) {
-        return true
+    for (let i = 0; i < objs.length; i++) {
+        for (let j = i + 1; j < objs.length; j++) {
+            if ((objs[i].yCoordinates[0] === objs[j].yCoordinates[0] || objs[i].yCoordinates[1] === objs[j].yCoordinates[1]) || (objs[i].xCoordinates[0] === objs[j].xCoordinates[0] || objs[i].xCoordinates[1] === objs[j].xCoordinates[1])) {
+                return true
+            }
+        }
     }
 
     if ((middleY === objs[1].yCoordinates[0] || middleY === objs[1].yCoordinates[1]) || (middleX === objs[0].xCoordinates[0] || middleX === objs[0].xCoordinates[1])) {
         return true
     }
 
-    if ((middleY === objs[1].yCoordinates[0] || middleY === objs[1].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[1].xCoordinates[0] || objs[0].xCoordinates[1] === objs[1].xCoordinates[1])) {
-        return true
+    for (let i = 1; i < objs.length; i++) {
+        if ((middleY === objs[i].yCoordinates[0] || middleY === objs[i].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[i].xCoordinates[0] || objs[0].xCoordinates[1] === objs[i].xCoordinates[1])) {
+            return true
+        }
     }
 
-    if ((middleY === objs[2].yCoordinates[0] || middleY === objs[2].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[2].xCoordinates[0] || objs[0].xCoordinates[1] === objs[2].xCoordinates[1])) {
-        return true
+    for (let i = 0; i < objs.length; i++) {
+        if (i === 1) {
+            continue
+        } else {
+            if ((objs[1].yCoordinates[0] === objs[0].yCoordinates[0] || objs[1].yCoordinates[1] === objs[0].yCoordinates[1]) || (middleX === objs[i].xCoordinates[0] || middleX === objs[i].xCoordinates[1])) {
+                return true
+            }
+        }
     }
 
-    if ((middleY === objs[3].yCoordinates[0] || middleY === objs[3].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[3].xCoordinates[0] || objs[0].xCoordinates[1] === objs[3].xCoordinates[1])) {
-        return true
-    }
-
-    if ((objs[1].yCoordinates[0] === objs[0].yCoordinates[0] || objs[1].yCoordinates[1] === objs[0].yCoordinates[1]) || (middleX === objs[0].xCoordinates[0] || middleX === objs[0].xCoordinates[1])) {
-        return true
-    }
-
-    if ((objs[1].yCoordinates[0] === objs[2].yCoordinates[0] || objs[1].yCoordinates[1] === objs[2].yCoordinates[1]) || (middleX === objs[2].xCoordinates[0] || middleX === objs[2].xCoordinates[1])) {
-        return true
-    }
-
-    if ((objs[1].yCoordinates[0] === objs[3].yCoordinates[0] || objs[1].yCoordinates[1] === objs[3].yCoordinates[1]) || (middleX === objs[3].xCoordinates[0] || middleX === objs[3].xCoordinates[1])) {
-        return true
-    }
-
-    //return false
+    return false
 }
 
 // - generateEnemyShips() //generates random positions to stored for the enemy ships upon initialization
@@ -504,3 +480,5 @@ function finalTestCoordinates(objs) {
 /* ####################################### Run the Game ####################################### */
 // - init()
 init()
+
+//TODO - for enemy guesses, have the a random x and y number generated within the bound of the board, and then have that number coorelate with an array with the corresponding class name  ex: Math.floor(Math.random()) = 0 for the column, it would correspond with '.b' in the array since that is the first column
