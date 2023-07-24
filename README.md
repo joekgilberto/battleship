@@ -4,19 +4,20 @@ A battleship game facing off against a computer opponent.  Made using HTML, CSS,
 
 
 ## Gameplay - Screenshots
+![wireframe](/assets/screenshot1.png)
 
 
 ## Techonologies Used
 - HTML
 - CSS
-- Name of CSS framework if you use one (CSS Framework) - [link example 1](https://bulma.com)
 - JS
 
 
 ## Key Resources
-1. [link example 2](...)
-2. [link w/in page](README.md##Techonologies-Used)
-3. [cross-document-link](./docs/planning.md)
+1. [W3 Schools](https://www.w3schools.com/)
+2. [MDN Wed Docs](https://developer.mozilla.org/en-US/)
+3. [Stack Overflow](https://stackoverflow.com/)
+4. [cross-document-link](./docs/planning.md)
 
 
 ## Getting Started

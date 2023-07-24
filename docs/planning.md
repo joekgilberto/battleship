@@ -2,7 +2,7 @@
 Name: Joe Gilberto (he/him)
 ## Game Choice: Battleship
 ## Screenshot for Wireframes
-![images for demonstration purposes](../assets/BattleshipWireFrame.png)
+![wireframe](../assets/BattleshipWireFrame.png)
 ## MVP Pseudocode
 
 ### Variables

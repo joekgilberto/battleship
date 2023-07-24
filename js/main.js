@@ -482,3 +482,9 @@ function finalTestCoordinates(objs) {
 init()
 
 //TODO - for enemy guesses, have the a random x and y number generated within the bound of the board, and then have that number coorelate with an array with the corresponding class name  ex: Math.floor(Math.random()) = 0 for the column, it would correspond with '.b' in the array since that is the first column
+    //TODO - can the above be reverse engineered to find divs?  .findIndexOf(".b") to find b in [a,b,c,d] etc
+        // or can we use evt or evt.target to edit these squares?
+
+//TODO - make occupied enemy divs have an unselectable space in them?
+// https://www.w3schools.com/howto/howto_css_disable_text_selection.asp#:~:text=You%20can%20use%20the%20user,be%20used%20to%20prevent%20this.
+// or evalue their grid-areas' against the ships?
