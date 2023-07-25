@@ -43,6 +43,7 @@ button {
 
 button:hover {
     cursor: pointer;
+    color: slategray;
 }
 
 
@@ -513,6 +514,16 @@ aside {
     background-color: slategray;
     color: darkslategray;
     width: 225px;
+}
+
+.popBttn {
+    background-color: slategray;
+    color: darkslategray;
+    width: 225px;
+}
+
+.popBttn:hover {
+    color: lightsteelblue;
 }
 
 /* ------------------------- footer ------------------------- */
