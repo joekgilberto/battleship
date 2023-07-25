@@ -1,28 +1,18 @@
 /* ####################################### Variables ####################################### */
 /* --------------------------------------- Constants --------------------------------------- */
-// - timeOut //a variable set to 3000ms
 let timeOut = 1500;
 let columns = ['.b', '.c', '.d', '.e', '.f', '.g']
 let upperRows = ['.two', '.three', '.four', '.five', '.six', '.seven']
 let bottomRows = ['.one', '.two', '.three', '.four', '.five', '.six']
 
 /* --------------------------------------- DOM Elements --------------------------------------- */
-//body
 const bodyEl = document.querySelector('body')
-// - .top-grid
 const topGridEl = document.querySelector('.top-grid')
-// - .bottom-grid
 const bottomGridEl = document.querySelector('.bottom-grid')
-// - .top-grid > divs
 const topGridDivEls = document.querySelectorAll('.top-grid > div')
-// - .bottom-grid > divs
 const bottomGridDivEls = document.querySelectorAll('.bottom-grid > div')
-// - .ally-grave > .ship
 const allyGraveShipEls = document.querySelectorAll('.ally-grave > .ship')
-// - .enemy-grave > .ship
 const enemyGraveShipEls = document.querySelectorAll('.enemy-grave > .ship')
-
-// - .redo
 const redoBttnEl = document.querySelector('.redo')
 
 const blankSlateEl = document.createElement('div')
@@ -35,6 +25,8 @@ const exitEl = document.createElement('button')
 
 
 /* --------------------------------------- Classes --------------------------------------- */
+
+// a class used to make ship objects with custom name, alliance, size, and orientation properties
 class Ship {
     constructor(name, alliance, size, orientation) {
         this.name = name;
@@ -44,7 +36,6 @@ class Ship {
         this.orientation = orientation;
         this.columnPosition = 0;
         this.rowPosition = 0;
-        //TODO: should you save these one less or one more than what they are to accurately reflect the board?  does that make sense? -NAH you use the undilluted coordinates many times
         this.xCoordinates = [];
         this.yCoordinates = [];
         this.squaresTaken = [];
@@ -92,7 +83,6 @@ class Ship {
             }
 
         } else if (this.alliance === 'enemy') {
-            //TODO make this works for the enemy ships
             squareOne = document.querySelector(`.top-grid > ${upperRows[this.rowPosition - 2]}${columns[this.columnPosition - 2]}`);
             squareOne.setAttribute('id', 'taken')
             this.squaresTaken.push(squareOne)
@@ -141,8 +131,8 @@ class Ship {
         }
     }
 }
-//a class used to make objects for enemy ships, includes name, column position, row position, and if it should be visible on the graveyard
 
+// a class extending ship that makes ship objects with the addition of the property onBoard and the function buildShip()
 class AllyShip extends Ship {
     constructor(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard) {
         super(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard);
@@ -241,13 +231,7 @@ let enemyShipArr = [enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTw
 
 /* ####################################### Functions ####################################### */
 /* --------------------------------------- Init --------------------------------------- */
-// - sets game to true
-// - sets winner to be false
-// - Runs:
-//     - generateShips()
-//     - generateEnemyShips()
-//     - render()
-//     - runGame()
+// init runs the game and resets variables at the top of each round
 function init() {
     instructional = true;
     testing = false;
@@ -259,19 +243,23 @@ function init() {
     badGuess = false;
 
 
-
+    //generates ally ship coordinates
     generateCoordinates(allyShipArr)
 
+    //stores the values of the ally ship coordinates
     for (ship of allyShipArr) {
         ship.recordSquaresTaken()
     }
 
+    //generates enemy ship coordinates
     generateCoordinates(enemyShipArr)
 
+    //stores the values of the enemy ship coordinates
     for (ship of enemyShipArr) {
         ship.recordSquaresTaken()
     }
 
+    //adds an event listner to the confirmation button in the instructional popup that stops renderInstructions, removes the popup and its confirmation buutton and then renders it all
     okEl.addEventListener('click',()=>{
         instructional = false;
         blankSlateEl.remove()
@@ -279,25 +267,28 @@ function init() {
         render();
     })
 
+    //adds an event listener to each div in the top grid that runs handleClick
     topGridDivEls.forEach((div) => {
         div.addEventListener('click', handleClick)
     });
 
+    //adds an event listener to the redo button runs resetter
     redoBttnEl.addEventListener('click', resetter)
 
+    //adds an event listener to the retry button, when it exists, runs resetter
     retryEl.addEventListener('click', resetter)
 
+    //adds an event listener to the exit button, when it exists, runs resetter
     exitEl.addEventListener('click', () => {
         close();
     })
 
+    //renders the game
     render();
-    //runGame();
 }
 
 /* --------------------------------------- Render --------------------------------------- */
-// - render() //renders all
-
+// runs all render functions
 function render() {
     renderInstructions();
     if (reset === false) {
@@ -312,6 +303,7 @@ function render() {
     }
 }
 
+// renders the instructions popup
 function renderInstructions() {
     //TODO
     if (instructional) {
@@ -605,7 +597,6 @@ function storeXCoordinates(obj, xStart) {
     }
 }
 
-//TODO Add enemy ships to storeY and storeXCoordinates
 function storeYCoordinates(obj, yStart) {
     if (obj.orientation === 'b') {
         obj.yCoordinates.push(yStart);
