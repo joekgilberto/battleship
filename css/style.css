@@ -12,11 +12,13 @@
 h1 {
     background-color: darkslategray;
     width: 300px;
-    height: 50px;
+    height:48px;
     line-height: 1.5;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     text-align: center;
     text-transform: uppercase;
     color: lightsteelblue;
@@ -33,9 +35,13 @@ h3 {
 button {
     border: 0px solid black;
     font-family: 'Audiowide', sans-serif;
+    font-size: 25px;
+    width: 150px;
+    padding: 5px;
+    margin: 5px;
 }
 
-button:hover{
+button:hover {
     cursor: pointer;
 }
 
@@ -49,6 +55,7 @@ body {
     left: 0;
     background-color: lightslategray;
 }
+
 /* ------------------------- header ------------------------- */
 header {
     width: 100%;
@@ -81,7 +88,7 @@ main {
     align-items: center;
 }
 
-.board > h2 {
+.board>h2 {
     font-size: 20px;
 }
 
@@ -90,27 +97,29 @@ main {
     grid-template-rows: repeat(7, 35px);
 }
 
-.grid > div {
-    width: 45px;
-    height: 45px;
+.grid>div {
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.grid > div > p {
+.grid>div>p {
     text-align: center;
-    font-size: 30px;
+    font-size: 25px;
+    margin-right: 1px;
+    margin-top: 22px;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-.top-grid > div > p {
+.top-grid>div>p {
     color: lightgreen;
 }
 
-.bottom-grid > div > p {
+.bottom-grid>div>p {
     color: cornflowerblue;
 }
 
@@ -130,7 +139,7 @@ main {
     background-color: darkslategray;
 }
 
-.enemy-label h2{
+.enemy-label h2 {
     grid-column: 1 / span 1;
     grid-row: 2 / span 6;
 }
@@ -159,12 +168,12 @@ main {
     display: grid;
 }
 
-.top-grid > div {
+.top-grid>div {
     background-color: forestgreen;
     border: 2px solid lightgreen;
 }
 
-.top-grid > div:hover {
+.top-grid>div:hover {
     cursor: pointer;
 }
 
@@ -175,7 +184,7 @@ main {
     display: grid;
 }
 
-.bottom-grid > div {
+.bottom-grid>div {
     background-color: lightskyblue;
     border: 2px solid cornflowerblue;
 }
@@ -185,22 +194,22 @@ main {
     grid-row: 1 / span 1;
 }
 
-.top-grid > .one > p {
+.top-grid>.one>p {
     text-align: center;
     color: lightsteelblue !important;
     font-size: 15px !important;
 }
 
-.top-grid > .one {
+.top-grid>.one {
     background-color: transparent !important;
     border: none !important;
 }
 
-.top-grid > .one:hover {
+.top-grid>.one:hover {
     cursor: default !important;
 }
 
-.bottom-grid > .one {
+.bottom-grid>.one {
     border-top: 4px solid cornflowerblue;
 
 }
@@ -209,7 +218,7 @@ main {
     grid-row: 2 / span 1;
 }
 
-.top-grid > .two {
+.top-grid>.two {
     border-top: 4px solid lightgreen;
 
 }
@@ -230,7 +239,7 @@ main {
     grid-row: 6 / span 1;
 }
 
-.bottom-grid > .six {
+.bottom-grid>.six {
     border-bottom: 4px solid cornflowerblue;
 }
 
@@ -238,18 +247,18 @@ main {
     grid-row: 7 / span 1;
 }
 
-.top-grid > .seven {
+.top-grid>.seven {
     border-bottom: 4px solid lightgreen;
 }
 
-.bottom-grid > .seven {
+.bottom-grid>.seven {
     background-color: transparent !important;
     border: none !important;
 }
 
-.bottom-grid > .seven > p {
+.bottom-grid>.seven>p {
     text-align: center;
-    color:lightsteelblue;
+    color: lightsteelblue;
     font-size: 15px !important;
 }
 
@@ -257,17 +266,18 @@ main {
     grid-column: 1 / span 1;
 }
 
-.top-grid > .a:hover{
+.top-grid>.a:hover {
     cursor: default !important;
 }
 
-.top-grid > .a, .bottom-grid > .a {
+.top-grid>.a,
+.bottom-grid>.a {
     background-color: transparent !important;
     border: none !important;
 }
 
 
-.a > p {
+.a>p {
     text-align: center;
     color: lightsteelblue !important;
     font-size: 15px !important;
@@ -277,12 +287,12 @@ main {
     grid-column: 2 / span 1;
 }
 
-.top-grid > .b {
+.top-grid>.b {
     border-left: 4px solid lightgreen;
 
 }
 
-.bottom-grid > .b {
+.bottom-grid>.b {
     border-left: 4px solid cornflowerblue;
 
 }
@@ -307,17 +317,18 @@ main {
     grid-column: 7 / span 1;
 }
 
-.top-grid > .g {
+.top-grid>.g {
     border-right: 4px solid lightgreen;
 
 }
 
-.bottom-grid > .g {
+.bottom-grid>.g {
     border-right: 4px solid cornflowerblue;
 
 }
 
-#hit, #missed{
+#hit,
+#missed {
     cursor: default !important;
 }
 
@@ -336,13 +347,13 @@ aside {
 
 }
 
-.graveyards{
+.graveyards {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.graveyard{
+.graveyard {
     height: auto;
     width: auto;
     display: grid;
@@ -351,28 +362,28 @@ aside {
     margin: 10px 40px;
 }
 
-.graveyard > div {
+.graveyard>div {
     background-color: red;
     border: 2px solid orange;
 }
 
-.graveyard > .two {
+.graveyard>.two {
     border-top: 4px solid orange;
 }
 
-.graveyard > .six {
+.graveyard>.six {
     border-bottom: 4px solid orange;
 }
 
-.graveyard > .a {
+.graveyard>.a {
     border-left: 4px solid orange;
 }
 
-.graveyard > .b {
+.graveyard>.b {
     border-right: 4px solid orange;
 }
 
-.graveyard > .one {
+.graveyard>.one {
     background-color: darkslategray;
     border: 2px solid darkslategray;
     grid-column: 1 / span 2;
@@ -395,7 +406,10 @@ aside {
     border: 4px solid darkslategray !important;
     background-color: slategray !important;
     display: grid;
-    margin: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 3px;
+    margin-bottom: 3px;
     align-items: normal !important;
 }
 
@@ -450,7 +464,7 @@ aside {
     grid-row: 8 / span 1;
 }
 
-/* ------------------------- Popup ------------------------- */
+/* ------------------------- popup ------------------------- */
 .blankSlate {
     position: fixed;
     top: 0;
@@ -465,7 +479,7 @@ aside {
 
 .popUp {
     position: fixed;
-    width: 60%;
+    width: 80%;
     height: 60%;
     background-color: lightsteelblue;
     display: flex;
@@ -476,9 +490,9 @@ aside {
 }
 
 .popUpH1 {
-    font-size: 35px;
-    padding-bottom: 50px;
-    width: 450px;
+    font-size: 30px;
+    width: 360px;
+    padding-top: 2px;
     text-align: center;
     color: darkslategray;
     background-color: slategray;
@@ -488,29 +502,48 @@ aside {
 
 .popUpP {
     text-align: center;
-    font-size: 30px;
+    font-size: 25px;
     color: slategray;
-    margin-bottom: 45px;
+    margin-bottom: 20px;
 
 }
 
 .endBttn {
     background-color: slategray;
     color: darkslategray;
-    font-size: 30px;
-    width: 275px;
-    margin: 5px;
+    width: 225px;
+}
+
+/* ------------------------- footer ------------------------- */
+footer {
+    width: 100%;
+    margin-top: 30px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.redo {
+    background-color: darkslategray;
+    color: lightsteelblue;
 }
 
 /* ------------------------- media queries ------------------------- */
-/* TODO: Fix div p's when screen is shrunken AND center ships on grid spaces*/
+/* TODO: Fix div p's when screen is shrunken AND center ships on grid spaces AND popups*/
 @media only screen and (min-width: 768px) {
     h1 {
         width: 500px;
+        height: 50px
     }
-    
+
     h3 {
         font-size: 11px;
+    }
+
+    button {
+        font-size: 27px;
+        width: 225px;
+        margin: 5px;
     }
 
     .label {
@@ -523,10 +556,15 @@ aside {
         grid-template-columns: repeat(7, 45px);
         grid-template-rows: repeat(7, 45px);
     }
-    
-    .grid > div {
+
+    .grid>div {
         width: 45px;
         height: 45px;
+    }
+
+    .grid>div>p {
+        font-size: 30px;
+        margin: auto;
     }
 
     .divider {
@@ -535,9 +573,32 @@ aside {
         visibility: visible;
     }
 
-    .graveyard{
+    .graveyard {
         grid-template-columns: repeat(2, 45px);
         grid-template-rows: repeat(6, 45px);
     }
-}
+
+    .ship{
+        margin: 5px;
+    }
+
+    .popUp {
+        width: 60%;
+    }
+
+    .popUpH1 {
+        font-size: 35px;
+        width: 450px;
+        padding-bottom: 55px;
+    }
+
+    .popUpP {
+        font-size: 30px;
+        margin-bottom: 45px;
     
+    }
+
+    .redo {
+        margin-top: 50px;
+    }
+}

@@ -1,26 +1,29 @@
 /* ####################################### Variables ####################################### */
 /* --------------------------------------- Constants --------------------------------------- */
 // - timeOut //a variable set to 3000ms
-let timeOut = 3000;
+let timeOut = 1500;
 let columns = ['.b', '.c', '.d', '.e', '.f', '.g']
 let upperRows = ['.two', '.three', '.four', '.five', '.six', '.seven']
 let bottomRows = ['.one', '.two', '.three', '.four', '.five', '.six']
 
 /* --------------------------------------- DOM Elements --------------------------------------- */
 //body
-bodyEl = document.querySelector('body')
+const bodyEl = document.querySelector('body')
 // - .top-grid
-topGridEl = document.querySelector('.top-grid')
+const topGridEl = document.querySelector('.top-grid')
 // - .bottom-grid
-bottomGridEl = document.querySelector('.bottom-grid')
+const bottomGridEl = document.querySelector('.bottom-grid')
 // - .top-grid > divs
-topGridDivEls = document.querySelectorAll('.top-grid > div')
+const topGridDivEls = document.querySelectorAll('.top-grid > div')
 // - .bottom-grid > divs
-bottomGridDivEls = document.querySelectorAll('.bottom-grid > div')
+const bottomGridDivEls = document.querySelectorAll('.bottom-grid > div')
 // - .ally-grave > .ship
-allyGraveShipEls = document.querySelectorAll('.ally-grave > .ship')
+const allyGraveShipEls = document.querySelectorAll('.ally-grave > .ship')
 // - .enemy-grave > .ship
-enemyGraveShipEls = document.querySelectorAll('.enemy-grave > .ship')
+const enemyGraveShipEls = document.querySelectorAll('.enemy-grave > .ship')
+
+// - .redo
+const redoBttnEl = document.querySelector('.redo')
 
 const blankSlateEl = document.createElement('div')
 const popUpEl = document.createElement('div')
@@ -40,6 +43,7 @@ class Ship {
         this.orientation = orientation;
         this.columnPosition = 0;
         this.rowPosition = 0;
+        //TODO: should you save these one less or one more than what they are to accurately reflect the board?  does that make sense? -NAH you use the undilluted coordinates many times
         this.xCoordinates = [];
         this.yCoordinates = [];
         this.squaresTaken = [];
@@ -128,10 +132,7 @@ class Ship {
         this.rowPosition = 0;
         this.xCoordinates = [];
         this.yCoordinates = [];
-        for (let i = 0; i < this.squaresTaken.length; i++){
-            this.squaresTaken.pop()
-            console.log(this.squaresTaken)
-        }
+        this.squaresTaken = [];
         this.inGraveyard = 'hidden';
         this.cheatSheet = 'No cheating!'
         if (this.onBoard){
@@ -213,6 +214,7 @@ class AllyShip extends Ship {
 
 
 /* --------------------------------------- Sate delcarations --------------------------------------- */
+let instructional;
 let testing;
 let wait;
 let currentEvt;
@@ -271,6 +273,8 @@ function init() {
     topGridDivEls.forEach((div) => {
         div.addEventListener('click', handleClick)
     });
+
+    redoBttnEl.addEventListener('click', resetter)
 
     retryEl.addEventListener('click', resetter)
 
@@ -379,6 +383,9 @@ function renderEnemyGuesses() {
             divPEl.textContent = 'O'
         } else if (div.getAttribute('id') === 'dead') {
             div.style.backgroundColor = 'darkslategray';
+            let divPEl = div.querySelector('p')
+            divPEl.style.color = 'slategray'
+            divPEl.textContent = 'X'
         }
     })
 }
@@ -468,7 +475,6 @@ function renderResetBoard() {
 
 function generateCoordinates(objs) {
     testing = true
-
     for (obj of objs) {
         generateShipsColumn(obj)
         generateShipsRow(obj)
@@ -858,24 +864,22 @@ function resetter() {
 
     for (ship of allyShipArr){
         ship.resetMe()
-        console.log(ship)
     }
+
 
     // allyShipThreeA = new AllyShip('allyShipThreeA', 'ally', 'three', 'a')
     // allyShipThreeB = new AllyShip('allyShipThreeB', 'ally', 'three', 'b')
     // allyShipTwoA = new AllyShip('allyShipTwoA', 'ally', 'two', 'a')
     // allyShipTwoB = new AllyShip('allyShipTwoB', 'ally', 'two', 'b')
 
-    console.log(allyShipArr)
-    generateCoordinates(allyShipArr)
+    // generateCoordinates(allyShipArr)
 
-    for (ship of allyShipArr) {
-        ship.recordSquaresTaken()
-    }
+    // for (ship of allyShipArr) {
+    //     ship.recordSquaresTaken()
+    // }
 
     for (ship of enemyShipArr){
         ship.resetMe()
-        console.log(ship)
     }
 
     // enemyShipThreeA = new Ship('enemyShipThreeA', 'enemy', 'three', 'a');
@@ -883,12 +887,11 @@ function resetter() {
     // enemyShipTwoA = new Ship('enemyShipTwoA', 'enemy', 'two', 'a');
     // enemyShipTwoB = new Ship('enemyShipTwoB', 'enemy', 'two', 'b');
 
-    console.log(enemyShipArr)
-    generateCoordinates(enemyShipArr)
+    // generateCoordinates(enemyShipArr)
 
-    for (ship of enemyShipArr) {
-        ship.recordSquaresTaken()
-    }
+    // for (ship of enemyShipArr) {
+    //     ship.recordSquaresTaken()
+    // }
 
 
     render()
@@ -904,7 +907,7 @@ function cheater() {
     }
 }
 
-function nuclear(){
+function tidalWave(){
     for (square of enemyShipThreeA.squaresTaken){
         square.setAttribute('id','hit')
     }
