@@ -29,6 +29,7 @@ const blankSlateEl = document.createElement('div')
 const popUpEl = document.createElement('div')
 const popUpH1El = document.createElement('h1')
 const popUpPEl = document.createElement('p')
+const okEl = document.createElement('button')
 const retryEl = document.createElement('button')
 const exitEl = document.createElement('button')
 
@@ -127,7 +128,7 @@ class Ship {
         }
     }
 
-    resetMe(){
+    resetMe() {
         this.columnPosition = 0;
         this.rowPosition = 0;
         this.xCoordinates = [];
@@ -135,7 +136,7 @@ class Ship {
         this.squaresTaken = [];
         this.inGraveyard = 'hidden';
         this.cheatSheet = 'No cheating!'
-        if (this.onBoard){
+        if (this.onBoard) {
             this.onBoard = 'visible'
         }
     }
@@ -248,6 +249,7 @@ let enemyShipArr = [enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTw
 //     - render()
 //     - runGame()
 function init() {
+    instructional = true;
     testing = false;
     wait = false;
     winner = false;
@@ -270,6 +272,13 @@ function init() {
         ship.recordSquaresTaken()
     }
 
+    okEl.addEventListener('click',()=>{
+        instructional = false;
+        blankSlateEl.remove()
+        okEl.remove()
+        render();
+    })
+
     topGridDivEls.forEach((div) => {
         div.addEventListener('click', handleClick)
     });
@@ -290,6 +299,7 @@ function init() {
 // - render() //renders all
 
 function render() {
+    renderInstructions();
     if (reset === false) {
         renderAllyShips();
         renderBadGuess();
@@ -299,6 +309,32 @@ function render() {
         renderGameOver();
     } else if (reset === true) {
         renderResetBoard()
+    }
+}
+
+function renderInstructions() {
+    //TODO
+    if (instructional) {
+        blankSlateEl.classList.add('blankSlate')
+        bodyEl.appendChild(blankSlateEl);
+
+        popUpEl.classList.add('popUp')
+
+        popUpH1El.classList.add('popUpH1')
+        popUpPEl.classList.add('popUpP')
+
+        popUpH1El.textContent = 'Attention!';
+        popUpPEl.textContent = 'Click the upper, green board to try and strike down our enemies\' battleships. But beware, they\'ll try and strike down our allies\' ships on the bottom, blue board too!  Now batten down the hatches and get to work!';
+
+        okEl.classList.add('popBttn')
+
+        okEl.textContent = 'Roger, sir!';
+
+        popUpEl.appendChild(popUpH1El);
+        popUpEl.appendChild(popUpPEl);
+        popUpEl.appendChild(okEl);
+
+        blankSlateEl.appendChild(popUpEl);
     }
 }
 
@@ -412,11 +448,11 @@ function renderGameOver() {
             popUpH1El.classList.add('popUpH1')
             popUpPEl.classList.add('popUpP')
 
-            retryEl.classList.add('endBttn')
-            exitEl.classList.add('endBttn')
+            retryEl.classList.add('popBttn')
+            exitEl.classList.add('popBttn')
 
-            retryEl.textContent = 'FIGHT AGAIN';
-            exitEl.textContent = 'SURRENDER';
+            retryEl.textContent = 'Fight again';
+            exitEl.textContent = 'Surrender';
 
             if (champion === 'allies') {
                 popUpH1El.textContent = 'Your allies won!';
@@ -459,6 +495,8 @@ function renderResetBoard() {
         })
 
         blankSlateEl.remove()
+        retryEl.remove()
+        exitEl.remove()
 
         for (ship of allyShipArr) {
             ship.inGraveyard = 'hidden'
@@ -481,37 +519,17 @@ function generateCoordinates(objs) {
     }
 
     while (testing) {
-        if (testCoordinates(objs, 0, 1)) {
-            reassignCoordinates(objs, 0, 1)
-            testing = true;
+
+        for (let i = 0; i < objs.length; i++) {
+            for (let j = i + 1; j < objs.length; j++) {
+                if (testCoordinates(objs, i, j)) {
+                    reassignCoordinates(objs, i, j)
+                    testing = true;
+                }
+            }
         }
 
-        if (testCoordinates(objs, 0, 2)) {
-            reassignCoordinates(objs, 0, 2)
-            testing = true;
-        }
-
-        if (testCoordinates(objs, 0, 3)) {
-            reassignCoordinates(objs, 0, 3)
-            testing = true;
-        }
-
-        if (testCoordinates(objs, 1, 2)) {
-            reassignCoordinates(objs, 1, 2)
-            testing = true;
-        }
-
-        if (testCoordinates(objs, 1, 3)) {
-            reassignCoordinates(objs, 1, 3)
-            testing = true;
-        }
-
-        if (testCoordinates(objs, 2, 3)) {
-            reassignCoordinates(objs, 2, 3)
-            testing = true;
-        }
-
-        if (!finalTestCoordinates(objs)) {
+        if (finalTestCoordinates(objs)) {
             testing = false;
         }
     };
@@ -671,18 +689,18 @@ function finalTestCoordinates(objs) {
     for (let i = 0; i < objs.length; i++) {
         for (let j = i + 1; j < objs.length; j++) {
             if ((objs[i].yCoordinates[0] === objs[j].yCoordinates[0] || objs[i].yCoordinates[1] === objs[j].yCoordinates[1]) || (objs[i].xCoordinates[0] === objs[j].xCoordinates[0] || objs[i].xCoordinates[1] === objs[j].xCoordinates[1])) {
-                return true
+                return false
             }
         }
     }
 
     if ((middleY === objs[1].yCoordinates[0] || middleY === objs[1].yCoordinates[1]) || (middleX === objs[0].xCoordinates[0] || middleX === objs[0].xCoordinates[1])) {
-        return true
+        return false
     }
 
     for (let i = 1; i < objs.length; i++) {
         if ((middleY === objs[i].yCoordinates[0] || middleY === objs[i].yCoordinates[1]) || (objs[0].xCoordinates[0] === objs[i].xCoordinates[0] || objs[0].xCoordinates[1] === objs[i].xCoordinates[1])) {
-            return true
+            return false
         }
     }
 
@@ -691,12 +709,12 @@ function finalTestCoordinates(objs) {
             continue
         } else {
             if ((objs[1].yCoordinates[0] === objs[0].yCoordinates[0] || objs[1].yCoordinates[1] === objs[0].yCoordinates[1]) || (middleX === objs[i].xCoordinates[0] || middleX === objs[i].xCoordinates[1])) {
-                return true
+                return false
             }
         }
     }
 
-    return false
+    return true
 }
 
 //generates random positions to stored for the enemy ships upon initialization
@@ -854,45 +872,21 @@ function resetter() {
     enemyGuessesLog = []
     badGuess = false;
 
-    topGridDivEls.forEach((div)=>{
+    topGridDivEls.forEach((div) => {
         div.removeAttribute('id')
     })
 
-    bottomGridDivEls.forEach((div)=>{
+    bottomGridDivEls.forEach((div) => {
         div.removeAttribute('id')
     })
 
-    for (ship of allyShipArr){
+    for (ship of allyShipArr) {
         ship.resetMe()
     }
 
-
-    // allyShipThreeA = new AllyShip('allyShipThreeA', 'ally', 'three', 'a')
-    // allyShipThreeB = new AllyShip('allyShipThreeB', 'ally', 'three', 'b')
-    // allyShipTwoA = new AllyShip('allyShipTwoA', 'ally', 'two', 'a')
-    // allyShipTwoB = new AllyShip('allyShipTwoB', 'ally', 'two', 'b')
-
-    // generateCoordinates(allyShipArr)
-
-    // for (ship of allyShipArr) {
-    //     ship.recordSquaresTaken()
-    // }
-
-    for (ship of enemyShipArr){
+    for (ship of enemyShipArr) {
         ship.resetMe()
     }
-
-    // enemyShipThreeA = new Ship('enemyShipThreeA', 'enemy', 'three', 'a');
-    // enemyShipThreeB = new Ship('enemyShipThreeB', 'enemy', 'three', 'b');
-    // enemyShipTwoA = new Ship('enemyShipTwoA', 'enemy', 'two', 'a');
-    // enemyShipTwoB = new Ship('enemyShipTwoB', 'enemy', 'two', 'b');
-
-    // generateCoordinates(enemyShipArr)
-
-    // for (ship of enemyShipArr) {
-    //     ship.recordSquaresTaken()
-    // }
-
 
     render()
 
@@ -907,21 +901,24 @@ function cheater() {
     }
 }
 
-function tidalWave(){
-    for (square of enemyShipThreeA.squaresTaken){
-        square.setAttribute('id','hit')
+function tidalWave() {
+    for (ship of enemyShipArr) {
+        for (square of ship.squaresTaken) {
+            square.setAttribute('id', 'hit')
+        }
     }
 
-    for (square of enemyShipThreeB.squaresTaken){
-        square.setAttribute('id','hit')
-    }
+    checkShips(allyShipArr)
+    checkShips(enemyShipArr)
+    determineWinner();
+    render();
+}
 
-    for (square of enemyShipTwoA.squaresTaken){
-        square.setAttribute('id','hit')
-    }
-
-    for (square of enemyShipTwoB.squaresTaken){
-        square.setAttribute('id','hit')
+function sabotage() {
+    for (ship of allyShipArr) {
+        for (square of ship.squaresTaken) {
+            square.setAttribute('id', 'hit')
+        }
     }
 
     checkShips(allyShipArr)

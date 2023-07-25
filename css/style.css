@@ -505,10 +505,11 @@ aside {
     font-size: 25px;
     color: slategray;
     margin-bottom: 20px;
+    padding: 0 20px;
 
 }
 
-.endBttn {
+.popBttn {
     background-color: slategray;
     color: darkslategray;
     width: 225px;
