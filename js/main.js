@@ -53,7 +53,7 @@ class Ship {
             squareOne = document.querySelector(`.bottom-grid > ${bottomRows[this.rowPosition - 1]}${columns[this.columnPosition - 2]}`);
             squareOne.setAttribute('id', 'taken')
             this.squaresTaken.push(squareOne)
-            if (this.size === 'two') {
+            if (this.size === 2) {
                 if (this.orientation === 'a') {
                     squareTwo = document.querySelector(`.bottom-grid > ${bottomRows[this.rowPosition]}${columns[this.columnPosition - 2]}`);
                     squareTwo.setAttribute('id', 'taken')
@@ -63,7 +63,7 @@ class Ship {
                     squareTwo.setAttribute('id', 'taken')
                     this.squaresTaken.push(squareTwo)
                 }
-            } else if (this.size === 'three') {
+            } else if (this.size === 3) {
                 if (this.orientation === 'a') {
                     squareTwo = document.querySelector(`.bottom-grid > ${bottomRows[this.rowPosition]}${columns[this.columnPosition - 2]}`);
                     squareTwo.setAttribute('id', 'taken')
@@ -87,7 +87,7 @@ class Ship {
             squareOne = document.querySelector(`.top-grid > ${upperRows[this.rowPosition - 2]}${columns[this.columnPosition - 2]}`);
             squareOne.setAttribute('id', 'taken')
             this.squaresTaken.push(squareOne)
-            if (this.size === 'two') {
+            if (this.size === 2) {
                 if (this.orientation === 'a') {
                     squareTwo = document.querySelector(`.top-grid > ${upperRows[this.rowPosition - 1]}${columns[this.columnPosition - 2]}`);
                     squareTwo.setAttribute('id', 'taken')
@@ -97,7 +97,7 @@ class Ship {
                     squareTwo.setAttribute('id', 'taken')
                     this.squaresTaken.push(squareTwo)
                 }
-            } else if (this.size === 'three') {
+            } else if (this.size === 3) {
                 if (this.orientation === 'a') {
                     squareTwo = document.querySelector(`.top-grid > ${upperRows[this.rowPosition - 1]}${columns[this.columnPosition - 2]}`);
                     squareTwo.setAttribute('id', 'taken')
@@ -130,6 +130,7 @@ class Ship {
         this.cheatSheet = 'No cheating!'
         if (this.onBoard) {
             this.onBoard = 'visible'
+            this.beenHit = false;
         }
     }
 }
@@ -139,6 +140,7 @@ class AllyShip extends Ship {
     constructor(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard) {
         super(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard);
         this.onBoard = 'visible';
+        this.beenHit = false;
     }
 
     //build the div and adds it to the board when called upon
@@ -161,7 +163,7 @@ class AllyShip extends Ship {
         this.divEl.style.display = 'grid';
 
         //TODO customize column and row template sizes based on this.name which indicates vertical or horizontal ships
-        if (this.size === 'three' && this.orientation === 'a') {
+        if (this.size === 3 && this.orientation === 'a') {
             this.divEl.style.gridTemplateColumns = 'repeat(3, 1fr)';
             this.divEl.style.gridTemplateRows = 'repeat(9, 1fr)';
             this.divEl.style.gridColumn = `${this.columnPosition} / span 1`;
@@ -169,14 +171,14 @@ class AllyShip extends Ship {
             buildPipe(pipeOneEl, 2, 2, this);
             buildPipe(pipeTwoEl, 2, 5, this);
             buildPipe(pipeThreeEl, 2, 8, this);
-        } else if (this.size === 'two' && this.orientation === 'a') {
+        } else if (this.size === 2 && this.orientation === 'a') {
             this.divEl.style.gridTemplateColumns = 'repeat(3, 1fr)';
             this.divEl.style.gridTemplateRows = 'repeat(6, 1fr)';
             this.divEl.style.gridColumn = `${this.columnPosition} / span 1`;
             this.divEl.style.gridRow = `${this.rowPosition} / span 2`
             buildPipe(pipeOneEl, 2, 2, this);
             buildPipe(pipeTwoEl, 2, 5, this);
-        } else if (this.size === 'three' && this.orientation === 'b') {
+        } else if (this.size === 3 && this.orientation === 'b') {
             this.divEl.style.gridTemplateColumns = 'repeat(9, 1fr)';
             this.divEl.style.gridTemplateRows = 'repeat(3, 1fr)';
             this.divEl.style.gridColumn = `${this.columnPosition} / span 3`;
@@ -184,7 +186,7 @@ class AllyShip extends Ship {
             buildPipe(pipeOneEl, 2, 2, this);
             buildPipe(pipeTwoEl, 5, 2, this);
             buildPipe(pipeThreeEl, 8, 2, this);
-        } else if (this.size === 'two' && this.orientation === 'b') {
+        } else if (this.size === 2 && this.orientation === 'b') {
             this.divEl.style.gridTemplateColumns = 'repeat(6, 1fr)';
             this.divEl.style.gridTemplateRows = 'repeat(3, 1fr)';
             this.divEl.style.gridColumn = `${this.columnPosition} / span 2`;
@@ -214,18 +216,17 @@ let currentEvt; //used in handleClick to pass on the current evt of a click even
 let winner; //a boolean variable that tells if someone has won the game
 let champion; //an empty string that will hold the name of who wins, 'allies' or 'enemies'
 let reset; //a boolean variable used in renderReset() to tell if it should render a reset board
-let enemyGuessesLog; //an array of what coordinates the computer has already guessed held in strings
 let badGuess; //a boolean variable marked true if the player guessed a square they had already guessed
 
-let allyShipThreeA = new AllyShip('allyShipThreeA', 'ally', 'three', 'a') //creates an ally ship, three spaces big vertically
-let allyShipThreeB = new AllyShip('allyShipThreeB', 'ally', 'three', 'b') //creates an ally ship, three spaces big horizontally
-let allyShipTwoA = new AllyShip('allyShipTwoA', 'ally', 'two', 'a') //creates an ally ship, two spaces big vertically
-let allyShipTwoB = new AllyShip('allyShipTwoB', 'ally', 'two', 'b') //creates an ally ship, two spaces big horizontally
+let allyShipThreeA = new AllyShip('allyShipThreeA', 'ally', 3, 'a') //creates an ally ship, three spaces big vertically
+let allyShipThreeB = new AllyShip('allyShipThreeB', 'ally', 3, 'b') //creates an ally ship, three spaces big horizontally
+let allyShipTwoA = new AllyShip('allyShipTwoA', 'ally', 2, 'a') //creates an ally ship, two spaces big vertically
+let allyShipTwoB = new AllyShip('allyShipTwoB', 'ally', 2, 'b') //creates an ally ship, two spaces big horizontally
 
-let enemyShipThreeA = new Ship('enemyShipThreeA', 'enemy', 'three', 'a'); //creates an enemy ship, three spaces big vertically
-let enemyShipThreeB = new Ship('enemyShipThreeB', 'enemy', 'three', 'b'); //creates an enemy ship, three spaces big horizontally
-let enemyShipTwoA = new Ship('enemyShipTwoA', 'enemy', 'two', 'a'); //creates an enemy ship, two spaces big vertically
-let enemyShipTwoB = new Ship('enemyShipTwoB', 'enemy', 'two', 'b'); //creates an alenemyly ship, two spaces big horizontally
+let enemyShipThreeA = new Ship('enemyShipThreeA', 'enemy', 3, 'a'); //creates an enemy ship, three spaces big vertically
+let enemyShipThreeB = new Ship('enemyShipThreeB', 'enemy', 3, 'b'); //creates an enemy ship, three spaces big horizontally
+let enemyShipTwoA = new Ship('enemyShipTwoA', 'enemy', 2, 'a'); //creates an enemy ship, two spaces big vertically
+let enemyShipTwoB = new Ship('enemyShipTwoB', 'enemy', 2, 'b'); //creates an alenemyly ship, two spaces big horizontally
 
 let allyShipArr = [allyShipThreeA, allyShipThreeB, allyShipTwoA, allyShipTwoB] //puts all of the ally ships in an array for easy, iteratable access
 let enemyShipArr = [enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTwoB] //puts all of the enemy ships in an array for easy, iteratable access
@@ -241,7 +242,6 @@ function init() {
     winner = false;
     champion = '';
     reset = false;
-    enemyGuessesLog = []
     badGuess = false;
 
 
@@ -262,7 +262,7 @@ function init() {
     }
 
     //adds an event listner to the confirmation button in the instructional popup that stops renderInstructions, removes the popup and its confirmation buutton and then renders it all
-    okEl.addEventListener('click',()=>{
+    okEl.addEventListener('click', () => {
         instructional = false;
         blankSlateEl.remove()
         okEl.remove()
@@ -292,7 +292,8 @@ function init() {
 /* --------------------------------------- Render --------------------------------------- */
 // runs all render functions
 function render() {
-    renderInstructions();
+    //TODO
+    //renderInstructions();
     if (reset === false) {
         renderAllyShips();
         renderBadGuess();
@@ -355,7 +356,7 @@ function renderBadGuess() {
                     currentEvt.target.parentElement.style.backgroundColor = 'forestgreen'
                     currentEvt.target.style.color = 'lightgreen'
                 }
-                
+
             }, timeOut)
 
         } else {
@@ -465,20 +466,26 @@ function renderGameOver() {
 function renderReset() {
     if (reset === true) {
         topGridDivEls.forEach((div) => {
-            if (!div.getAttribute('class').includes('one') && !div.getAttribute('class').includes('a')) {
+            if (div.getAttribute('id') !== 'dont') {
                 div.style.backgroundColor = 'forestgreen'
                 let divPEl = div.querySelector('p')
-                divPEl.style.color = 'lightgreen'
-                divPEl.textContent = ''
+                if (divPEl) {
+                    console.log(divPEl)
+                    divPEl.style.color = 'lightgreen'
+                    divPEl.textContent = ''
+                }
             }
 
         })
 
         bottomGridDivEls.forEach((div) => {
-            if (!div.getAttribute('class').includes('seven') && !div.getAttribute('class').includes('a')) {
+            if (div.getAttribute('id') !== 'dont') {
                 div.style.backgroundColor = 'lightskyblue'
                 let divPEl = div.querySelector('p')
-                divPEl.textContent = ''
+                if (divPEl) {
+                    divPEl.style.color = 'cornflowerblue'
+                    divPEl.textContent = ''
+                }
             }
 
         })
@@ -533,9 +540,9 @@ function generateCoordinates(objs) {
 //generates random column positions within the boundries of the grids and runs storeXCoordinates to store them
 function generateShipsColumn(obj) {
     let returnNum;
-    if (obj.size === 'three' && obj.orientation == 'b') {
+    if (obj.size === 3 && obj.orientation == 'b') {
         returnNum = Math.floor(Math.random() * 6)
-    } else if (obj.size === 'two' && obj.orientation == 'b') {
+    } else if (obj.size === 2 && obj.orientation == 'b') {
         returnNum = Math.floor(Math.random() * 7)
     } else {
         returnNum = Math.floor(Math.random() * 8)
@@ -552,9 +559,9 @@ function generateShipsColumn(obj) {
 function generateShipsRow(obj) {
     let returnNum;
     if (obj.alliance === 'ally') {
-        if (obj.size === 'three' && obj.orientation == 'a') {
+        if (obj.size === 3 && obj.orientation == 'a') {
             returnNum = Math.floor(Math.random() * 5)
-        } else if (obj.size === 'two' && obj.orientation == 'a') {
+        } else if (obj.size === 2 && obj.orientation == 'a') {
             returnNum = Math.floor(Math.random() * 6)
         } else {
             returnNum = Math.floor(Math.random() * 7)
@@ -564,9 +571,9 @@ function generateShipsRow(obj) {
             return generateShipsRow(obj);
         }
     } else if (obj.alliance === 'enemy') {
-        if (obj.size === 'three' && obj.orientation == 'a') {
+        if (obj.size === 3 && obj.orientation == 'a') {
             returnNum = Math.floor(Math.random() * 6)
-        } else if (obj.size === 'two' && obj.orientation == 'a') {
+        } else if (obj.size === 2 && obj.orientation == 'a') {
             returnNum = Math.floor(Math.random() * 7)
         } else {
             returnNum = Math.floor(Math.random() * 8)
@@ -585,10 +592,10 @@ function storeXCoordinates(obj, xStart) {
     if (obj.orientation == 'a') {
         obj.xCoordinates.push(xStart)
         obj.xCoordinates.push(xStart)
-    } else if (obj.size === 'three' && obj.orientation == 'b') {
+    } else if (obj.size === 3 && obj.orientation == 'b') {
         obj.xCoordinates.push(xStart)
         obj.xCoordinates.push(xStart + 2)
-    } else if (obj.size === 'two' && obj.orientation == 'b') {
+    } else if (obj.size === 2 && obj.orientation == 'b') {
         obj.xCoordinates.push(xStart)
         obj.xCoordinates.push(xStart + 1)
     }
@@ -599,10 +606,10 @@ function storeYCoordinates(obj, yStart) {
     if (obj.orientation === 'b') {
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart);
-    } else if (obj.size === 'three' && obj.orientation == 'a') {
+    } else if (obj.size === 3 && obj.orientation == 'a') {
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart + 2);
-    } else if (obj.size === 'two' && obj.orientation == 'a') {
+    } else if (obj.size === 2 && obj.orientation == 'a') {
         obj.yCoordinates.push(yStart);
         obj.yCoordinates.push(yStart + 1);
     }
@@ -629,7 +636,7 @@ function testCoordinates(objs, one, two) {
         return true
     }
 
-    if ((objs[one].size === "three" && objs[one].orientation === "a") && (objs[two].size === "three" && objs[two].orientation === "b")) {
+    if ((objs[one].size === 3 && objs[one].orientation === 'a') && (objs[two].size === 3 && objs[two].orientation === 'b')) {
         middleY = objs[one].yCoordinates[0] + 1;
         middleX = objs[two].xCoordinates[0] + 1;
 
@@ -638,28 +645,28 @@ function testCoordinates(objs, one, two) {
         }
     }
 
-    if (objs[one].size === "three" && objs[one].orientation === "a") {
+    if (objs[one].size === 3 && objs[one].orientation === 'a') {
         middleY = objs[one].yCoordinates[0] + 1;
         if ((middleY === objs[two].yCoordinates[0] || middleY === objs[two].yCoordinates[1]) || (objs[two].xCoordinates[0] === objs[one].xCoordinates[0] || objs[two].xCoordinates[1] === objs[one].xCoordinates[1])) {
             return true
         }
     }
 
-    if (objs[two].size === "three" && objs[two].orientation === "a") {
+    if (objs[two].size === 3 && objs[two].orientation === 'a') {
         middleY = objs[two].yCoordinates[0] + 1;
         if ((middleY === objs[one].yCoordinates[0] || middleY === objs[one].yCoordinates[1]) || (objs[two].xCoordinates[0] === objs[one].xCoordinates[0] || objs[two].xCoordinates[1] === objs[one].xCoordinates[1])) {
             return true
         }
     }
 
-    if (objs[one].size === "three" && objs[one].orientation === "b") {
+    if (objs[one].size === 3 && objs[one].orientation === 'b') {
         middleX = objs[one].xCoordinates[0] + 1;
         if ((objs[two].yCoordinates[0] === objs[one].yCoordinates[0] || objs[two].yCoordinates[1] === objs[one].yCoordinates[1]) || (middleX === objs[two].xCoordinates[0] || middleX === objs[two].xCoordinates[1])) {
             return true
         }
     }
 
-    if (objs[two].size === "three" && objs[two].orientation === "b") {
+    if (objs[two].size === 3 && objs[two].orientation === 'b') {
         middleX = objs[two].xCoordinates[0] + 1;
         if ((objs[two].yCoordinates[0] === objs[one].yCoordinates[0] || objs[two].yCoordinates[1] === objs[one].yCoordinates[1]) || (middleX === objs[one].xCoordinates[0] || middleX === objs[one].xCoordinates[1])) {
             return true
@@ -759,6 +766,7 @@ function checkShips(objs) {
             obj.inGraveyard = 'visible'
             if (obj.alliance === 'ally') {
                 obj.onBoard = 'hidden'
+                obj.beenHit = false;
             }
         }
     }
@@ -773,49 +781,51 @@ function enemyGuesses() {
     wait = false;
 }
 
-//sets xPositionGuess and yPositionGuess to generateEnemyColumnGuess()'s return value and generateEnemyRowGuess()'s respectively.  It then captures the guessedSquarew with querySelector and log's its position in a string.  It then checks if enemyGuessLog contains that guess, and if it does not it sets the div to hit or missed (depending if it was taken or not) and adds the log to the enemyGuessesLog.  If log was in the enemeyGuessLog, it runs it through the entire log, making sure the board isnt filled.  If it isnt filled, allDone is set to false and the inner loop is broken.  The outer loop checks if allDone is false and if it is, the outer loop is broken too.  If allDone is false, meaning the board isnt filled but the guess was already logged, the function runs itself, generateEnemyGuess, to try again.
+//sets xPositionGuess and yPositionGuess to generateEnemyColumnGuess()'s return value and generateEnemyRowGuess()'s respectively.  Then it checks if any ships had been hit.  If so, it sets guessedSquare to one of the hit ships' divs.  Otherwise it then captures the guessedSquarew with querySelector and log's its position in a string.  It then checks if the div is null or 'taken', and if it matches those criterea it sets the div to hit or missed (depending if it was taken or not).  If log was in the enemeyGuessLog or it's ID wans't null or taken, it runs it through the entire log, making sure the board isnt filled.  If it isnt filled, allDone is set to false and the inner loop is broken.  The outer loop checks if allDone is false and if it is, the outer loop is broken too.  If allDone is false, meaning the board isnt filled but the guess was already logged, the function runs itself, generateEnemyGuess, to try again.
 function generateEnemyGuess() {
+
     let xPositionGuess = generateEnemyColumnGuess()
     let yPositionGuess = generateEnemyRowGuess()
+    let gottem = false;
+    let guessedSquare;
 
-    let guessedSquare = document.querySelector(`.bottom-grid > ${bottomRows[xPositionGuess - 2]}${columns[yPositionGuess - 1]}`);
-
-    let log = [xPositionGuess - 2, yPositionGuess - 1].join('')
-
-    if (!enemyGuessesLog.includes(log)) {
-        if (guessedSquare.getAttribute('id') === 'taken') {
-            guessedSquare.setAttribute('id', 'hit');
-        } else {
-            guessedSquare.setAttribute('id', 'missed');
-        }
-
-        enemyGuessesLog.push(log)
-    } else {
-        let allDone;
-        let testLog;
-
-        for (let i = 0; i <= 5; i++) {
-            for (let j = 0; j <= 5; j++) {
-                testLog = [i, j].join('')
-
-                if (!enemyGuessesLog.includes(testLog)) {
-                    allDone = false;
-                    break
-                } else {
-                    allDone = true
-                }
-            }
-
-            if (allDone === false) {
-                break
-            }
-        }
-
-        if (allDone === false) {
-            generateEnemyGuess()
+    for (ship of allyShipArr) {
+        if (ship.beenHit === true) {
+            gottem = true
+            let randomDiv = Math.floor(Math.random() * ship.size)
+            guessedSquare = ship.squaresTaken[randomDiv]
         }
     }
 
+    if (!gottem) {
+        guessedSquare = document.querySelector(`.bottom-grid > ${bottomRows[xPositionGuess - 2]}${columns[yPositionGuess - 1]}`);
+    }
+
+    if ((guessedSquare.getAttribute('id') === null || guessedSquare.getAttribute('id') === 'taken')) {
+        if (guessedSquare.getAttribute('id') === 'taken') {
+            guessedSquare.setAttribute('id', 'hit');
+
+            for (ship of allyShipArr) {
+                if (ship.squaresTaken.includes(guessedSquare)) {
+                    ship.beenHit = true;
+                }
+            }
+
+        } else {
+            guessedSquare.setAttribute('id', 'missed');
+        }
+    } else {
+        let allDone;
+
+        for (div of bottomGridDivEls) {
+            if (div.getAttribute('id') !== null)
+                allDone = false;
+        }
+
+        if (allDone === false) {
+            generateEnemyGuess();
+        };
+    }
 }
 
 //returns a random column number within board bounds
@@ -856,7 +866,7 @@ function determineWinner() {
     }
 }
 
-// resetter sents the variable reset to be true, resets testing, wait, winner, champion, enemyGuessesLog, and badGuess to their init states.  It then removes all IDs from the grid divs and runs resetMe on the ally and enemy ships.  Then it renders, sets reset variable to false, and initializes.
+// resetter sents the variable reset to be true, resets testing, wait, winner, champion, and badGuess to their init states.  It then removes all IDs from the grid divs and runs resetMe on the ally and enemy ships.  Then it renders, sets reset variable to false, and initializes.
 function resetter() {
     reset = true;
 
@@ -864,15 +874,20 @@ function resetter() {
     wait = false;
     winner = false;
     champion = '';
-    enemyGuessesLog = []
     badGuess = false;
 
     topGridDivEls.forEach((div) => {
-        div.removeAttribute('id')
+        if (div.getAttribute('id') !== 'dont') {
+            console.log(div)
+            console.log(div.getAttribute('id'))
+            div.removeAttribute('id')
+        }
     })
 
     bottomGridDivEls.forEach((div) => {
-        div.removeAttribute('id')
+        if (div.getAttribute('id') !== 'dont') {
+            div.removeAttribute('id')
+        }
     })
 
     for (ship of allyShipArr) {

@@ -49,7 +49,7 @@ button:hover {
 
 /* ------------------------- body ------------------------- */
 body {
-    width: 100vw;
+    width: 100%;
     height: auto;
     position: absolute;
     top: 0;
@@ -73,6 +73,7 @@ main {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 /* ------------------------- both boards ------------------------- */
@@ -99,8 +100,8 @@ main {
 }
 
 .grid>div {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,8 +110,6 @@ main {
 .grid>div>p {
     text-align: center;
     font-size: 25px;
-    margin-right: 1px;
-    margin-top: 22px;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -191,19 +190,19 @@ main {
 }
 
 /* ------------------------- all grids ------------------------- */
-.one {
-    grid-row: 1 / span 1;
+#dont {
+    background-color: transparent !important;
+    border: none !important;
 }
 
-.top-grid>.one>p {
+#dont > p {
     text-align: center;
     color: lightsteelblue !important;
     font-size: 15px !important;
 }
 
-.top-grid>.one {
-    background-color: transparent !important;
-    border: none !important;
+.one {
+    grid-row: 1 / span 1;
 }
 
 .top-grid>.one:hover {
@@ -252,36 +251,12 @@ main {
     border-bottom: 4px solid lightgreen;
 }
 
-.bottom-grid>.seven {
-    background-color: transparent !important;
-    border: none !important;
-}
-
-.bottom-grid>.seven>p {
-    text-align: center;
-    color: lightsteelblue;
-    font-size: 15px !important;
-}
-
 .a {
     grid-column: 1 / span 1;
 }
 
 .top-grid>.a:hover {
     cursor: default !important;
-}
-
-.top-grid>.a,
-.bottom-grid>.a {
-    background-color: transparent !important;
-    border: none !important;
-}
-
-
-.a>p {
-    text-align: center;
-    color: lightsteelblue !important;
-    font-size: 15px !important;
 }
 
 .b {
@@ -335,7 +310,7 @@ main {
 
 /* ------------------------- divider ------------------------- */
 .divider {
-    height: 650px;
+    height: auto;
     visibility: collapse;
     background-color: darkslategray;
 }
@@ -529,13 +504,14 @@ aside {
 /* ------------------------- footer ------------------------- */
 footer {
     width: 100%;
-    margin-top: 30px;
-    height: auto;
+    height: 50px;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
 }
 
 .redo {
+    margin: 0 !important;
     background-color: darkslategray;
     color: lightsteelblue;
 }
@@ -564,6 +540,10 @@ footer {
         margin: 0;
     }
 
+    #dont > p {
+        font-size: 20px !important;
+    }
+
     .grid {
         grid-template-columns: repeat(7, 45px);
         grid-template-rows: repeat(7, 45px);
@@ -580,8 +560,8 @@ footer {
     }
 
     .divider {
-        height: 650px;
         width: 10px;
+        height: 500px;
         visibility: visible;
     }
 
