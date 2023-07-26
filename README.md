@@ -33,6 +33,10 @@ A battleship game facing off against a computer enemy.  Guess where your enemy's
 2. [MDN Wed Docs](https://developer.mozilla.org/en-US/)
 3. [Stack Overflow](https://stackoverflow.com/)
 4. [Original planning doc](./docs/planning.md)
+5. [Freesoung.org](https://freesound.org/)
+- [Start whistle](https://freesound.org/people/LudwigMueller/sounds/548549/)
+- [Hit beep](https://freesound.org/people/Raclure/sounds/405546/)
+- [Miss bum](https://freesound.org/people/plasterbrain/sounds/423169/)
 
 
 ## Getting Started
