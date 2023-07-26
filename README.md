@@ -4,8 +4,20 @@ A battleship game facing off against a computer opponent.  Made using HTML, CSS,
 
 
 ## Gameplay - Screenshots
-![Starting board](/assets/screenshot1.png)
+### Instructions
+![Instructions](/assets/Instruction-Screenshot.png)
 
+### Starting board
+![Starting board](/assets/Start-Screenshot.png)
+
+### In-progress game
+![In-Progress Game](/assets/In-Progress-Screenshot.png)
+
+### Won game
+![Won Game](/assets/Won-Screenshot.png)
+
+### Lost game
+![Lost Game](/assets/Lost-Screenshot.png)
 
 ## Techonologies Used
 - HTML
@@ -17,18 +29,16 @@ A battleship game facing off against a computer opponent.  Made using HTML, CSS,
 1. [W3 Schools](https://www.w3schools.com/)
 2. [MDN Wed Docs](https://developer.mozilla.org/en-US/)
 3. [Stack Overflow](https://stackoverflow.com/)
-4. [cross-document-link](./docs/planning.md)
+4. [Original planning doc](./docs/planning.md)
 
 
 ## Getting Started
 Instructions for accessing deployed game or ways to contribute to an open source game.
 
 ## Future Features
-1. A pop up of instructions
-2. Text declares a hit or miss
-3. A loading screen while the computer "thinks" of its next move.
-4. If the computer hits, its next guess will be based around the four surrounding squares it hit in
-5. The ability for a user to position their own ships.
+1. Text declaring a hit or miss.
+2. A loading animation while the computer "thinks" of its next move.
+3. The ability for a user to position their own ships.
 
 <!-- A README.md file with these sections:
 

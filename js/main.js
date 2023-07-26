@@ -292,8 +292,7 @@ function init() {
 /* --------------------------------------- Render --------------------------------------- */
 // runs all render functions
 function render() {
-    //TODO
-    //renderInstructions();
+    renderInstructions();
     if (reset === false) {
         renderAllyShips();
         renderBadGuess();
@@ -322,7 +321,7 @@ function renderInstructions() {
 
         okEl.classList.add('popBttn')
 
-        okEl.textContent = 'Roger, sir!';
+        okEl.textContent = 'Roger, ma\'am!';
 
         popUpEl.appendChild(popUpH1El);
         popUpEl.appendChild(popUpPEl);
@@ -470,7 +469,6 @@ function renderReset() {
                 div.style.backgroundColor = 'forestgreen'
                 let divPEl = div.querySelector('p')
                 if (divPEl) {
-                    console.log(divPEl)
                     divPEl.style.color = 'lightgreen'
                     divPEl.textContent = ''
                 }
@@ -878,8 +876,6 @@ function resetter() {
 
     topGridDivEls.forEach((div) => {
         if (div.getAttribute('id') !== 'dont') {
-            console.log(div)
-            console.log(div.getAttribute('id'))
             div.removeAttribute('id')
         }
     })
