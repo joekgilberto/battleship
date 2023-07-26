@@ -40,7 +40,7 @@ A battleship game facing off against a computer enemy.  Guess where your enemy's
 
 
 ## Getting Started
-Instructions for accessing deployed game or ways to contribute to an open source game.
+Instructions for accessing deployed game or ways to contribute to an open source game.  Go by a user story, 'user clicks square, user waits, yadda yadda'
 
 ## Future Features
 1. Text declaring a hit or miss.
