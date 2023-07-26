@@ -13,7 +13,7 @@ h1 {
     background-color: darkslategray;
     width: 300px;
     height:48px;
-    line-height: 1.5;
+    border: 4px solid lightsteelblue;
 }
 
 h1,
@@ -463,17 +463,21 @@ aside {
     align-items: center;
     justify-content: center;
     z-index: 10;
+    border: 10px solid darkslategray;
+
 }
 
 .popUpH1 {
     font-size: 30px;
     width: 360px;
     padding-top: 2px;
+    padding-bottom: 42px;
     text-align: center;
     color: darkslategray;
     background-color: slategray;
     margin-top: 0;
     margin-bottom: 0;
+    border: 4px solid darkslategray;
 }
 
 .popUpP {
@@ -482,19 +486,13 @@ aside {
     color: slategray;
     margin-bottom: 20px;
     padding: 0 20px;
-
 }
 
 .popBttn {
     background-color: slategray;
     color: darkslategray;
     width: 225px;
-}
-
-.popBttn {
-    background-color: slategray;
-    color: darkslategray;
-    width: 225px;
+    border: 4px solid darkslategray;
 }
 
 .popBttn:hover {
@@ -514,6 +512,20 @@ footer {
     margin: 0 !important;
     background-color: darkslategray;
     color: lightsteelblue;
+    border: 4px solid lightsteelblue;
+}
+
+/* ------------------------- hit, miss, dead ------------------------- */
+#hit {
+    background-color: red;
+}
+
+#dead {
+    background-color: darkslategray;
+}
+
+#dead > p {
+    color: slategray;
 }
 
 /* ------------------------- media queries ------------------------- */
@@ -582,6 +594,7 @@ footer {
         font-size: 35px;
         width: 450px;
         padding-bottom: 55px;
+        padding-top: 10px;
     }
 
     .popUpP {
@@ -594,3 +607,5 @@ footer {
         margin-top: 50px;
     }
 }
+
+/* TODO make selectors for IDs hit, missed, and dead to style them */

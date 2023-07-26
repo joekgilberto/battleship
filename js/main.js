@@ -347,13 +347,13 @@ function renderBadGuess() {
 
             setTimeout(() => {
                 if (currentEvt.target.parentElement.getAttribute('id') === 'hit') {
-                    currentEvt.target.parentElement.style.backgroundColor = 'red'
+                    currentEvt.target.parentElement.style.backgroundColor = 'null'
                 } else if (currentEvt.target.parentElement.getAttribute('id') === 'dead') {
-                    currentEvt.target.parentElement.style.backgroundColor = 'darkslategray'
-                    currentEvt.target.style.color = 'slategray'
+                    currentEvt.target.parentElement.style.backgroundColor = 'null'
+                    currentEvt.target.style.color = 'null'
                 } else if (currentEvt.target.parentElement.getAttribute('id') === 'missed') {
-                    currentEvt.target.parentElement.style.backgroundColor = 'forestgreen'
-                    currentEvt.target.style.color = 'lightgreen'
+                    currentEvt.target.parentElement.style.backgroundColor = 'null'
+                    currentEvt.target.style.color = 'null'
                 }
 
             }, timeOut)
@@ -365,51 +365,46 @@ function renderBadGuess() {
 
             setTimeout(() => {
                 if (currentEvt.target.getAttribute('id') === 'hit') {
-                    currentEvt.target.style.backgroundColor = 'red'
+                    currentEvt.target.style.backgroundColor = 'null'
                 } else if (currentEvt.target.getAttribute('id') === 'dead') {
-                    currentEvt.target.style.backgroundColor = 'darkslategray'
-                    childPEl.target.style.color = 'slategray'
+                    currentEvt.target.style.backgroundColor = 'null'
+                    childPEl.target.style.color = 'null'
                 } else if (currentEvt.target.getAttribute('id') === 'missed') {
-                    currentEvt.target.style.backgroundColor = 'forestgreen'
-                    childPEl.style.color = 'lightgreen'
+                    currentEvt.target.style.backgroundColor = 'null'
+                    childPEl.style.color = 'null'
                 }
             }, timeOut)
         }
     }
 }
 
-//renders where the user hits or misses a ship on the enemy's board based on the div's ID
+//renders X's and O's based on if the ally sinks a ship or misses
 function renderAllyGuesses() {
     topGridDivEls.forEach((div) => {
-        if (div.getAttribute('id') === 'hit') {
-            if (badGuess === false) {
-                div.style.backgroundColor = 'red';
-            }
-        } else if (div.getAttribute('id') === 'missed') {
+        if (div.getAttribute('id') === 'missed') {
             let divPEl = div.querySelector('p')
             divPEl.textContent = 'O'
         } else if (div.getAttribute('id') === 'dead') {
-            div.style.backgroundColor = 'darkslategray';
             let divPEl = div.querySelector('p')
-            divPEl.style.color = 'slategray'
             divPEl.textContent = 'X'
         }
     });
 
 }
 
-//renders where the enemy hits a ship on the ally's board based on the div's ID
+//renders X's and O's based on if the enemy sinks a ship or misses
 function renderEnemyGuesses() {
     bottomGridDivEls.forEach((div) => {
-        if (div.getAttribute('id') === 'hit') {
-            div.style.backgroundColor = 'red';
-        } else if (div.getAttribute('id') === 'missed') {
+        // if (div.getAttribute('id') === 'hit') {
+        //     div.style.backgroundColor = 'red';
+        // } else 
+        if (div.getAttribute('id') === 'missed') {
             let divPEl = div.querySelector('p')
             divPEl.textContent = 'O'
         } else if (div.getAttribute('id') === 'dead') {
-            div.style.backgroundColor = 'darkslategray';
+            // div.style.backgroundColor = 'darkslategray';
             let divPEl = div.querySelector('p')
-            divPEl.style.color = 'slategray'
+            // divPEl.style.color = 'slategray'
             divPEl.textContent = 'X'
         }
     })
@@ -466,10 +461,10 @@ function renderReset() {
     if (reset === true) {
         topGridDivEls.forEach((div) => {
             if (div.getAttribute('id') !== 'dont') {
-                div.style.backgroundColor = 'forestgreen'
+                //div.style.backgroundColor = 'forestgreen'
                 let divPEl = div.querySelector('p')
                 if (divPEl) {
-                    divPEl.style.color = 'lightgreen'
+                    //divPEl.style.color = 'lightgreen'
                     divPEl.textContent = ''
                 }
             }
@@ -478,10 +473,10 @@ function renderReset() {
 
         bottomGridDivEls.forEach((div) => {
             if (div.getAttribute('id') !== 'dont') {
-                div.style.backgroundColor = 'lightskyblue'
+                //div.style.backgroundColor = 'lightskyblue'
                 let divPEl = div.querySelector('p')
                 if (divPEl) {
-                    divPEl.style.color = 'cornflowerblue'
+                    //divPEl.style.color = 'cornflowerblue'
                     divPEl.textContent = ''
                 }
             }

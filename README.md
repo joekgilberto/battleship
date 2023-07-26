@@ -5,19 +5,22 @@ A battleship game facing off against a computer opponent.  Made using HTML, CSS,
 
 ## Gameplay - Screenshots
 ### Instructions
-![Instructions](/assets/Instruction-Screenshot.png)
+![Instructions](/assets/screen1.png)
 
 ### Starting board
-![Starting board](/assets/Start-Screenshot.png)
+![Starting board](/assets/screen2.png)
 
 ### In-progress game
-![In-Progress Game](/assets/In-Progress-Screenshot.png)
+![In-progress game](/assets/screen3.png)
 
 ### Won game
-![Won Game](/assets/Won-Screenshot.png)
+![Won game](/assets/screen4.png)
 
 ### Lost game
-![Lost Game](/assets/Lost-Screenshot.png)
+![Lost game](/assets/screen5.png)
+
+### Compact board
+![Compact board](/assets/screen6.png)
 
 ## Techonologies Used
 - HTML
