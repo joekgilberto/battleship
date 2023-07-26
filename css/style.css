@@ -515,7 +515,7 @@ footer {
     border: 4px solid lightsteelblue;
 }
 
-/* ------------------------- hit, miss, dead ------------------------- */
+/* ------------------------- hit, dead, badGuess ------------------------- */
 #hit {
     background-color: red;
 }
@@ -526,6 +526,14 @@ footer {
 
 #dead > p {
     color: slategray;
+}
+
+#badGuess {
+    background-color: gray;
+}
+
+#badGuess > p {
+    color: lightgray;
 }
 
 /* ------------------------- media queries ------------------------- */

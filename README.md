@@ -1,6 +1,6 @@
 # Demo Battleship
 
-A battleship game facing off against a computer opponent.  Made using HTML, CSS, and JavaScript.
+A battleship game facing off against a computer enemy.  Guess where your enemy's ships are and sink them all before your enemy wipes you out.  Made using HTML, CSS, and JavaScript.
 
 
 ## Gameplay - Screenshots

@@ -341,41 +341,26 @@ function renderAllyShips() {
 //renders a gray square in the top grid if the user clicks on a square they had already guessed, and then using a setTimeout, after 1000ms, it reverts back to its original colors.
 function renderBadGuess() {
     if (badGuess === true) {
-        if (currentEvt.target.tagName === 'P') {
-            currentEvt.target.parentElement.style.backgroundColor = 'gray'
-            currentEvt.target.style.color = 'lightgray'
+        let storedID
+        let protectiveCurrentEvt = currentEvt;
+        if (protectiveCurrentEvt.target.tagName === 'P') {
+            storedID = protectiveCurrentEvt.target.parentElement.getAttribute('id')
+            protectiveCurrentEvt.target.parentElement.setAttribute('id','badGuess')
 
             setTimeout(() => {
-                if (currentEvt.target.parentElement.getAttribute('id') === 'hit') {
-                    currentEvt.target.parentElement.style.backgroundColor = 'null'
-                } else if (currentEvt.target.parentElement.getAttribute('id') === 'dead') {
-                    currentEvt.target.parentElement.style.backgroundColor = 'null'
-                    currentEvt.target.style.color = 'null'
-                } else if (currentEvt.target.parentElement.getAttribute('id') === 'missed') {
-                    currentEvt.target.parentElement.style.backgroundColor = 'null'
-                    currentEvt.target.style.color = 'null'
-                }
-
+                protectiveCurrentEvt.target.parentElement.setAttribute('id', storedID)
             }, timeOut)
 
         } else {
-            currentEvt.target.style.backgroundColor = 'gray'
-            let childPEl = currentEvt.target.querySelector('p')
-            childPEl.style.color = 'lightgray'
+            storedID = protectiveCurrentEvt.target.getAttribute('id')
+            protectiveCurrentEvt.target.setAttribute('id','badGuess')
 
             setTimeout(() => {
-                if (currentEvt.target.getAttribute('id') === 'hit') {
-                    currentEvt.target.style.backgroundColor = 'null'
-                } else if (currentEvt.target.getAttribute('id') === 'dead') {
-                    currentEvt.target.style.backgroundColor = 'null'
-                    childPEl.target.style.color = 'null'
-                } else if (currentEvt.target.getAttribute('id') === 'missed') {
-                    currentEvt.target.style.backgroundColor = 'null'
-                    childPEl.style.color = 'null'
-                }
+                protectiveCurrentEvt.target.setAttribute('id', storedID)
+
             }, timeOut)
-        }
     }
+}
 }
 
 //renders X's and O's based on if the ally sinks a ship or misses
@@ -714,7 +699,6 @@ function finalTestCoordinates(objs) {
 
 function handleClick(evt) {
     currentEvt = evt;
-
     if (wait === false) {
         wait = true
         if ((evt.target.getAttribute('id') !== 'hit' && evt.target.getAttribute('id') !== 'missed') && evt.target.tagName !== 'P' && (!evt.target.getAttribute('class').includes('a') || !evt.target.getAttribute('class').includes('one'))) {
