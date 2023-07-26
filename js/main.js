@@ -340,12 +340,12 @@ function renderAllyShips() {
 
 //renders a gray square in the top grid if the user clicks on a square they had already guessed, and then using a setTimeout, after 1000ms, it reverts back to its original colors.
 function renderBadGuess() {
-    if (badGuess === true) {
+    if (badGuess) {
         let storedID
         let protectiveCurrentEvt = currentEvt;
         if (protectiveCurrentEvt.target.tagName === 'P') {
             storedID = protectiveCurrentEvt.target.parentElement.getAttribute('id')
-            protectiveCurrentEvt.target.parentElement.setAttribute('id','badGuess')
+            protectiveCurrentEvt.target.parentElement.setAttribute('id', 'badGuess')
 
             setTimeout(() => {
                 protectiveCurrentEvt.target.parentElement.setAttribute('id', storedID)
@@ -353,14 +353,14 @@ function renderBadGuess() {
 
         } else {
             storedID = protectiveCurrentEvt.target.getAttribute('id')
-            protectiveCurrentEvt.target.setAttribute('id','badGuess')
+            protectiveCurrentEvt.target.setAttribute('id', 'badGuess')
 
             setTimeout(() => {
                 protectiveCurrentEvt.target.setAttribute('id', storedID)
 
             }, timeOut)
+        }
     }
-}
 }
 
 //renders X's and O's based on if the ally sinks a ship or misses
@@ -718,12 +718,14 @@ function handleClick(evt) {
             setTimeout(enemyGuesses, timeOut)
 
         } else {
-            badGuess = true;
-            render();
-            setTimeout(() => {
-                badGuess = false;
-                wait = false;
-            }, timeOut)
+            if (currentEvt.getAttribute('id') !== 'dont') {
+                badGuess = true;
+                render();
+                setTimeout(() => {
+                    badGuess = false;
+                    wait = false;
+                }, timeOut)
+            }
         }
     }
 }
@@ -755,7 +757,12 @@ function enemyGuesses() {
     checkShips(allyShipArr)
     determineWinner()
     render()
-    wait = false;
+    if (winner === true) {
+        wait = true;
+    } else if (winner === false) {
+        wait = false;
+    }
+
 }
 
 //sets xPositionGuess and yPositionGuess to generateEnemyColumnGuess()'s return value and generateEnemyRowGuess()'s respectively.  Then it checks if any ships had been hit.  If so, it sets guessedSquare to one of the hit ships' divs.  Otherwise it then captures the guessedSquarew with querySelector and log's its position in a string.  It then checks if the div is null or 'taken', and if it matches those criterea it sets the div to hit or missed (depending if it was taken or not).  If log was in the enemeyGuessLog or it's ID wans't null or taken, it runs it through the entire log, making sure the board isnt filled.  If it isnt filled, allDone is set to false and the inner loop is broken.  The outer loop checks if allDone is false and if it is, the outer loop is broken too.  If allDone is false, meaning the board isnt filled but the guess was already logged, the function runs itself, generateEnemyGuess, to try again.
@@ -834,12 +841,12 @@ function determineWinner() {
         return obj.inGraveyard === 'visible'
     })) {
         winner = true;
-        champion = 'enemies'
+        champion = 'enemies';
     } else if (enemyShipArr.every((obj) => {
         return obj.inGraveyard === 'visible'
     })) {
         winner = true;
-        champion = 'allies'
+        champion = 'allies';
     }
 }
 
