@@ -11,17 +11,25 @@
 </head>
 
 <body>
+    <!-- Header -->
     <header>
         <h1>Battleship</h1>
     </header>
+    <!-- Game content -->
     <main>
+        <!-- Both the top and bottom boards with their grids and respecitve labels -->
         <section class="both-boards">
+            <!-- Top board -->
             <section class="top board">
+                <!-- Label for top board -->
                 <section class="label enemy-label">
                     <h2>E<br />n<br />e<br />m<br />y<br /> <br />W<br />a<br />t<br />e<br />r<br />s</h2>
                 </section>
+                <!-- Top grid -->
                 <section class="grid top-grid">
+                    <!-- Grid squares in top grid -->
                     <div class="one a" id="dont"></div>
+                    <!-- .one.b through .one.g label the columns with letters -->
                     <div class="one b" id="dont">
                         <p>A</p>
                     </div>
@@ -41,135 +49,286 @@
                         <p>F</p>
                     </div>
 
+                    <!-- .two.b through .seven.a label the rows with numbers -->
                     <div class="two a" id="dont">
                         <p>1</p>
                     </div>
-                    <div class="two b"><p></p></div>
-                    <div class="two c"><p></p></div>
-                    <div class="two d"><p></p></div>
-                    <div class="two e"><p></p></div>
-                    <div class="two f"><p></p></div>
-                    <div class="two g"><p></p></div>
+                    <div class="two b">
+                        <p></p>
+                    </div>
+                    <div class="two c">
+                        <p></p>
+                    </div>
+                    <div class="two d">
+                        <p></p>
+                    </div>
+                    <div class="two e">
+                        <p></p>
+                    </div>
+                    <div class="two f">
+                        <p></p>
+                    </div>
+                    <div class="two g">
+                        <p></p>
+                    </div>
 
                     <div class="three a" id="dont">
                         <p>2</p>
                     </div>
-                    <div class="three b"><p></p></div>
-                    <div class="three c"><p></p></div>
-                    <div class="three d"><p></p></div>
-                    <div class="three e"><p></p></div>
-                    <div class="three f"><p></p></div>
-                    <div class="three g"><p></p></div>
+                    <div class="three b">
+                        <p></p>
+                    </div>
+                    <div class="three c">
+                        <p></p>
+                    </div>
+                    <div class="three d">
+                        <p></p>
+                    </div>
+                    <div class="three e">
+                        <p></p>
+                    </div>
+                    <div class="three f">
+                        <p></p>
+                    </div>
+                    <div class="three g">
+                        <p></p>
+                    </div>
 
                     <div class="four a" id="dont">
                         <p>3</p>
                     </div>
-                    <div class="four b"><p></p></div>
-                    <div class="four c"><p></p></div>
-                    <div class="four d"><p></p></div>
-                    <div class="four e"><p></p></div>
-                    <div class="four f"><p></p></div>
-                    <div class="four g"><p></p></div>
+                    <div class="four b">
+                        <p></p>
+                    </div>
+                    <div class="four c">
+                        <p></p>
+                    </div>
+                    <div class="four d">
+                        <p></p>
+                    </div>
+                    <div class="four e">
+                        <p></p>
+                    </div>
+                    <div class="four f">
+                        <p></p>
+                    </div>
+                    <div class="four g">
+                        <p></p>
+                    </div>
 
                     <div class="five a" id="dont">
                         <p>4</p>
                     </div>
-                    <div class="five b"><p></p></div>
-                    <div class="five c"><p></p></div>
-                    <div class="five d"><p></p></div>
-                    <div class="five e"><p></p></div>
-                    <div class="five f"><p></p></div>
-                    <div class="five g"><p></p></div>
+                    <div class="five b">
+                        <p></p>
+                    </div>
+                    <div class="five c">
+                        <p></p>
+                    </div>
+                    <div class="five d">
+                        <p></p>
+                    </div>
+                    <div class="five e">
+                        <p></p>
+                    </div>
+                    <div class="five f">
+                        <p></p>
+                    </div>
+                    <div class="five g">
+                        <p></p>
+                    </div>
 
                     <div class="six a" id="dont">
                         <p>5</p>
                     </div>
-                    <div class="six b"><p></p></div>
-                    <div class="six c"><p></p></div>
-                    <div class="six d"><p></p></div>
-                    <div class="six e"><p></p></div>
-                    <div class="six f"><p></p></div>
-                    <div class="six g"><p></p></div>
+                    <div class="six b">
+                        <p></p>
+                    </div>
+                    <div class="six c">
+                        <p></p>
+                    </div>
+                    <div class="six d">
+                        <p></p>
+                    </div>
+                    <div class="six e">
+                        <p></p>
+                    </div>
+                    <div class="six f">
+                        <p></p>
+                    </div>
+                    <div class="six g">
+                        <p></p>
+                    </div>
 
                     <div class="seven a" id="dont">
                         <p>6</p>
                     </div>
-                    <div class="seven b"><p></p></div>
-                    <div class="seven c"><p></p></div>
-                    <div class="seven d"><p></p></div>
-                    <div class="seven e"><p></p></div>
-                    <div class="seven f"><p></p></div>
-                    <div class="seven g"><p></p></div>
+                    <div class="seven b">
+                        <p></p>
+                    </div>
+                    <div class="seven c">
+                        <p></p>
+                    </div>
+                    <div class="seven d">
+                        <p></p>
+                    </div>
+                    <div class="seven e">
+                        <p></p>
+                    </div>
+                    <div class="seven f">
+                        <p></p>
+                    </div>
+                    <div class="seven g">
+                        <p></p>
+                    </div>
                 </section>
             </section>
 
+            <!-- Bottom board -->
             <section class="bottom board">
+                <!-- Label for bottom board -->
                 <section class="label ally-label">
                     <h2>A<br />l<br />l<br />y<br /> <br />W<br />a<br />t<br />e<br />r<br />s
                     </h2>
                 </section>
+                <!-- Bottom grid -->
                 <section class="grid bottom-grid">
+                    <!-- Grid squares in top grid -->
+                    <!-- .one.b through .six.a label the rows with numbers -->
                     <div class="one a" id="dont">
                         <p>1</p>
                     </div>
-                    <div class="one b"><p></p></div>
-                    <div class="one c"><p></p></div>
-                    <div class="one d"><p></p></div>
-                    <div class="one e"><p></p></div>
-                    <div class="one f"><p></p></div>
-                    <div class="one g"><p></p></div>
+                    <div class="one b">
+                        <p></p>
+                    </div>
+                    <div class="one c">
+                        <p></p>
+                    </div>
+                    <div class="one d">
+                        <p></p>
+                    </div>
+                    <div class="one e">
+                        <p></p>
+                    </div>
+                    <div class="one f">
+                        <p></p>
+                    </div>
+                    <div class="one g">
+                        <p></p>
+                    </div>
 
                     <div class="two a" id="dont">
                         <p>2</p>
                     </div>
-                    <div class="two b"><p></p></div>
-                    <div class="two c"><p></p></div>
-                    <div class="two d"><p></p></div>
-                    <div class="two e"><p></p></div>
-                    <div class="two f"><p></p></div>
-                    <div class="two g"><p></p></div>
+                    <div class="two b">
+                        <p></p>
+                    </div>
+                    <div class="two c">
+                        <p></p>
+                    </div>
+                    <div class="two d">
+                        <p></p>
+                    </div>
+                    <div class="two e">
+                        <p></p>
+                    </div>
+                    <div class="two f">
+                        <p></p>
+                    </div>
+                    <div class="two g">
+                        <p></p>
+                    </div>
 
                     <div class="three a" id="dont">
                         <p>3</p>
                     </div>
-                    <div class="three b"><p></p></div>
-                    <div class="three c"><p></p></div>
-                    <div class="three d"><p></p></div>
-                    <div class="three e"><p></p></div>
-                    <div class="three f"><p></p></div>
-                    <div class="three g"><p></p></div>
+                    <div class="three b">
+                        <p></p>
+                    </div>
+                    <div class="three c">
+                        <p></p>
+                    </div>
+                    <div class="three d">
+                        <p></p>
+                    </div>
+                    <div class="three e">
+                        <p></p>
+                    </div>
+                    <div class="three f">
+                        <p></p>
+                    </div>
+                    <div class="three g">
+                        <p></p>
+                    </div>
 
                     <div class="four a" id="dont">
                         <p>4</p>
                     </div>
-                    <div class="four b"><p></p></div>
-                    <div class="four c"><p></p></div>
-                    <div class="four d"><p></p></div>
-                    <div class="four e"><p></p></div>
-                    <div class="four f"><p></p></div>
-                    <div class="four g"><p></p></div>
+                    <div class="four b">
+                        <p></p>
+                    </div>
+                    <div class="four c">
+                        <p></p>
+                    </div>
+                    <div class="four d">
+                        <p></p>
+                    </div>
+                    <div class="four e">
+                        <p></p>
+                    </div>
+                    <div class="four f">
+                        <p></p>
+                    </div>
+                    <div class="four g">
+                        <p></p>
+                    </div>
 
                     <div class="five a" id="dont">
                         <p>5</p>
                     </div>
-                    <div class="five b"><p></p></div>
-                    <div class="five c"><p></p></div>
-                    <div class="five d"><p></p></div>
-                    <div class="five e"><p></p></div>
-                    <div class="five f"><p></p></div>
-                    <div class="five g"><p></p></div>
+                    <div class="five b">
+                        <p></p>
+                    </div>
+                    <div class="five c">
+                        <p></p>
+                    </div>
+                    <div class="five d">
+                        <p></p>
+                    </div>
+                    <div class="five e">
+                        <p></p>
+                    </div>
+                    <div class="five f">
+                        <p></p>
+                    </div>
+                    <div class="five g">
+                        <p></p>
+                    </div>
 
                     <div class="six a" id="dont">
                         <p>6</p>
                     </div>
-                    <div class="six b"><p></p></div>
-                    <div class="six c"><p></p></div>
-                    <div class="six d"><p></p></div>
-                    <div class="six e"><p></p></div>
-                    <div class="six f"><p></p></div>
-                    <div class="six g"><p></p></div>
+                    <div class="six b">
+                        <p></p>
+                    </div>
+                    <div class="six c">
+                        <p></p>
+                    </div>
+                    <div class="six d">
+                        <p></p>
+                    </div>
+                    <div class="six e">
+                        <p></p>
+                    </div>
+                    <div class="six f">
+                        <p></p>
+                    </div>
+                    <div class="six g">
+                        <p></p>
+                    </div>
 
                     <div class="seven a" id="dont"></div>
+                    <!-- .seven.b through .seven.g label the columns with letters -->
                     <div class="seven b" id="dont">
                         <p>A</p>
                     </div>
@@ -191,10 +350,13 @@
                 </section>
             </section>
         </section>
-        <section class="divider">
 
-        </section>
+        <!-- Visual divider between the boards and the graveyards -->
+        <section class="divider"></section>
+
+        <!-- An aside, graveyard where "sunken" ships appear -->
         <aside class="graveyards">
+            <!-- The upper graveyard of ally ships -->
             <section class="graveyard ally-grave">
                 <div class="one a">
                     <h3>Ally<br />Graveyard</h3>
@@ -210,7 +372,9 @@
                 <div class="five b"></div>
                 <div class="six b"></div>
 
+                <!-- The ships that appear in the ally graveyard -->
                 <div class="ship size-three no-a">
+                    <!-- The decorative pipes on top of the ships -->
                     <div class="pipe spot1"></div>
                     <div class="pipe spot2"></div>
                     <div class="pipe spot3"></div>
@@ -233,6 +397,7 @@
                 </div>
             </section>
 
+            <!-- The bottom graveyard of enemy ships -->
             <section class="graveyard enemy-grave">
                 <div class="one a">
                     <h3>Enemy<br />Graveyard</h3>
@@ -248,7 +413,9 @@
                 <div class="five b"></div>
                 <div class="six b"></div>
 
+                <!-- The ships that appear in the enemy graveyard -->
                 <div class="ship size-three no-a">
+                    <!-- The decorative pipes on top of the ships -->
                     <div class="pipe spot1"></div>
                     <div class="pipe spot2"></div>
                     <div class="pipe spot3"></div>
@@ -269,10 +436,11 @@
                     <div class="pipe spot1"></div>
                     <div class="pipe spot2"></div>
                 </div>
-                
+
             </section>
         </aside>
     </main>
+    <!-- A footer where the reset button stays -->
     <footer>
         <button class="redo">Reset</button>
     </footer>

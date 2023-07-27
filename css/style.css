@@ -5,15 +5,14 @@
 * {
     box-sizing: border-box;
     font-family: "Audiowide", sans-serif;
-    /* border: 1px solid red; */
 }
 
 /* ------------------------- elements ------------------------- */
 h1 {
-    background-color: darkslategray;
+    background-color: #2f4f4f;
     width: 300px;
-    height:48px;
-    border: 4px solid lightsteelblue;
+    height: 48px;
+    border: 4px solid #b0c4de;
 }
 
 h1,
@@ -21,7 +20,7 @@ h2,
 h3 {
     text-align: center;
     text-transform: uppercase;
-    color: lightsteelblue;
+    color: #b0c4de;
 }
 
 h2 {
@@ -33,7 +32,7 @@ h3 {
 }
 
 button {
-    border: 0px solid black;
+    border: 0px solid #000000;
     font-family: 'Audiowide', sans-serif;
     font-size: 25px;
     width: 150px;
@@ -43,7 +42,7 @@ button {
 
 button:hover {
     cursor: pointer;
-    color: slategray;
+    color: #708090;
 }
 
 
@@ -54,7 +53,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: lightslategray;
+    background-color: #778899;
 }
 
 /* ------------------------- header ------------------------- */
@@ -116,11 +115,11 @@ main {
 }
 
 .top-grid>div>p {
-    color: lightgreen;
+    color: #90ee90;
 }
 
 .bottom-grid>div>p {
-    color: cornflowerblue;
+    color: #6495ed;
 }
 
 
@@ -136,7 +135,7 @@ main {
 .label h2 {
     align-items: center;
     padding: 10px 0;
-    background-color: darkslategray;
+    background-color: #2f4f4f;
 }
 
 .enemy-label h2 {
@@ -169,13 +168,30 @@ main {
 }
 
 .top-grid>div {
-    background-color: forestgreen;
-    border: 2px solid lightgreen;
+    background-color: #228b22;
+    border: 2px solid #90ee90;
 }
 
 .top-grid>div:hover {
     cursor: pointer;
 }
+
+.top-grid>.two {
+    border-top: 4px solid #90ee90;
+}
+
+.top-grid>.seven {
+    border-bottom: 4px solid #90ee90;
+}
+
+.top-grid>.b {
+    border-left: 4px solid #90ee90;
+}
+
+.top-grid>.g {
+    border-right: 4px solid #90ee90;
+}
+
 
 /* ------------------------- bottom grid ------------------------- */
 .bottom-grid {
@@ -185,8 +201,25 @@ main {
 }
 
 .bottom-grid>div {
-    background-color: lightskyblue;
-    border: 2px solid cornflowerblue;
+    background-color: #87cefa;
+    border: 2px solid #6495ed;
+}
+
+.bottom-grid>.one {
+    border-top: 4px solid #6495ed;
+
+}
+
+.bottom-grid>.six {
+    border-bottom: 4px solid #6495ed;
+}
+
+.bottom-grid>.b {
+    border-left: 4px solid #6495ed;
+}
+
+.bottom-grid>.g {
+    border-right: 4px solid #6495ed;
 }
 
 /* ------------------------- all grids ------------------------- */
@@ -195,9 +228,9 @@ main {
     border: none !important;
 }
 
-#dont > p {
+#dont>p {
     text-align: center;
-    color: lightsteelblue !important;
+    color: #b0c4de !important;
     font-size: 15px !important;
 }
 
@@ -209,18 +242,8 @@ main {
     cursor: default !important;
 }
 
-.bottom-grid>.one {
-    border-top: 4px solid cornflowerblue;
-
-}
-
 .two {
     grid-row: 2 / span 1;
-}
-
-.top-grid>.two {
-    border-top: 4px solid lightgreen;
-
 }
 
 .three {
@@ -239,16 +262,8 @@ main {
     grid-row: 6 / span 1;
 }
 
-.bottom-grid>.six {
-    border-bottom: 4px solid cornflowerblue;
-}
-
 .seven {
     grid-row: 7 / span 1;
-}
-
-.top-grid>.seven {
-    border-bottom: 4px solid lightgreen;
 }
 
 .a {
@@ -261,16 +276,6 @@ main {
 
 .b {
     grid-column: 2 / span 1;
-}
-
-.top-grid>.b {
-    border-left: 4px solid lightgreen;
-
-}
-
-.bottom-grid>.b {
-    border-left: 4px solid cornflowerblue;
-
 }
 
 .c {
@@ -293,26 +298,11 @@ main {
     grid-column: 7 / span 1;
 }
 
-.top-grid>.g {
-    border-right: 4px solid lightgreen;
-
-}
-
-.bottom-grid>.g {
-    border-right: 4px solid cornflowerblue;
-
-}
-
-#hit,
-#missed {
-    cursor: default !important;
-}
-
 /* ------------------------- divider ------------------------- */
 .divider {
     height: auto;
     visibility: collapse;
-    background-color: darkslategray;
+    background-color: #2f4f4f;
 }
 
 /* ------------------------- graveyards ------------------------- */
@@ -339,29 +329,29 @@ aside {
 }
 
 .graveyard>div {
-    background-color: red;
-    border: 2px solid orange;
+    background-color: #ff0000;
+    border: 2px solid #ffa500;
 }
 
 .graveyard>.two {
-    border-top: 4px solid orange;
+    border-top: 4px solid #ffa500;
 }
 
 .graveyard>.six {
-    border-bottom: 4px solid orange;
+    border-bottom: 4px solid #ffa500;
 }
 
 .graveyard>.a {
-    border-left: 4px solid orange;
+    border-left: 4px solid #ffa500;
 }
 
 .graveyard>.b {
-    border-right: 4px solid orange;
+    border-right: 4px solid #ffa500;
 }
 
 .graveyard>.one {
-    background-color: darkslategray;
-    border: 2px solid darkslategray;
+    background-color: #2f4f4f;
+    border: 2px solid #2f4f4f;
     grid-column: 1 / span 2;
     display: flex;
     justify-content: center;
@@ -379,8 +369,8 @@ aside {
 /* ------------------------- ships ------------------------- */
 .ship {
     border-radius: 50%;
-    border: 4px solid darkslategray !important;
-    background-color: slategray !important;
+    border: 4px solid #2f4f4f !important;
+    background-color: #708090 !important;
     display: grid;
     margin-left: 5px;
     margin-top: 5px;
@@ -421,8 +411,8 @@ aside {
 
 .pipe {
     border-radius: 50%;
-    border: 2px solid darkslategray !important;
-    background-color: slategray !important;
+    border: 2px solid #2f4f4f;
+    background-color: #708090;
 }
 
 .pipe.spot1 {
@@ -447,7 +437,7 @@ aside {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: slategray;
+    background-color: #708090;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -457,13 +447,13 @@ aside {
     position: fixed;
     width: 80%;
     height: 60%;
-    background-color: lightsteelblue;
+    background-color: #b0c4de;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    border: 10px solid darkslategray;
+    border: 10px solid #2f4f4f;
 
 }
 
@@ -473,30 +463,30 @@ aside {
     padding-top: 2px;
     padding-bottom: 42px;
     text-align: center;
-    color: darkslategray;
-    background-color: slategray;
+    color: #2f4f4f;
+    background-color: #708090;
     margin-top: 0;
     margin-bottom: 0;
-    border: 4px solid darkslategray;
+    border: 4px solid #2f4f4f;
 }
 
 .popUpP {
     text-align: center;
     font-size: 25px;
-    color: slategray;
+    color: #708090;
     margin-bottom: 20px;
     padding: 0 20px;
 }
 
 .popBttn {
-    background-color: slategray;
-    color: darkslategray;
+    background-color: #708090;
+    color: #2f4f4f;
     width: 225px;
-    border: 4px solid darkslategray;
+    border: 4px solid #2f4f4f;
 }
 
 .popBttn:hover {
-    color: lightsteelblue;
+    color: #b0c4de;
 }
 
 /* ------------------------- footer ------------------------- */
@@ -510,30 +500,37 @@ footer {
 
 .redo {
     margin: 0 !important;
-    background-color: darkslategray;
-    color: lightsteelblue;
-    border: 4px solid lightsteelblue;
+    background-color: #2f4f4f;
+    color: #b0c4de;
+    border: 4px solid #b0c4de;
 }
 
 /* ------------------------- hit, dead, badGuess ------------------------- */
+#hit,
+#missed,
+#dead,
+#badGuess {
+    cursor: default !important;
+}
+
 #hit {
-    background-color: red;
+    background-color: #ff0000;
 }
 
 #dead {
-    background-color: darkslategray;
+    background-color: #2f4f4f;
 }
 
-#dead > p {
-    color: slategray;
+#dead>p {
+    color: #708090;
 }
 
 #badGuess {
-    background-color: gray;
+    background-color: #808080;
 }
 
-#badGuess > p {
-    color: lightgray;
+#badGuess>p {
+    color: #d3d3d3;
 }
 
 /* ------------------------- media queries ------------------------- */
@@ -560,7 +557,7 @@ footer {
         margin: 0;
     }
 
-    #dont > p {
+    #dont>p {
         font-size: 20px !important;
     }
 
@@ -590,7 +587,7 @@ footer {
         grid-template-rows: repeat(6, 45px);
     }
 
-    .ship{
+    .ship {
         margin: 5px;
     }
 
@@ -608,7 +605,7 @@ footer {
     .popUpP {
         font-size: 30px;
         margin-bottom: 45px;
-    
+
     }
 
     .redo {
