@@ -1,4 +1,4 @@
-# Demo Battleship
+# Battleship
 
 A battleship game facing off against a computer enemy.  Guess where your enemy's ships are and sink them all before your enemy wipes you out.  Made using HTML, CSS, and JavaScript.
 
@@ -31,18 +31,17 @@ A battleship game facing off against a computer enemy.  Guess where your enemy's
 
 
 ## Key Resources
-1. [W3 Schools](https://www.w3schools.com/)
-2. [MDN Wed Docs](https://developer.mozilla.org/en-US/)
-3. [Stack Overflow](https://stackoverflow.com/)
-4. [Original planning doc](./docs/planning.md)
+1. [Original planning doc](./docs/planning.md)
+2. [W3 Schools](https://www.w3schools.com/)
+3. [MDN Wed Docs](https://developer.mozilla.org/en-US/)
+4. [Stack Overflow](https://stackoverflow.com/)
 5. [Freesoung.org](https://freesound.org/)
-- [Start whistle](https://freesound.org/people/LudwigMueller/sounds/548549/)
 - [Hit beep](https://freesound.org/people/Raclure/sounds/405546/)
 - [Miss bum](https://freesound.org/people/plasterbrain/sounds/423169/)
 
 
 ## Getting Started
-Instructions for accessing deployed game or ways to contribute to an open source game.  Go by a user story, 'user clicks square, user waits, yadda yadda'
+User acknowledges instructions from the instructional game popup by pressing "Roger ma'am."  User clicks the upper, green grid looking for enemy ships.  If they hit one, the square will glow red.  Otherwise, the square will be marked with 'O's.  Once all squares of a single enemy ship are hit, the squares will turn dark gray, marked with gray 'X's.  After each user's guess, the enemy (computer) will attempt to guess a square on the user's board as well in hopes of sinking a ship.  The first one to fill their opponent's graveyard and sink all four ships wins.  The User will then have the option to play again or quit.
 
 ## Future Features
 1. A loading animation while the computer "thinks" of its next move.
