@@ -28,7 +28,7 @@ const surrenderEl = document.createElement('button');
 
 /* --------------------------------------- Classes --------------------------------------- */
 
-// a class used to make ship objects with custom name, alliance, size, and orientation properties
+//a class used to make ship objects with custom name, alliance, size, and orientation properties
 class Ship {
     constructor(name, alliance, size, orientation) {
         this.name = name;
@@ -137,7 +137,7 @@ class Ship {
     };
 };
 
-// a class extending ship that makes ship objects with the addition of the properties onBoard and beenHit, along with the function buildShip()
+//a class extending Ship that makes ally ship objects with the addition of the properties onBoard and beenHit, along with the function buildShip()
 class AllyShip extends Ship {
     constructor(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard) {
         super(name, alliance, size, orientation, columnPosition, rowPosition, xCoordinates, yCoordinates, squaresTaken, inGraveyard);
@@ -214,7 +214,7 @@ let wait; //a boolean variable used in handleClick() to tell if the function sho
 let currentEvt; //set in handleClick to pass on the current evt of a click event to other functions not directly called in the handleClick
 let winner; //a boolean variable that tells if someone has won the game
 let champion; //an empty string that will hold the name of who wins, 'allies' or 'enemies'
-let reset; //a boolean variable used in renderReset() to tell if it should render a reset board
+let reset; //a boolean variable used in renderReset() and render() to tell if it should render a reset board
 let badGuess; //a boolean variable marked true if the player guessed a square they had already guessed
 
 let allyShipThreeA = new AllyShip('allyShipThreeA', 'ally', 3, 'a'); //creates an ally ship, three spaces big vertically
@@ -233,7 +233,7 @@ let enemyShipArr = [enemyShipThreeA, enemyShipThreeB, enemyShipTwoA, enemyShipTw
 
 /* ####################################### Functions ####################################### */
 /* --------------------------------------- Init --------------------------------------- */
-// init runs the game and resets variables at the top of each game
+//init runs the game and resets variables at the top of each game
 function init() {
     instructional = true;
     testing = false;
@@ -288,7 +288,7 @@ function init() {
 }
 
 /* --------------------------------------- Render --------------------------------------- */
-// runs all render functions
+//runs all render functions
 function render() {
     renderInstructions();
     if (reset) {
@@ -303,7 +303,7 @@ function render() {
     };
 };
 
-// renders the instructions popup
+//renders the instructions popup
 function renderInstructions() {
     if (instructional) {
         blankSlateEl.classList.add('blankSlate');
@@ -336,7 +336,7 @@ function renderAllyShips() {
     };
 };
 
-//renders a gray square in the top grid if the user clicks on a square they had already guessed, and then using a setTimeout, after 1000ms, it reverts back to its original colors.
+//renders a gray square in the top grid if the user clicks on a square they had already guessed, and then using a setTimeout, after timeOut amount of ms, it reverts back to its original colors.
 function renderBadGuess() {
     if (badGuess) {
         let storedID;
@@ -431,7 +431,7 @@ function renderGameOver() {
     }, timeOut);
 };
 
-//renders a reset board with all divs reset to their origina greens and blues, all ships visible on the board, and all sunken ships hidden
+//renders a reset board with all divs reset to their original greens and blues, all ships visible on the board, and all sunken ships hidden
 function renderReset() {
     if (reset === true) {
         topGridDivEls.forEach((div) => {
@@ -547,7 +547,7 @@ function generateShipsRow(obj) {
     obj.rowPosition = returnNum;
 };
 
-//stores x/column coordinates a ship is at in the ship's xCoordinate property
+//stores the x (aka column) coordinates a ship is at in the ship's xCoordinate property
 function storeXCoordinates(obj, xStart) {
     if (obj.orientation == 'a') {
         obj.xCoordinates.push(xStart);
@@ -561,7 +561,7 @@ function storeXCoordinates(obj, xStart) {
     };
 };
 
-//stores y/column coordinates a ship is at in the ship's yCoordinate property
+//stores the y (aka row_) coordinates a ship is at in the ship's yCoordinate property
 function storeYCoordinates(obj, yStart) {
     if (obj.orientation === 'b') {
         obj.yCoordinates.push(yStart);
@@ -677,11 +677,11 @@ function finalTestCoordinates(objs) {
 };
 
 
-// if wait is false, it runs a conditional that sets wait to be true (which keeps the user from guessing again until the computer guesses), checks to make sure a valid square was clicked on the grid, and if so, checks the div's ID to see if it was a hit or miss.  It then runs checkShips() on the enemy ships, runs determineWinner(), and runs enemyGuesses in a setTimeout after timeOut amount of miliseconds have passed.  If the user did not click on a valid sqaure in the top grid, it makes badGuess true, renders, then, after timeOut amount of miliseconds, it resets badBuess to false and wait to false
+//if wait is false, it runs a conditional that sets wait to be true (which keeps the user from guessing again until the computer guesses), checks to make sure a valid square was clicked on the grid, and if so, checks the div's ID to see if it was a hit or miss.  It then runs checkShips() on the enemy ships, runs determineWinner(), and runs enemyGuesses in a setTimeout after timeOut amount of miliseconds have passed.  If the user did not click on a valid sqaure in the top grid, it makes badGuess true, renders, then, after timeOut amount of miliseconds, it resets badBuess to false and wait to false
 
 function handleClick(evt) {
     currentEvt = evt;
-    if (wait === false) {
+    if (!wait) {
         wait = true;
         if (evt.target.getAttribute('id') !== 'hit' && evt.target.getAttribute('id') !== 'missed' && evt.target.getAttribute('id') !== 'dead' && (evt.target.getAttribute('class') !== 'dont' && evt.target.parentElement.getAttribute('id') !== 'dont') && evt.target.tagName !== 'P') {
 
@@ -699,7 +699,7 @@ function handleClick(evt) {
             determineWinner();
             render();
 
-            if (winner === false) {
+            if (!winner) {
                 setTimeout(enemyGuesses, timeOut);
             };
 
@@ -737,20 +737,20 @@ function checkShips(objs) {
     };
 };
 
-//runs generateEnemyGuess(), checks ally ships with checkShips(), determines if there is a winner with determineWinner(), renders(), and sets wait to false
+//runs generateEnemyGuess(), checks ally ships with checkShips(), determines if there is a winner with determineWinner(), renders(), and sets wait to false if a winner has not been declared
 function enemyGuesses() {
     generateEnemyGuess();
     checkShips(allyShipArr);
     determineWinner();
     render();
-    if (winner === true) {
+    if (winner) {
         wait = true;
-    } else if (winner === false) {
+    } else if (!winner) {
         wait = false;
     };
 };
 
-//sets xPositionGuess and yPositionGuess to generateEnemyColumnGuess()'s return value and generateEnemyRowGuess()'s respectively.  Then it checks if any ships had been hit.  If so, it sets guessedSquare to one of the hit ships' divs.  Otherwise it then captures the guessedSquarew with querySelector and log's its position in a string.  It then checks if the div is null or 'taken', and if it matches those criterea it sets the div to hit or missed (depending if it was taken or not).  If log was in the enemeyGuessLog or it's ID wans't null or taken, it runs it through the entire log, making sure the board isnt filled.  If it isnt filled, allDone is set to false and the inner loop is broken.  The outer loop checks if allDone is false and if it is, the outer loop is broken too.  If allDone is false, meaning the board isnt filled but the guess was already logged, the function runs itself, generateEnemyGuess, to try again.
+//sets xPositionGuess and yPositionGuess to generateEnemyColumnGuess()'s return value and generateEnemyRowGuess()'s respectively.  Then it checks if any ships had been hit.  If so, it sets guessedSquare to one of the hit ships' divs.  Otherwise it then captures the guessedSquarew with querySelector and log's its position in a string.  Regardless, it then checks if the div is null or 'taken', and if it matches those criterea it sets the div to hit or missed (depending if it was taken or not).  It runs it through the entire board, making sure the board isnt filled by looking for empty (null) spaces or not sunk ships (taken spaces).  If it isnt filled, allDone is set to false.  If allDone is false, meaning the board isnt filled but the guess was hit or missed, the function runs itself, generateEnemyGuess, to try again.
 function generateEnemyGuess() {
 
     let xPositionGuess = generateEnemyColumnGuess();
@@ -788,7 +788,7 @@ function generateEnemyGuess() {
     } else {
 
         for (div of bottomGridDivEls) {
-            if (div.getAttribute('id') !== null) {
+            if (div.getAttribute('id') !== null || div.getAttribute('id') !== 'taken') {
                 allDone = false;
             };
         };
@@ -838,7 +838,7 @@ function determineWinner() {
     };
 };
 
-// resetter sents the variable reset to be true, resets testing, wait, winner, champion, and badGuess to their init states.  It then removes all IDs from the grid divs and runs resetMe on the ally and enemy ships.  Then it renders, sets reset variable to false, and initializes.
+//resetter sents the variable reset to be true, resets testing, wait, winner, champion, and badGuess to their init states.  It then removes all IDs from the grid divs and runs resetMe on the ally and enemy ships.  Then it renders, sets reset variable to false, and initializes.
 function resetter() {
     reset = true;
 
@@ -875,14 +875,14 @@ function resetter() {
     init();
 };
 
-//Lists the position of all of the enemy ships in the console
+//lists the position of all of the enemy ships in the console
 function cheater() {
     for (ship of enemyShipArr) {
         console.log(ship.cheatSheet);
     };
 };
 
-//turns all enemy ships to hit, checks all ships, determining a winner, rendering, and ending the game
+//turns all enemy ships to hit, checks all ships, determining a winner, rendering, and effectively ending the game
 function tidalWave() {
     for (ship of enemyShipArr) {
         for (square of ship.squaresTaken) {
@@ -896,7 +896,7 @@ function tidalWave() {
     render();
 };
 
-//turns all ally ships to hit, checks all ships, determining a winner, rendering, and ending the game
+//turns all ally ships to hit, checks all ships, determining a winner, rendering, and effectively ending the game
 function sabotage() {
     for (ship of allyShipArr) {
         for (square of ship.squaresTaken) {
