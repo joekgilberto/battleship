@@ -4,9 +4,6 @@ const timeOut = 2000;
 const columns = ['.b', '.c', '.d', '.e', '.f', '.g']
 const upperRows = ['.two', '.three', '.four', '.five', '.six', '.seven']
 const bottomRows = ['.one', '.two', '.three', '.four', '.five', '.six']
-const startAudio = new Audio ('assets/start.wav')
-const hitAudio = new Audio ('assets/hit.wav')
-const missAudio = new Audio ('assets/miss.wav')
 
 /* --------------------------------------- DOM Elements --------------------------------------- */
 const bodyEl = document.querySelector('body')
@@ -489,13 +486,6 @@ function renderReset() {
 }
 
 /* --------------------------------------- Other Functions --------------------------------------- */
-function littleWhistle(){
-    console.log(winner)
-    if (instructional || winner){
-        startAudio.play()
-    }
-}
-
 //takes in an array of ships, iterates through each one, and assigns them coordinates.  It then tests them in a while loop, running them through testCoordinates() comparing one at a time, if it returns true, it runs reassignCoordinates.  Then it runs a final test and if all ships in the array pass it sets testing to false, ending the while loop
 function generateCoordinates(objs) {
     testing = true
@@ -718,10 +708,8 @@ function handleClick(evt) {
             if (!evt.target.getAttribute('class').includes('one') && !evt.target.getAttribute('class').includes('a')) {
                 if (evt.target.getAttribute('id') === 'taken') {
                     evt.target.setAttribute('id', 'hit')
-                    hitAudio.play()
                 } else if (evt.target.getAttribute('id') === null) {
                     evt.target.setAttribute('id', 'missed')
-                    missAudio.play()
                 }
             }
             checkShips(enemyShipArr)
@@ -804,7 +792,6 @@ function generateEnemyGuess() {
     if ((guessedSquare.getAttribute('id') === null || guessedSquare.getAttribute('id') === 'taken')) {
         if (guessedSquare.getAttribute('id') === 'taken') {
             guessedSquare.setAttribute('id', 'hit');
-            hitAudio.play()
             for (ship of allyShipArr) {
                 if (ship.squaresTaken.includes(guessedSquare)) {
                     ship.beenHit = true;
@@ -813,7 +800,6 @@ function generateEnemyGuess() {
 
         } else {
             guessedSquare.setAttribute('id', 'missed');
-            missAudio.play()
         }
     } else {
         let allDone;
@@ -859,13 +845,11 @@ function determineWinner() {
     })) {
         winner = true;
         champion = 'enemies';
-        setTimeout(littleWhistle, timeOut)
     } else if (enemyShipArr.every((obj) => {
         return obj.inGraveyard === 'visible'
     })) {
         winner = true;
         champion = 'allies';
-        setTimeout(littleWhistle, timeOut)
     }
 }
 
