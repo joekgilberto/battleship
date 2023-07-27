@@ -4,6 +4,8 @@ const timeOut = 2000;
 const columns = ['.b', '.c', '.d', '.e', '.f', '.g']
 const upperRows = ['.two', '.three', '.four', '.five', '.six', '.seven']
 const bottomRows = ['.one', '.two', '.three', '.four', '.five', '.six']
+const hitAudio = new Audio ('assets/hit.wav')
+const missAudio = new Audio ('assets/miss.wav')
 
 /* --------------------------------------- DOM Elements --------------------------------------- */
 const bodyEl = document.querySelector('body')
@@ -245,8 +247,6 @@ function init() {
     badGuess = false;
 
     //TODO uncomment the below
-    littleWhistle()
-
     //generates ally ship coordinates
     generateCoordinates(allyShipArr)
 
@@ -708,8 +708,10 @@ function handleClick(evt) {
             if (!evt.target.getAttribute('class').includes('one') && !evt.target.getAttribute('class').includes('a')) {
                 if (evt.target.getAttribute('id') === 'taken') {
                     evt.target.setAttribute('id', 'hit')
+                    hitAudio.play()
                 } else if (evt.target.getAttribute('id') === null) {
                     evt.target.setAttribute('id', 'missed')
+                    missAudio.play()
                 }
             }
             checkShips(enemyShipArr)
@@ -792,6 +794,7 @@ function generateEnemyGuess() {
     if ((guessedSquare.getAttribute('id') === null || guessedSquare.getAttribute('id') === 'taken')) {
         if (guessedSquare.getAttribute('id') === 'taken') {
             guessedSquare.setAttribute('id', 'hit');
+            hitAudio.play()
             for (ship of allyShipArr) {
                 if (ship.squaresTaken.includes(guessedSquare)) {
                     ship.beenHit = true;
@@ -800,6 +803,7 @@ function generateEnemyGuess() {
 
         } else {
             guessedSquare.setAttribute('id', 'missed');
+            missAudio.play()
         }
     } else {
         let allDone;

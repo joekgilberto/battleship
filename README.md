@@ -45,9 +45,8 @@ A battleship game facing off against a computer enemy.  Guess where your enemy's
 Instructions for accessing deployed game or ways to contribute to an open source game.  Go by a user story, 'user clicks square, user waits, yadda yadda'
 
 ## Future Features
-1. Text declaring a hit or miss.
-2. A loading animation while the computer "thinks" of its next move.
-3. The ability for a user to position their own ships.
+1. A loading animation while the computer "thinks" of its next move.
+2. The ability for a user to position their own ships.
 
 <!-- A README.md file with these sections:
 
