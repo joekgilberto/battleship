@@ -911,7 +911,6 @@ function cheater() {
     for (ship of enemyShipArr) {
         console.log(ship.cheatSheet)
     }
-    return 'Not fair!'
 }
 
 //turns all enemy ships to hit, checks all ships, determining a winner, rendering, and ending the game
@@ -926,9 +925,7 @@ function tidalWave() {
     checkShips(enemyShipArr)
     determineWinner();
     render();
-    setTimeout(()=>{
-        return 'Cheater!'
-    }, timeOut)}
+}
 
 //turns all ally ships to hit, checks all ships, determining a winner, rendering, and ending the game
 function sabotage() {
@@ -942,9 +939,6 @@ function sabotage() {
     checkShips(enemyShipArr)
     determineWinner();
     render();
-    setTimeout(()=>{
-        return 'Traitor!'
-    }, timeOut)
 }
 
 /* ####################################### Run the Game ####################################### */
