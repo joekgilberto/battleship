@@ -27,7 +27,6 @@ const surrenderEl = document.createElement('button');
 
 
 /* --------------------------------------- Classes --------------------------------------- */
-
 //a class used to make ship objects with custom name, alliance, size, and orientation properties
 class Ship {
     constructor(name, alliance, size, orientation) {
@@ -678,7 +677,6 @@ function finalTestCoordinates(objs) {
 
 
 //if wait is false, it runs a conditional that sets wait to be true (which keeps the user from guessing again until the computer guesses), checks to make sure a valid square was clicked on the grid, and if so, checks the div's ID to see if it was a hit or miss.  It then runs checkShips() on the enemy ships, runs determineWinner(), and runs enemyGuesses in a setTimeout after timeOut amount of miliseconds have passed.  If the user did not click on a valid sqaure in the top grid, it makes badGuess true, renders, then, after timeOut amount of miliseconds, it resets badBuess to false and wait to false
-
 function handleClick(evt) {
     currentEvt = evt;
     if (!wait) {
